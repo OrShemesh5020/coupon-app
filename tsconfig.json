@@ -13,5 +13,11 @@
     {
       "path": "./tsconfig.spec.json"
     }
-]
+],
+  "compilerOptions": {
+  "emitDecoratorMetadata": true,
+  "experimentalDecorators": true,
+  "target": "ES5"
 }
+}
+
