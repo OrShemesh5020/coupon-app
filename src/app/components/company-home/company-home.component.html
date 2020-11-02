@@ -1,1 +1,11 @@
-<p>welcome company</p>
+<p *ngIf="company">welcome {{ company.name }}</p>
+
+<button (click)="addCoupon()">add coupon</button>
+<button (click)="updateCoupon()">update coupon</button>
+<button (click)="deleteCoupon(2)">delete 2nd coupon</button>
+<button (click)="getCouponById(199)">get 2nd coupon</button>
+<button (click)="getCouponByTitle('phone')">get coupon by title</button>
+<button (click)="getCompanyCouponsByPrice(1000)">
+  get company coupons by price
+</button>
+<button (click)="getAllCoupons()">get all company coupons</button>

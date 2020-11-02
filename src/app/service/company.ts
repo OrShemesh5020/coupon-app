@@ -1,27 +1,32 @@
-import { Subject } from 'rxjs';
+import { Company } from './../models/company';
+import { Subject, Observable, BehaviorSubject } from 'rxjs';
 import { Coupon } from './../models/coupon';
 
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
+@Injectable({
+  providedIn: 'root',
+})
 export class CompanyService {
-  addCouponEvent: Subject<Coupon> = new Subject();
-  getCouponEvent: Subject<Coupon> = new Subject();
-  coupons: Coupon[];
+  // addCouponEvent: Subject<Coupon> = new Subject();
+  // getCouponEvent: Subject<Coupon> = new Subject();
+  // coupons: Coupon[];
+  // private couponsEvent: BehaviorSubject<Coupon[]>;
+
   constructor(private httpClient: HttpClient) { }
 
-  addCoupon(coupon: Coupon): void {
+
+  addCoupon(coupon: Coupon): Observable<Coupon> {
     const url = 'http://localhost:8080/company/coupon';
-    this.httpClient.post(url, coupon).subscribe((value: Coupon) => {
-      this.coupons.push(value);
-      this.addCouponEvent.next(value);
-    });
+    return this.httpClient.post<Coupon>(url, coupon);
   }
 
   updateCoupon(coupon: Coupon): void {
     const url = 'http://localhost:8080/company/coupon';
     this.httpClient.put(url, coupon).subscribe((value: Coupon) => {
       this.loadCoupons();
-      this.addCouponEvent.next(value);
+      // this.addCouponEvent.next(value);
     });
   }
 
@@ -31,34 +36,42 @@ export class CompanyService {
     this.loadCoupons();
   }
 
-  getCouponById(id: number): void {
+  getCouponById(id: number): Observable<Coupon> {
     const url = `http://localhost:8080/company/coupon/${id}`;
-    this.httpClient.get(url).subscribe((value: Coupon) => {
-      this.getCouponEvent.next(value);
-    });
+    return this.httpClient.get<Coupon>(url);
   }
 
-  getCouponByTitle(couponTitle: string): void {
+  getCouponByTitle(couponTitle: string): Observable<Coupon> {
     const url = 'http://localhost:8080/company/coupon';
-    this.httpClient.get(url, {
+    return this.httpClient.get<Coupon>(url, {
       params: {
         title: couponTitle,
       }
-    }).subscribe((value: Coupon) => {
-      this.getCouponEvent.next(value);
     });
   }
 
-  getCompanyCouponsByPrice(price: number): void {
+  getCompanyCouponsByPrice(price: number): Observable<Coupon[]> {
     const url = `http://localhost:8080/company/coupons/price/${price}`;
-
-
+    return this.httpClient.get<Coupon[]>(url);
   }
 
-  loadCoupons(): void {
+  getCompanyCouponsByCategory(categoryId: number): Observable<Coupon[]> {
+    const url = `http://localhost:8080/company/coupons/categoryId/${categoryId}`;
+    return this.httpClient.get<Coupon[]>(url);
+  }
+
+  getDetails(): Observable<Company> {
+    const url = 'http://localhost:8080/company/details';
+    return this.httpClient.get<Company>(url);
+  }
+
+  updateDetails(company: Company): Observable<Company> {
+    const url = 'http://localhost:8080/company/details';
+    return this.httpClient.put<Company>(url, company);
+  }
+
+  loadCoupons(): Observable<Coupon[]> {
     const url = 'http://localhost:8080/company/coupons';
-    this.httpClient.get(url).subscribe((values: Coupon[]) => {
-      this.coupons = values;
-    });
+    return this.httpClient.get<Coupon[]>(url);
   }
 }
