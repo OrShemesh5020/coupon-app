@@ -1,4 +1,4 @@
-import { Coupon } from 'src/app/models/coupon';
+import { Coupon } from './../models/coupon';
 
 
 
@@ -7,21 +7,19 @@ import { Coupon } from 'src/app/models/coupon';
 
 export class CustomerService{
 
-
-
   purchaseCoupon(): Coupon {
-
+    return null;
   }
   getCoupon(): Coupon{
-
+    return null;
   }
   getCustomerCoupons(): Coupon[]{
     return null;
   }
-  getCustomerCoupons(category: Category): Coupon[]{
+  getCustomerCouponsByCategory(categoryId: Number): Coupon[]{
     return null;
   }
-  getCustomerCoupons(price: number): Coupon[]{
+  getCustomerCouponsByPrice(price: number): Coupon[]{
     return null;
   }
 }
