@@ -37,7 +37,7 @@ export class CompanyHomeComponent implements OnInit {
 
   deleteCoupon(id: number) {
     this.companyService.deleteCoupon(id);
-    this.coupons = this.companyService.currentCoupons;
+    this.getAllCoupons();
   }
 
   getCouponById(id: number) {
@@ -58,6 +58,7 @@ export class CompanyHomeComponent implements OnInit {
       console.log(values);
     });
   }
+
 
   getAllCoupons(): void {
     this.companyService.loadCoupons().subscribe((values: Coupon[]) => {
