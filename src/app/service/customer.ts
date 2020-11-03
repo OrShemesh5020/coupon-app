@@ -16,8 +16,9 @@ export class CustomerService {
       this.loadCoupons();
     });
   }
-  removePurchasedCoupon(coupon: Coupon): void {
-    const url =`http://localhost:8080/customer/coupon/${id}`;
+  // here i changed what the function received from "coupon" to "couponId" because the url required an id.
+  removePurchasedCoupon(couponId: number): void {
+    const url =`http://localhost:8080/customer/coupon/${couponId}`;
     this.httpClient.delete(url);
     this.loadCoupons();
   }
