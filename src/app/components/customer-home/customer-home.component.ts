@@ -11,11 +11,15 @@ import { Observable } from 'rxjs';
 })
 export class CustomerHomeComponent implements OnInit {
   customer: Customer;
+  coupons: Coupon[];
 
   constructor(private customerService: CustomerService) {}
 
   ngOnInit(): void {
     this.getDetails();
+    this.customerService.loadCoupons().subscribe((values: Coupon[]) => {
+      this.coupons = values;
+    })
   }
 
   getDetails(): void {
@@ -25,16 +29,21 @@ export class CustomerHomeComponent implements OnInit {
 
   }
   updateDetails(){
-    this.customerService.updateCustomerDetails().subscribe((value: ))
+    this.customerService.updateCustomerDetails().subscribe((value: Customer )=>{
+    this.loadCoupons();
+    })
   }
   purchaseCoupon(coupon: Coupon) {
     this.customerService.purchaseCoupon(coupon);
+    this.loadCoupons();
+    console.log("unfinisheddddddddddddddddddddd");
   }
-  removePurchasedCoupon(coupon: Coupon){
-    this.customerService.removePurchasedCoupon(coupon);
+  removePurchasedCoupon(couponId: number){
+    this.customerService.removePurchasedCoupon(couponId);
+    this.loadCoupons();
   }
-  getCoupon(){
-
+  getCoupon(couponId: number): Observable<Coupon>{
+   return this.customerService.getCoupon(couponId);
   }
   getCustomerCouponsByCategory(categoryId: number): Observable<Coupon[]> {
     return this.customerService.getCustomerCouponsByCategory(categoryId);
@@ -42,7 +51,7 @@ export class CustomerHomeComponent implements OnInit {
   getCustomerCouponsByPrice(price: number): Observable<Coupon[]>{
     return this.customerService.getCustomerCouponsByPrice(price);
 }
- loadCoupon(): void{
+ loadCoupons(): void{
    this.customerService.loadCoupons();
  }
 }
