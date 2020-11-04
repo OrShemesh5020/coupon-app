@@ -12,9 +12,9 @@ export class AdminHomeComponent implements OnInit {
   constructor(private adminService: AdminService) { }
 
   ngOnInit(): void {
-    this.adminService.getCompanyEvent.subscribe((value: Company) => {
-      console.log(value);
-    })
+    // this.adminService.getCompanyEvent.subscribe((value: Company) => {
+    //   console.log(value);
+    // })
   }
 
 

@@ -8,16 +8,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor(private adminService: AdminService) {}
+  constructor(private adminService: AdminService) { }
 
   ngOnInit(): void {
-    this.adminService.addCompanyEvent.subscribe((value: Company) => {
-      console.log(value);
-    });
+    // this.adminService.addCompanyEvent.subscribe((value: Company) => {
+    //   console.log(value);
+    // });
     // this.adminService.loadElements();
   }
 
   getCompany(): void {
-    console.log(this.adminService.getCompanyById(6));
+    this.adminService.getCompanyById(6).subscribe((value: Company) => {
+      console.log(value);
+    });
   }
 }
