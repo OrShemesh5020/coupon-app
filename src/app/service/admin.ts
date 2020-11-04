@@ -1,18 +1,13 @@
 import { Customer } from './../models/customer';
 import { Company } from './../models/company';
-import { Injectable, OnInit } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdminService {
-  // changeEvent: Subject<void> = new Subject();
-  // addCompanyEvent: Subject<Company> = new Subject();
-  // getCompanyEvent: Subject<Company> = new Subject();
-  // companies: Company[];
-  // customers: Customer[];
 
   constructor(private httpClient: HttpClient) { }
 
@@ -44,10 +39,29 @@ export class AdminService {
     });
   }
 
-  // loadElements(): void {
-  //   this.loadCompanies();
-  //   this.loadCustomers();
-  // }
+  addCustomer(customer: Customer): Observable<Customer> {
+    const url = 'http://localhost:8080/admin/customer';
+    return this.httpClient.post<Customer>(url, customer);
+  }
+
+  updateCustomer(customer: Customer): Observable<Customer> {
+    const url = 'http://localhost:8080/admin/customer';
+    return this.httpClient.put<Customer>(url, customer);
+  }
+
+  deleteCustomer(id: number): void {
+    const url = `http://localhost:8080/admin/customer/${id}`;
+    this.httpClient.delete(url);
+  }
+
+  getCustomer(customerId: number): Observable<Customer> {
+    const url = 'http://localhost:8080/admin/customer';
+    return this.httpClient.get<Customer>(url, {
+      params: {
+        id: customerId.toString(),
+      }
+    });
+  }
 
   loadCompanies(): Observable<Company[]> {
     const url = 'http://localhost:8080/admin/companies';
