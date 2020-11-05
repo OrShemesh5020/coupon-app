@@ -26,18 +26,30 @@ export class CompanyHomeComponent implements OnInit {
 
 
 
-  addCoupon(): void {
-    console.log('the addCoupon function is not finish yet');
-    // const coupon = new Coupon()
+  addCoupon(categoryName: string, title: string, description: string, amount: number, price: number, image: string): void {
+    const startDate = new Date(2020, 11, 20);
+    const endDate = new Date(2022, 10, 10);
+    const coupon = new Coupon(this.company.name, categoryName, title, description, startDate, endDate, amount, price, image);
+    this.companyService.addCoupon(coupon).subscribe((value: Coupon) => {
+      console.log(value);
+      this.getAllCoupons();
+    });
   }
 
-  updateCoupon(): void {
-    console.log('the updateCoupon function is not finish yet');
+  updateCoupon(couponId: number, title: string): void {
+    this.companyService.getCouponById(couponId).subscribe((value: Coupon) => {
+      value.title = title;
+      this.companyService.updateCoupon(value).subscribe((newValue: Coupon) => {
+        console.log(newValue);
+        this.getAllCoupons();
+      });
+    });
   }
 
   deleteCoupon(id: number): void {
-    this.companyService.deleteCoupon(id);
-    this.getAllCoupons();
+    this.companyService.deleteCoupon(id).subscribe(() => {
+      this.getAllCoupons();
+    });
   }
 
   getCouponById(id: number): void {
@@ -72,9 +84,6 @@ export class CompanyHomeComponent implements OnInit {
       this.company = value;
     });
   }
-  // updateCompany(name:string): void {
-  //   console.log(`update ${name}`);
-  // }
 
   getAllCoupons(): void {
     this.companyService.loadCoupons().subscribe((values: Coupon[]) => {
