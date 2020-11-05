@@ -35,14 +35,17 @@ export class CustomerHomeComponent implements OnInit {
         this.loadCoupons();
       });
   }
-  purchaseCoupon(coupon: Coupon): void {
-    this.customerService.purchaseCoupon(coupon);
-    this.loadCoupons();
-    console.log('unfinisheddddddddddddddddddddd');
+  purchaseCoupon(couponId: number): void {
+    this.customerService.getCoupon(couponId).subscribe((value: Coupon) => {
+      this.customerService.purchaseCoupon(value).subscribe(() => {
+        this.loadCoupons();
+      });
+    });
   }
   removePurchasedCoupon(couponId: number): void {
-    this.customerService.removePurchasedCoupon(couponId);
-    this.loadCoupons();
+    this.customerService.removePurchasedCoupon(couponId).subscribe(() => {
+      this.loadCoupons();
+    });
   }
   getCoupon(couponId: number): void {
     this.customerService.getCoupon(couponId).subscribe((value: Coupon) => {
@@ -66,6 +69,9 @@ export class CustomerHomeComponent implements OnInit {
       });
   }
   loadCoupons(): void {
-    this.customerService.loadCoupons();
+    this.customerService.loadCoupons().subscribe((values: Coupon[]) => {
+      this.coupons = values;
+      console.log(values);
+    });
   }
 }

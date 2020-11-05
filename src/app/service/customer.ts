@@ -10,17 +10,16 @@ import { Coupon } from './../models/coupon';
 export class CustomerService {
   constructor(private httpClient: HttpClient) {}
 
-  purchaseCoupon(coupon: Coupon): void {
+  purchaseCoupon(coupon: Coupon): Observable<void> {
     const url = 'http://localhost:8080/customer/coupon';
-    this.httpClient.post(url, coupon).subscribe((value: Coupon) => {
-      this.loadCoupons();
-    });
+    return this.httpClient.post<void>(url, coupon);
   }
   // here i changed what the function received from "coupon" to "couponId" because the url required an id.
-  removePurchasedCoupon(couponId: number): void {
+  removePurchasedCoupon(couponId: number): Observable<void> {
+    console.log('im in the removepurchasecoupon service');
     const url = `http://localhost:8080/customer/coupon/${couponId}`;
-    this.httpClient.delete(url);
-    this.loadCoupons();
+    return this.httpClient.delete<void>(url);
+
   }
 
   getCoupon(id: number): Observable<Coupon> {
