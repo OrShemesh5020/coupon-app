@@ -22,39 +22,35 @@ export class SendToken implements HttpInterceptor {
   constructor(private authentication: AuthenticationService, private route: Router) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     console.log('send token interceptor');
-    let newReq;
+    let newReq = req;
     this.user = this.authentication.userValue;
-    if (req.url.startsWith(`http://localhost:8080/general`)) {
-      // console.log('**************** login url ****************');
-      // return next.handle(req);
-      newReq = req;
+    if (this.user && this.user.token) {
+      if (req.url.startsWith(`http://localhost:8080/general`)) {
+        newReq = req;
+      }
+      else {
+        newReq = req.clone({
+          setHeaders: {
+            Authorization: `Bearer ${this.user.token}`,
+          },
+        });
+      }
     }
-    else {
-      // console.log('send token: ' + this.user.token);
-      newReq = req.clone({
-        setHeaders: {
-          Authorization: `Bearer ${this.user.token}`,
-          // Authorization:
-          // 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MCwic3ViIjoiYWRtaW5AYWRtaW4uY29tIiwiY2xpZW50VHlwZSI6IkFETUlOSVNUUkFUT1IiLCJwYXNzd29yZCI6ImFkbWluIiwiaWF0IjoxNjAzNDM4MTE0LCJleHAiOjE2MDM0Mzk5MTR9.nLL-zXcpq9z5hlkNmZ-zS4I1JUj3yjowDmEQI2M7i3g',
-        },
-      });
-    }
-    // console.log('token: ' + newReq.headers.get('Authorization'));
-    // console.log('token has been sent');
-    // return null;
     return next.handle(newReq)
       .pipe(
         catchError((error: HttpErrorResponse) => {
           let errMsg = '';
           if (error.error instanceof ErrorEvent) {
-            console.log('this is client side error');
             errMsg = `Error: ${error.error.message}`;
           }
           else {
-            console.log('this is server side error');
             errMsg = `Error Code: ${error.status},  Message: ${error.message}`;
-            if (error.status === 403) {
+            if (error.status === 401) {
+              this.authentication.logout();
               this.route.navigate(['sign-in']);
+            }
+            if (error.status === 403) {
+              console.log("you can't accsess this function!");
             }
           }
           console.log(errMsg);
@@ -62,12 +58,4 @@ export class SendToken implements HttpInterceptor {
         })
       );
   }
-
 }
-// ContentType: 'applicationu/json; cherset=utf-8',
-// Accept: 'application/json',
-
-// headers: req.headers.set(
-//   'Authorization',
-//   'Bearer eyJhbGciOiJIUzI1NiJ9.eyJpZCI6Niwic3ViIjoib3JAZ21haWwuY29tIiwiY2xpZW50VHlwZSI6IkNPTVBBTlkiLCJwYXNzd29yZCI6IjEyMzQ1NiIsImlhdCI6MTYwMzM1OTc0NywiZXhwIjoxNjAzMzYxNTQ3fQ.tj3RqCFL9sCC7h47Vsxb3592bjJQQARUuW3RHU0M3Xc'
-// ),
