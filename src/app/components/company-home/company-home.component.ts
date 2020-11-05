@@ -38,7 +38,7 @@ export class CompanyHomeComponent implements OnInit {
 
   deleteCoupon(id: number) {
     this.companyService.deleteCoupon(id);
-    this.coupons = this.companyService.currentCoupons;
+    // this.coupons = this.companyService.currentCoupons;
   }
 
   getCouponById(id: number) {

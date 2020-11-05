@@ -18,13 +18,13 @@ export class CustomerService {
   }
   // here i changed what the function received from "coupon" to "couponId" because the url required an id.
   removePurchasedCoupon(couponId: number): void {
-    const url =`http://localhost:8080/customer/coupon/${couponId}`;
+    const url = `http://localhost:8080/customer/coupon/${couponId}`;
     this.httpClient.delete(url);
     this.loadCoupons();
   }
 
   getCoupon(id: number): Observable<Coupon> {
-    const url = `http://localhost:8080/customer/coupon${id}`;
+    const url = `http://localhost:8080/customer/coupon/${id}`;
     return this.httpClient.get<Coupon>(url);
   }
 

@@ -19,40 +19,53 @@ export class CustomerHomeComponent implements OnInit {
     this.getDetails();
     this.customerService.loadCoupons().subscribe((values: Coupon[]) => {
       this.coupons = values;
-    })
+    });
   }
 
   getDetails(): void {
     this.customerService.getCustomerDetails().subscribe((value: Customer) => {
       this.customer = value;
+      console.log(value);
     });
-
   }
-  updateDetails(){
-    this.customerService.updateCustomerDetails().subscribe((value: Customer )=>{
-    this.loadCoupons();
-    })
+  updateDetails(): void {
+    this.customerService
+      .updateCustomerDetails()
+      .subscribe((value: Customer) => {
+        this.loadCoupons();
+      });
   }
-  purchaseCoupon(coupon: Coupon) {
+  purchaseCoupon(coupon: Coupon): void {
     this.customerService.purchaseCoupon(coupon);
     this.loadCoupons();
-    console.log("unfinisheddddddddddddddddddddd");
+    console.log('unfinisheddddddddddddddddddddd');
   }
-  removePurchasedCoupon(couponId: number){
+  removePurchasedCoupon(couponId: number): void {
     this.customerService.removePurchasedCoupon(couponId);
     this.loadCoupons();
   }
-  getCoupon(couponId: number): Observable<Coupon>{
-   return this.customerService.getCoupon(couponId);
+  getCoupon(couponId: number): void {
+    this.customerService.getCoupon(couponId).subscribe((value: Coupon) => {
+      console.log(value);
+    });
   }
-  getCustomerCouponsByCategory(categoryId: number): Observable<Coupon[]> {
-    return this.customerService.getCustomerCouponsByCategory(categoryId);
+  getCustomerCouponsByCategory(categoryId: number): void {
+    this.customerService
+      .getCustomerCouponsByCategory(categoryId)
+      .subscribe((values: Coupon[]) => {
+        this.coupons = values;
+        console.log(values);
+      });
   }
-  getCustomerCouponsByPrice(price: number): Observable<Coupon[]>{
-    return this.customerService.getCustomerCouponsByPrice(price);
+  getCustomerCouponsByPrice(price: number): void {
+    this.customerService
+      .getCustomerCouponsByPrice(price)
+      .subscribe((values: Coupon[]) => {
+        this.coupons = values;
+        console.log(values);
+      });
+  }
+  loadCoupons(): void {
+    this.customerService.loadCoupons();
+  }
 }
- loadCoupons(): void{
-   this.customerService.loadCoupons();
- }
-}
-
