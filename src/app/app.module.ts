@@ -42,7 +42,7 @@ import { LogOutComponent } from './components/log-out/log-out.component';
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot(routes),
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [
     {
@@ -53,4 +53,4 @@ import { LogOutComponent } from './components/log-out/log-out.component';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
