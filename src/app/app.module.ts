@@ -20,6 +20,7 @@ import { CompanyHomeComponent } from './components/company-home/company-home.com
 import { CustomerHomeComponent } from './components/customer-home/customer-home.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LogOutComponent } from './components/log-out/log-out.component';
+import { AddCustomerFormComponent } from './components/add-customer-form/add-customer-form.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { LogOutComponent } from './components/log-out/log-out.component';
     CompanyHomeComponent,
     CustomerHomeComponent,
     LogOutComponent,
+    AddCustomerFormComponent,
   ],
   imports: [
     HttpClientModule,
