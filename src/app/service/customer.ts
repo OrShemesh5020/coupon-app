@@ -1,27 +1,51 @@
-import { Coupon } from 'src/app/models/coupon';
+import { Customer } from 'src/app/models/customer';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Coupon } from './../models/coupon';
 
+@Injectable({
+  providedIn: 'root',
+})
+export class CustomerService {
+  constructor(private httpClient: HttpClient) {}
 
-
-
-
-
-export class CustomerService{
-
-
-
-  purchaseCoupon(): Coupon {
+  purchaseCoupon(coupon: Coupon): Observable<void> {
+    const url = 'http://localhost:8080/customer/coupon';
+    return this.httpClient.post<void>(url, coupon);
+  }
+  // here i changed what the function received from "coupon" to "couponId" because the url required an id.
+  removePurchasedCoupon(couponId: number): Observable<void> {
+    console.log('im in the removepurchasecoupon service');
+    const url = `http://localhost:8080/customer/coupon/${couponId}`;
+    return this.httpClient.delete<void>(url);
 
   }
-  getCoupon(): Coupon{
 
+  getCoupon(id: number): Observable<Coupon> {
+    const url = `http://localhost:8080/customer/coupon/${id}`;
+    return this.httpClient.get<Coupon>(url);
   }
-  getCustomerCoupons(): Coupon[]{
-    return null;
+
+  getCustomerCouponsByCategory(categoryId: number): Observable<Coupon[]> {
+    const url = `http://localhost:8080/customer/coupons/categoryId/${categoryId}`;
+    return this.httpClient.get<Coupon[]>(url);
   }
-  getCustomerCoupons(category: Category): Coupon[]{
-    return null;
+
+  getCustomerCouponsByPrice(price: number): Observable<Coupon[]> {
+    const url = `http://localhost:8080/customer/coupons/price/${price}`;
+    return this.httpClient.get<Coupon[]>(url);
   }
-  getCustomerCoupons(price: number): Coupon[]{
-    return null;
+  loadCoupons(): Observable<Coupon[]> {
+    const url = 'http://localhost:8080/customer/coupons';
+    return this.httpClient.get<Coupon[]>(url);
+  }
+  getCustomerDetails(): Observable<Customer> {
+    const url = `http://localhost:8080/customer/details`;
+    return this.httpClient.get<Customer>(url);
+  }
+  updateCustomerDetails(): Observable<Customer> {
+    const url = `http://localhost:8080/customer/details`;
+    return this.httpClient.put<Customer>(url, Customer);
   }
 }

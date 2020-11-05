@@ -17,6 +17,7 @@ export class CompanyHomeComponent implements OnInit {
   coupons: Coupon[];
 
   constructor(private companyService: CompanyService) { }
+
   ngOnInit(): void {
     this.getDetails();
     this.companyService.loadCoupons().subscribe((values: Coupon[]) => {
@@ -45,6 +46,7 @@ export class CompanyHomeComponent implements OnInit {
       });
     });
   }
+
 
   deleteCoupon(id: number): void {
     this.companyService.deleteCoupon(id).subscribe(() => {
