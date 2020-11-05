@@ -21,9 +21,9 @@ export class AdminService {
     return this.httpClient.put<Company>(url, company);
   }
 
-  deleteCompany(id: number): void {
+  deleteCompany(id: number): Observable<void> {
     const url = `http://localhost:8080/admin/company/${id}`;
-    this.httpClient.delete(url);
+    return this.httpClient.delete<void>(url);
   }
   getCompanyById(id: number): Observable<Company> {
     const url = `http://localhost:8080/admin/company/${id}`;
@@ -49,9 +49,9 @@ export class AdminService {
     return this.httpClient.put<Customer>(url, customer);
   }
 
-  deleteCustomer(id: number): void {
+  deleteCustomer(id: number): Observable<void> {
     const url = `http://localhost:8080/admin/customer/${id}`;
-    this.httpClient.delete(url);
+    return this.httpClient.delete<void>(url);
   }
 
   getCustomer(customerId: number): Observable<Customer> {
