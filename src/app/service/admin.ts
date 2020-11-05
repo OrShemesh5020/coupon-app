@@ -1,87 +1,75 @@
 import { Customer } from './../models/customer';
 import { Company } from './../models/company';
-import { Injectable, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdminService {
-  changeEvent: Subject<void> = new Subject();
-  addCompanyEvent: Subject<Company> = new Subject();
-  getCompanyEvent: Subject<Company> = new Subject();
-  companies: Company[];
-  customers: Customer[];
 
   constructor(private httpClient: HttpClient) { }
 
-  addCompany(company: Company): void {
+  addCompany(company: Company): Observable<Company> {
     const url = 'http://localhost:8080/admin/company';
-    this.httpClient.post(url, company).subscribe((value: Company) => {
-      this.companies.push(value);
-      this.changeEvent.next();
-    });
+    return this.httpClient.post<Company>(url, company);
   }
 
-  updateCompany(company: Company): void {
+  updateCompany(company: Company): Observable<Company> {
     const url = 'http://localhost:8080/admin/company';
-    this.httpClient.put(url, company).subscribe((value: Company) => {
-      this.loadCompanies();
-      this.changeEvent.next();
-    });
+    return this.httpClient.put<Company>(url, company);
   }
 
-  deleteCompany(id: number): void {
+  deleteCompany(id: number): Observable<void> {
     const url = `http://localhost:8080/admin/company/${id}`;
-    this.httpClient.delete(url);
-    this.loadCompanies();
-    this.changeEvent.next();
+    return this.httpClient.delete<void>(url);
   }
-  getCompanyById(id: number): void {
-    // return id < this.com.panies.length && id > -1 ? this.companies[id] : null;
+  getCompanyById(id: number): Observable<Company> {
     const url = `http://localhost:8080/admin/company/${id}`;
-    this.httpClient.get(url).subscribe((value: Company) => {
-      // this.changeEvent.next();
-      this.getCompanyEvent.next(value);
-    });
+    return this.httpClient.get<Company>(url);
   }
 
-  getCompanyByName(companyName: string): Company {
-    // return id < this.companies.length && id > -1 ? this.companies[id] : null;
+  getCompanyByName(companyName: string): Observable<Company> {
     const url = 'http://localhost:8080/admin/company';
-    let company: Company;
-    this.httpClient.get(url, {
+    return this.httpClient.get<Company>(url, {
       params: {
         name: companyName,
       }
-    }).subscribe((value: Company) => {
-      this.changeEvent.next();
-      company = value;
     });
-    return company;
   }
 
-  loadElements(): void {
-    this.loadCompanies();
-    this.loadCustomers();
+  addCustomer(customer: Customer): Observable<Customer> {
+    const url = 'http://localhost:8080/admin/customer';
+    return this.httpClient.post<Customer>(url, customer);
   }
 
-  loadCompanies(): void {
-    console.log('load companies work');
+  updateCustomer(customer: Customer): Observable<Customer> {
+    const url = 'http://localhost:8080/admin/customer';
+    return this.httpClient.put<Customer>(url, customer);
+  }
+
+  deleteCustomer(id: number): Observable<void> {
+    const url = `http://localhost:8080/admin/customer/${id}`;
+    return this.httpClient.delete<void>(url);
+  }
+
+  getCustomer(customerId: number): Observable<Customer> {
+    const url = 'http://localhost:8080/admin/customer';
+    return this.httpClient.get<Customer>(url, {
+      params: {
+        id: customerId.toString(),
+      }
+    });
+  }
+
+  loadCompanies(): Observable<Company[]> {
     const url = 'http://localhost:8080/admin/companies';
-    this.httpClient.get(url).subscribe((values: Company[]) => {
-      this.companies = values;
-    });
-    console.log('load companies end');
+    return this.httpClient.get<Company[]>(url);
   }
 
-  loadCustomers(): void {
-    console.log('load customers work');
+  loadCustomers(): Observable<Customer[]> {
     const url = 'http://localhost:8080/admin/customers';
-    this.httpClient.get(url).subscribe((values: Customer[]) => {
-      this.customers = values;
-    });
-    console.log('load customers end');
+    return this.httpClient.get<Customer[]>(url);
   }
 }
