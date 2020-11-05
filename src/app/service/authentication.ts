@@ -26,13 +26,13 @@ export class AuthenticationService {
   }
 
 
-  public login(clientType: string, mail: string, pass: string) {
-    console.log('authentication clientType: ' + clientType);
+  public login(mail: string, pass: string) {
+    // console.log('authentication clientType: ' + clientType);
     const url = 'http://localhost:8080/general/login';
     return this.httpClient
       .get<User>(url, {
         params: {
-          type: clientType,
+          // type: clientType,
           email: mail,
           password: pass,
         },

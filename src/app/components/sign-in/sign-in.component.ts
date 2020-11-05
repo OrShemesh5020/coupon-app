@@ -46,7 +46,6 @@ export class SignInComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       email: ['', Validators.required],
       password: ['', Validators.required],
-      type: ['customer']
     });
   }
 
@@ -58,11 +57,10 @@ export class SignInComponent implements OnInit {
 
     this.submitted = true;
     if (this.loginForm.invalid) {
-      console.log('I fail here');
       return;
     }
     this.loading = true;
-    this.authentication.login(this.f.type.value, this.f.email.value, this.f.password.value)
+    this.authentication.login(this.f.email.value, this.f.password.value)
       .pipe(first()).subscribe((value: User) => {
         switch (value.clientType) {
           case ClientType.ADMINISTRATOR:
@@ -80,9 +78,4 @@ export class SignInComponent implements OnInit {
         this.router.navigate([this.url]);
       });
   }
-
-  loadCoupons(): void {
-    // this.generalService.loadCoupons();
-  }
-
 }

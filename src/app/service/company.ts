@@ -9,10 +9,6 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class CompanyService {
-  // addCouponEvent: Subject<Coupon> = new Subject();
-  // getCouponEvent: Subject<Coupon> = new Subject();
-  // coupons: Coupon[];
-  // private couponsEvent: BehaviorSubject<Coupon[]>;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -22,18 +18,14 @@ export class CompanyService {
     return this.httpClient.post<Coupon>(url, coupon);
   }
 
-  updateCoupon(coupon: Coupon): void {
+  updateCoupon(coupon: Coupon): Observable<Coupon> {
     const url = 'http://localhost:8080/company/coupon';
-    this.httpClient.put(url, coupon).subscribe((value: Coupon) => {
-      this.loadCoupons();
-      // this.addCouponEvent.next(value);
-    });
+    return this.httpClient.put<Coupon>(url, coupon);
   }
 
-  deleteCoupon(id: number): void {
+  deleteCoupon(id: number): Observable<void> {
     const url = `http://localhost:8080/company/coupon/${id}`;
-    this.httpClient.delete(url);
-    this.loadCoupons();
+    return this.httpClient.delete<void>(url);
   }
 
   getCouponById(id: number): Observable<Coupon> {
