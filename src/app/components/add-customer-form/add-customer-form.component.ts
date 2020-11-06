@@ -1,8 +1,7 @@
+import { GeneralService } from './../../service/general';
 import { Router } from '@angular/router';
-import { CustomerService } from './../../service/customer';
 import { Customer } from './../../models/customer';
 import {
-  EmailValidator,
   FormBuilder,
   FormGroup,
   PatternValidator,
@@ -22,7 +21,7 @@ export class AddCustomerFormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private customerService: CustomerService
+    private generalService: GeneralService
   ) {}
 
   ngOnInit(): void {
@@ -64,23 +63,25 @@ export class AddCustomerFormComponent implements OnInit {
     });
   }
   onSubmit(): void {
+    if (this.addCustomerForm.invalid) {
+      return;
+    }
     this.valuesImplementation();
     // what should i do here? because the functions expects no argument, but i want to update the customerModel specifically.
-    this.customerService.updateCustomerDetails(this.customerModel);
-
-    // and here, navigate to customer -HOme.
-    this.router.navigate(['customer/admin-home']);
+    this.generalService.registerCustomer(this.customerModel);
+    // and here, navigate to customer -Home.
+    this.router.navigate(['customerHome']);
   }
 
   valuesImplementation(): void {
-    this.customerModel.firstName = this.addCustomerForm.value.firstName;
-    this.customerModel.lastName = this.addCustomerForm.value.lastName;
-    this.customerModel.email = this.addCustomerForm.value.email;
-    this.customerModel.password = this.addCustomerForm.value.password;
+    this.customerModel.firstName = this.f.firstName.value;
+    this.customerModel.lastName = this.f.lastName.value;
+    this.customerModel.email = this.f.email.value;
+    this.customerModel.password = this.f.password.value;
   }
   // this is a short-cut to the controls of the form
+  // tslint:disable-next-line: typedef
   get f() {
     return this.addCustomerForm.controls;
   }
-
 }
