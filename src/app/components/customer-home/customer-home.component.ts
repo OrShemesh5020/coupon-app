@@ -29,11 +29,6 @@ export class CustomerHomeComponent implements OnInit {
     });
   }
   updateDetails(): void {
-    this.customerService
-      .updateCustomerDetails()
-      .subscribe((value: Customer) => {
-        this.loadCoupons();
-      });
   }
   purchaseCoupon(couponId: number): void {
     this.customerService.getCoupon(couponId).subscribe((value: Coupon) => {

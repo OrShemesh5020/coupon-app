@@ -1,3 +1,5 @@
+import { User } from './../../models/user';
+import { AuthenticationService } from './../../service/authentication';
 import { GeneralService } from './../../service/general';
 import { Router } from '@angular/router';
 import { Customer } from './../../models/customer';
@@ -19,46 +21,55 @@ export class AddCustomerFormComponent implements OnInit {
   customerModel: Customer;
 
   constructor(
+    private authentication: AuthenticationService,
     private formBuilder: FormBuilder,
     private router: Router,
     private generalService: GeneralService
   ) {}
 
   ngOnInit(): void {
+    this.customerModel = new Customer();
     this.addCustomerForm = this.formBuilder.group({
       // the '' shows the default value that the parameter would have upon init.
       firstName: [
-        this.customerModel.firstName,
-        Validators.required,
-        Validators.minLength(2),
-        Validators.maxLength(45),
-        // here i tried making the function validate that the name does not contain any numbers, but the pattern validator
+        '',
+        [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(45),
+        ], // here i tried making the function validate that the name does not contain any numbers, but the pattern validator
         // doesnt accept a Pattern variable to validate by???
         // i need to add ['A-Za-z'] pattern to the TEMPLATE of this class
-        new PatternValidator(),
+        // new PatternValidator(),
       ],
 
       lastName: [
-        this.customerModel.lastName,
-        Validators.required,
-        Validators.minLength(2),
-        Validators.maxLength(45),
+        '',
+        [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(45),
+        ],
       ],
 
       email: [
-        this.customerModel.email,
-        Validators.required,
-        Validators.minLength(10),
-        Validators.maxLength(45),
-        // this is the validator that makes sure the email is ended with .com
-        Validators.pattern('.com$'),
+        '',
+        [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(45),
+          // this is the validator that makes sure the email is ended with .com need to figure out the regex that checks it.
+          // Validators.pattern('.com$'),
+        ],
       ],
 
       password: [
-        this.customerModel.password,
-        Validators.required,
-        Validators.minLength(5),
-        Validators.maxLength(45),
+        '',
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(45),
+        ],
       ],
     });
   }
@@ -70,10 +81,16 @@ export class AddCustomerFormComponent implements OnInit {
     // what should i do here? because the functions expects no argument, but i want to update the customerModel specifically.
     this.generalService.registerCustomer(this.customerModel);
     // and here, navigate to customer -Home.
-    this.router.navigate(['customerHome']);
+    this.authentication
+      .login(this.customerModel.email, this.customerModel.password)
+      .subscribe((value: User) => {
+        this.router.navigate(['customerHome']);
+      });
   }
 
   valuesImplementation(): void {
+    console.log(this.f.firstName.value);
+    console.log(this.customerModel.firstName);
     this.customerModel.firstName = this.f.firstName.value;
     this.customerModel.lastName = this.f.lastName.value;
     this.customerModel.email = this.f.email.value;
