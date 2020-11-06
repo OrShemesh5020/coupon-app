@@ -1,1 +1,42 @@
-<p>add-customer-form works!</p>
+<p *ngIf="customerModel">welcome {{ customerModel.firstName }}</p>
+<p> this is the addCustomerForm component! ':)'</p>
+<form (ngSubmit)="onSubmit()" [formGroup]="addCustomerForm">
+
+  <div>
+    <label>firstName</label>
+    <input type="firstName" formControlName="firstName" />
+<div *ngIf="addCustomerForm.controls['firstName'].invalid">
+  firstName is required
+</div>
+</div>
+
+
+<div>
+  <label>lastName</label>
+  <input type="lastName" formControlName="lastName" />
+<div *ngIf="addCustomerForm.controls['lastName'].invalid">
+  lastName is required
+</div>
+</div>
+
+
+<div>
+  <label>email</label>
+  <input type="email" formControlName="email" />
+<div *ngIf="addCustomerForm.controls['email'].invalid">
+  email is required
+</div>
+</div>
+
+
+<div>
+  <label>password</label>
+  <input type="password" formControlName="password" />
+<div *ngIf="addCustomerForm.controls['password'].invalid">
+  password is required
+</div>
+</div>
+
+<button type="submit" [disabled]="!addCustomerForm.valid">
+  log in
+</button>
