@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Coupon } from './../../models/coupon';
 import { Customer } from 'src/app/models/customer';
 import { CustomerService } from './../../service/customer';
@@ -13,7 +14,10 @@ export class CustomerHomeComponent implements OnInit {
   customer: Customer;
   coupons: Coupon[];
 
-  constructor(private customerService: CustomerService) {}
+  constructor(
+    private customerService: CustomerService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.getDetails();
@@ -29,6 +33,7 @@ export class CustomerHomeComponent implements OnInit {
     });
   }
   updateDetails(): void {
+    this.router.navigate(['updateCustomerForm']);
   }
   purchaseCoupon(couponId: number): void {
     this.customerService.getCoupon(couponId).subscribe((value: Coupon) => {
