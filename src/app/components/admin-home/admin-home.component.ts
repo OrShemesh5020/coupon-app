@@ -60,8 +60,7 @@ export class AdminHomeComponent implements OnInit {
   }
 
   addCustomer(): void {
-    this.router.navigate(['addCustomerForm']);
-  }
+    this.router.navigate(['addCustomerForm']);}
 
   updateCustomer(
     id: number,
@@ -70,7 +69,7 @@ export class AdminHomeComponent implements OnInit {
     email: string,
     password: string
   ): void {
-    const customer = new Customer(firstName, lastName, email, password, id);
+    const customer = new Customer(id, firstName, lastName, email, password);
     this.adminService.updateCustomer(customer).subscribe((value: Customer) => {
       console.log(value);
       this.loadCustomers();
