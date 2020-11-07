@@ -21,6 +21,7 @@ import { CustomerHomeComponent } from './components/customer-home/customer-home.
 import { ReactiveFormsModule } from '@angular/forms';
 import { LogOutComponent } from './components/log-out/log-out.component';
 import { AddCouponFormComponent } from './components/add-coupon-form/add-coupon-form.component';
+import { UpdateCouponFoemComponent } from './components/update-coupon-foem/update-coupon-foem.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { AddCouponFormComponent } from './components/add-coupon-form/add-coupon-
     CustomerHomeComponent,
     LogOutComponent,
     AddCouponFormComponent,
+    UpdateCouponFoemComponent,
   ],
   imports: [
     HttpClientModule,
