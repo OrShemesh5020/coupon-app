@@ -26,14 +26,8 @@ export class CompanyHomeComponent implements OnInit {
     this.router.navigate(['addCouponForm', this.company.name]);
   }
 
-  updateCoupon(couponId: number, title: string): void {
-    this.companyService.getCouponById(couponId).subscribe((value: Coupon) => {
-      value.title = title;
-      this.companyService.updateCoupon(value).subscribe((newValue: Coupon) => {
-        console.log(newValue);
-        this.getAllCoupons();
-      });
-    });
+  updateCoupon(couponId: number): void {
+    this.router.navigate(['editCouponForm', couponId]);
   }
 
 
