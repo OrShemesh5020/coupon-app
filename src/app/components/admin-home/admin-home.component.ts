@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { routes } from './../../app.routes';
 import { Customer } from './../../models/customer';
 import { AdminService } from './../../service/admin';
 import { Component, OnInit } from '@angular/core';
@@ -6,18 +8,17 @@ import { Company } from 'src/app/models/company';
 @Component({
   selector: 'app-admin-home',
   templateUrl: './admin-home.component.html',
-  styleUrls: ['./admin-home.component.scss']
+  styleUrls: ['./admin-home.component.scss'],
 })
 export class AdminHomeComponent implements OnInit {
   companies: Company[];
   customers: Customer[];
 
-  constructor(private adminService: AdminService) { }
+  constructor(private adminService: AdminService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadElements();
   }
-
 
   addCompany(name: string, email: string, password: string): void {
     const comapny = new Company(name, email, password);
@@ -27,7 +28,12 @@ export class AdminHomeComponent implements OnInit {
     });
   }
 
-  updateCompany(id: number, name: string, email: string, password: string): void {
+  updateCompany(
+    id: number,
+    name: string,
+    email: string,
+    password: string
+  ): void {
     const comapny = new Company(name, email, password, id);
     this.adminService.updateCompany(comapny).subscribe((value: Company) => {
       console.log(value);
@@ -53,25 +59,28 @@ export class AdminHomeComponent implements OnInit {
     });
   }
 
-  addCustomer(firstName: string, lastName: string, email: string, password: string): void {
-    const customer = new Customer(firstName, lastName, email, password);
-    this.adminService.addCustomer(customer).subscribe((value: Customer) => {
-      console.log(value);
-      this.loadCustomrs();
-    });
+  addCustomer(): void {
+    this.router.navigate(['addCustomerForm']);
+    this.loadCustomers();
   }
 
-  updateCustomer(id: number, firstName: string, lastName: string, email: string, password: string): void {
+  updateCustomer(
+    id: number,
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string
+  ): void {
     const customer = new Customer(firstName, lastName, email, password, id);
     this.adminService.updateCustomer(customer).subscribe((value: Customer) => {
       console.log(value);
-      this.loadCustomrs();
+      this.loadCustomers();
     });
   }
 
   deleteCustomer(id: number): void {
     this.adminService.deleteCustomer(id).subscribe(() => {
-      this.loadCustomrs();
+      this.loadCustomers();
     });
   }
 
@@ -83,7 +92,7 @@ export class AdminHomeComponent implements OnInit {
 
   loadElements(): void {
     this.loadCompanies();
-    this.loadCustomrs();
+    this.loadCustomers();
   }
 
   loadCompanies(): void {
@@ -93,7 +102,7 @@ export class AdminHomeComponent implements OnInit {
     });
   }
 
-  loadCustomrs(): void {
+  loadCustomers(): void {
     this.adminService.loadCustomers().subscribe((values: Customer[]) => {
       this.customers = values;
       console.log(values);
