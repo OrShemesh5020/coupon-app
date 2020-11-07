@@ -33,14 +33,42 @@ export class AddCouponFormComponent implements OnInit {
     });
 
     this.addCouponForm = this.formBuilder.group({
-      category: ['', Validators.required],
-      title: ['', Validators.required],
-      description: ['', Validators.required],
+      category:
+        ['',
+          [
+            Validators.required,
+            Validators.minLength(2),
+            Validators.maxLength(45)
+          ]
+        ],
+      title:
+        ['',
+          [
+            Validators.required,
+            Validators.minLength(2),
+            Validators.maxLength(45)
+          ]
+        ],
+      description:
+        ['',
+          [
+            Validators.required,
+            Validators.minLength(2),
+            Validators.maxLength(200)
+          ]
+        ],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
       amount: [0, Validators.required],
       price: [0, Validators.required],
-      image: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(255)]],
+      image:
+        ['',
+          [
+            Validators.required,
+            Validators.minLength(4),
+            Validators.maxLength(255)
+          ]
+        ],
     });
   }
 
