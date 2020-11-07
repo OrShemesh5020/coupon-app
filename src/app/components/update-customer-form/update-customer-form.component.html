@@ -1,1 +1,36 @@
-<p>update-customer-form works!</p>
+<p>this is the addCustomerForm component! ':/'</p>
+<form  class="updateCustomerForm" (ngSubmit)="onSubmit()" [formGroup]="updateCustomerForm">
+  <div>
+    <label>firstName</label>
+    <input type="text" formControlName="firstName" />
+    <div *ngIf="updateCustomerForm.controls['firstName'].invalid">
+      firstName is required
+    </div>
+  </div>
+
+  <div>
+    <label>lastName</label>
+    <input type="text" formControlName="lastName" />
+    <div *ngIf="updateCustomerForm.controls['lastName'].invalid">
+      lastName is required
+    </div>
+  </div>
+
+  <div>
+    <label>email </label>
+    <input type="email" formControlName="email" />
+    <div *ngIf="updateCustomerForm.controls['email'].invalid">
+      email is required
+    </div>
+  </div>
+
+  <div>
+    <label>password</label>
+    <input type="password" formControlName="password" />
+    <div *ngIf="updateCustomerForm.controls['password'].invalid">
+      password is required
+    </div>
+  </div>
+
+  <button class="registerButton"type="submit" [disabled]="!updateCustomerForm.valid">update customer</button>
+</form>
