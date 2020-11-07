@@ -1,5 +1,7 @@
+import { CustomerService } from './../../service/customer';
+import { AdminService } from './../../service/admin';
 import { Customer } from 'src/app/models/customer';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
@@ -9,18 +11,71 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./update-customer-form.component.scss'],
 })
 export class UpdateCustomerFormComponent implements OnInit {
-  updateCustomerForm: FormGroup;
   customerModel: Customer;
+  updateCustomerForm: FormGroup;
 
-  constructor(private activatedRoute: ActivatedRoute) {}
+  constructor(
+    private customerService: CustomerService,
+    private formBuilder: FormBuilder
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.customerModel = new Customer();
+    this.customerService.getCustomerDetails().subscribe((value: Customer) => {
+      console.log('value:' + value);
+      this.customerModel = value;
+      console.log('customerModel: ' + this.customerModel.firstName);
+      this.updateCustomerForm = this.formBuilder.group({
+        // the '' shows the default value that the parameter would have upon init.
+        firstName: [
+          this.customerModel.firstName,
+          [
+            Validators.required,
+            Validators.minLength(2),
+            Validators.maxLength(45),
+          ], // here i tried making the function validate that the name does not contain any numbers, but the pattern validator
+          // doesnt accept a Pattern variable to validate by???
+          // i need to add ['A-Za-z'] pattern to the TEMPLATE of this class
+          // new PatternValidator(),
+        ],
+
+        lastName: [
+          this.customerModel.lastName,
+          [
+            Validators.required,
+            Validators.minLength(2),
+            Validators.maxLength(45),
+          ],
+        ],
+
+      email: [
+        this.customerModel.email,
+        [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(45),
+        ],
+      ],
+
+      password: [
+        this.customerModel.password,
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(45),
+        ],
+      ],
+    });
+  });
+  }
+
   onSubmit() {
     if (this.updateCustomerForm.invalid) {
       return;
     }
     this.valuesImplementation();
   }
+
   valuesImplementation() {
     this.customerModel.firstName = this.f.firstName.value;
     this.customerModel.lastName = this.f.lastName.value;
