@@ -30,6 +30,11 @@ export class AddCustomerFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    if (
+      this.authentication.userValue &&
+      this.authentication.userValue.clientType !== ClientType.ADMINISTRATOR ) {
+      this.router.navigate(['log-out']);
+    }
     this.customerModel = new Customer();
     this.addCustomerForm = this.formBuilder.group({
       // the '' shows the default value that the parameter would have upon init.
@@ -60,8 +65,6 @@ export class AddCustomerFormComponent implements OnInit {
           Validators.required,
           Validators.minLength(10),
           Validators.maxLength(45),
-          // this is the validator that makes sure the email is ended with .com need to figure out the regex that checks it.
-          // Validators.pattern('.com$'),
         ],
       ],
 
@@ -97,12 +100,9 @@ export class AddCustomerFormComponent implements OnInit {
           this.router.navigate(['adminHome']);
         });
     }
-    return;
   }
 
   valuesImplementation(): void {
-    console.log(this.f.firstName.value);
-    console.log(this.customerModel.firstName);
     this.customerModel.firstName = this.f.firstName.value;
     this.customerModel.lastName = this.f.lastName.value;
     this.customerModel.email = this.f.email.value;
