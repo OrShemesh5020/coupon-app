@@ -1,7 +1,12 @@
 import { CustomerService } from './../../service/customer';
 import { AdminService } from './../../service/admin';
 import { Customer } from 'src/app/models/customer';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {
+  FormGroup,
+  FormBuilder,
+  Validators,
+  FormControl,
+} from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
@@ -16,8 +21,18 @@ export class UpdateCustomerFormComponent implements OnInit {
 
   constructor(
     private customerService: CustomerService,
-    private formBuilder: FormBuilder
-  ) {}
+    private formBuilder: FormBuilder,
+  ) {
+    // need to review this piece of code, i used it so the updateForm can initialize
+    // the values, because otherwise the console gives the error:
+    // core.js:4197 ERROR Error: formGroup expects a FormGroup instance. Please pass one in.
+    this.updateCustomerForm = new FormGroup({
+      firstName: new FormControl(),
+      lastName: new FormControl(),
+      email: new FormControl(),
+      password: new FormControl(),
+    });
+  }
 
   ngOnInit(): void {
     this.customerModel = new Customer();
@@ -48,35 +63,36 @@ export class UpdateCustomerFormComponent implements OnInit {
           ],
         ],
 
-      email: [
-        this.customerModel.email,
-        [
-          Validators.required,
-          Validators.minLength(10),
-          Validators.maxLength(45),
+        email: [
+          this.customerModel.email,
+          [
+            Validators.required,
+            Validators.minLength(10),
+            Validators.maxLength(45),
+          ],
         ],
-      ],
 
-      password: [
-        this.customerModel.password,
-        [
-          Validators.required,
-          Validators.minLength(5),
-          Validators.maxLength(45),
+        password: [
+          this.customerModel.password,
+          [
+            Validators.required,
+            Validators.minLength(5),
+            Validators.maxLength(45),
+          ],
         ],
-      ],
+      });
     });
-  });
+
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.updateCustomerForm.invalid) {
       return;
     }
     this.valuesImplementation();
   }
 
-  valuesImplementation() {
+  valuesImplementation(): void {
     this.customerModel.firstName = this.f.firstName.value;
     this.customerModel.lastName = this.f.lastName.value;
     this.customerModel.email = this.f.email.value;

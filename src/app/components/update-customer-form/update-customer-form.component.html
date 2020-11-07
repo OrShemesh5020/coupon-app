@@ -1,8 +1,8 @@
 <p>this is the updateCustomerForm component! ':/'</p>
-<form  class="updateCustomerForm" (ngSubmit)="onSubmit()" [formGroup]="updateCustomerForm">
-  <div>
+<form (ngSubmit)="onSubmit()" [formGroup]="updateCustomerForm" >
+  <div >
     <label>firstName</label>
-    <input type="text" formControlName="firstName" />
+    <input type="text" formControlName="firstName"/>
     <div *ngIf="updateCustomerForm.controls['firstName'].invalid">
       firstName is required
     </div>
