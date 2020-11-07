@@ -16,7 +16,7 @@ export const routes: Routes = [
   { path: 'adminHome', component: AdminHomeComponent },
   { path: 'companyHome', component: CompanyHomeComponent },
   { path: 'addCouponForm/:companyName', component: AddCouponFormComponent },
-  { path: 'editCouponForm/:companyName', component: UpdateCouponFoemComponent},
+  { path: 'editCouponForm/:id', component: UpdateCouponFoemComponent},
   { path: 'customerHome', component: CustomerHomeComponent },
   { path: 'about', component: AboutUsComponent },
   { path: 'sign-in', component: SignInComponent },
