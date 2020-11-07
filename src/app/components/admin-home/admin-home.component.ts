@@ -61,7 +61,6 @@ export class AdminHomeComponent implements OnInit {
 
   addCustomer(): void {
     this.router.navigate(['addCustomerForm']);
-    this.loadCustomers();
   }
 
   updateCustomer(
