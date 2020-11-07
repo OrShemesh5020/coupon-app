@@ -1,3 +1,4 @@
+import { AddCouponFormComponent } from './components/add-coupon-form/add-coupon-form.component';
 import { LogOutComponent } from './components/log-out/log-out.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
@@ -13,6 +14,7 @@ export const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'adminHome', component: AdminHomeComponent },
   { path: 'companyHome', component: CompanyHomeComponent },
+  { path: 'addCouponForm', component: AddCouponFormComponent },
   { path: 'customerHome', component: CustomerHomeComponent },
   { path: 'about', component: AboutUsComponent },
   { path: 'sign-in', component: SignInComponent },
