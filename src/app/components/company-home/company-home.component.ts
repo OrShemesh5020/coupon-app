@@ -22,13 +22,8 @@ export class CompanyHomeComponent implements OnInit {
     });
   }
 
-  public get companyName() {
-    return this.company.name;
-  }
-
-
   addCoupon(): void {
-    this.router.navigate(['addCouponForm']);
+    this.router.navigate(['addCouponForm', this.company.name]);
   }
 
   updateCoupon(couponId: number, title: string): void {
