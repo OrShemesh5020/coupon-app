@@ -1,11 +1,7 @@
 import { CompanyService } from './../../service/company';
 import { Company } from './../../models/company';
-import { AuthenticationService } from './../../service/authentication';
 import { Coupon } from './../../models/coupon';
-import { User } from './../../models/user';
 import { Component, OnInit } from '@angular/core';
-import { GeneralService } from 'src/app/service/general';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-company-home',
@@ -25,6 +21,9 @@ export class CompanyHomeComponent implements OnInit {
     });
   }
 
+  public get companyName() {
+    return this.company.name;
+  }
 
 
   addCoupon(categoryName: string, title: string, description: string, amount: number, price: number, image: string): void {
