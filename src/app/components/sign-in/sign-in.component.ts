@@ -36,7 +36,7 @@ export class SignInComponent implements OnInit {
     if (this.authentication.userValue) {
       // console.log('userValue has a value');
       console.log(this.authentication.userValue);
-      console.log("SignInComponent constructor: " + this.url);
+      console.log('SignInComponent constructor: ' + this.url);
       this.router.navigate([this.url]);
     }
   }

@@ -4,7 +4,6 @@ import { Coupon } from 'src/app/models/coupon';
 import { CompanyService } from './../../service/company';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { formatDate } from '@angular/common';
 import { ClientType } from 'src/app/models/user';
 
 @Component({
@@ -49,7 +48,7 @@ export class AddCouponFormComponent implements OnInit {
     return this.addCouponForm.controls;
   }
 
-  valuesImplementation() {
+  valuesImplementation(): void {
     this.couponModel.categoryName = this.f.category.value;
     this.couponModel.title = this.f.title.value;
     this.couponModel.description = this.f.description.value;
@@ -62,7 +61,7 @@ export class AddCouponFormComponent implements OnInit {
   }
 
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.addCouponForm.invalid) {
       return;
     }
