@@ -1,3 +1,4 @@
+import { UpdateCustomerFormComponent } from './components/update-customer-form/update-customer-form.component';
 import { AddCustomerFormComponent } from './components/add-customer-form/add-customer-form.component';
 import { LogOutComponent } from './components/log-out/log-out.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
@@ -16,6 +17,7 @@ export const routes: Routes = [
   { path: 'companyHome', component: CompanyHomeComponent },
   { path: 'customerHome', component: CustomerHomeComponent },
   { path: 'addCustomerForm', component: AddCustomerFormComponent },
+  { path: 'updateCustomerForm', component: UpdateCustomerFormComponent},
   { path: 'about', component: AboutUsComponent },
   { path: 'sign-in', component: SignInComponent },
   { path: 'log-out', component: LogOutComponent},
