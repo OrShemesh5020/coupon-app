@@ -2,7 +2,7 @@
 <form  class="addCustomerForm" (ngSubmit)="onSubmit()" [formGroup]="addCustomerForm">
   <div>
     <label>firstName</label>
-    <input type="firstName" formControlName="firstName" />
+    <input type="text" formControlName="firstName" />
     <div *ngIf="addCustomerForm.controls['firstName'].invalid">
       firstName is required
     </div>
@@ -10,7 +10,7 @@
 
   <div>
     <label>lastName</label>
-    <input type="lastName" formControlName="lastName" />
+    <input type="text" formControlName="lastName" />
     <div *ngIf="addCustomerForm.controls['lastName'].invalid">
       lastName is required
     </div>

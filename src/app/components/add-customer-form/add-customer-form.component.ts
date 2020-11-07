@@ -1,4 +1,5 @@
-import { User } from './../../models/user';
+import { AdminService } from './../../service/admin';
+import { User, ClientType } from './../../models/user';
 import { AuthenticationService } from './../../service/authentication';
 import { GeneralService } from './../../service/general';
 import { Router } from '@angular/router';
@@ -24,7 +25,8 @@ export class AddCustomerFormComponent implements OnInit {
     private authentication: AuthenticationService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private generalService: GeneralService
+    private generalService: GeneralService,
+    private adminService: AdminService
   ) {}
 
   ngOnInit(): void {
@@ -78,14 +80,24 @@ export class AddCustomerFormComponent implements OnInit {
       return;
     }
     this.valuesImplementation();
-    // what should i do here? because the functions expects no argument, but i want to update the customerModel specifically.
-    this.generalService.registerCustomer(this.customerModel);
-    // and here, navigate to customer -Home.
-    this.authentication
-      .login(this.customerModel.email, this.customerModel.password)
-      .subscribe((value: User) => {
-        this.router.navigate(['customerHome']);
-      });
+    if (!this.authentication.userValue) {
+      this.generalService.registerCustomer(this.customerModel);
+
+      this.authentication
+        .login(this.customerModel.email, this.customerModel.password)
+        .subscribe((value: User) => {
+          this.router.navigate(['customerHome']);
+        });
+    } else if (
+      this.authentication.userValue.clientType === ClientType.ADMINISTRATOR
+    ) {
+      this.adminService
+        .addCustomer(this.customerModel)
+        .subscribe((value: Customer) => {
+          this.router.navigate(['adminHome']);
+        });
+    }
+    return;
   }
 
   valuesImplementation(): void {
