@@ -27,13 +27,39 @@ export class UpdateCouponFoemComponent implements OnInit {
     }
     this.couponModel = new Coupon();
     this.activatedRoute.params.subscribe((params) => {
-      console.log(params.companyName);
-      this.couponModel.companyName = params.companyName;
-      this.editcouponFormInitialization();
+      console.log('UpdateCouponFoemComponent:' + params.id);
+      this.companyService.getCouponById(params.id).subscribe((value: Coupon) => {
+        this.couponModel = value;
+        console.log('couponModel: ' + this.couponModel);
+        this.editcouponFormInitialization();
+      });
     });
   }
 
+  onSubmit(): void {
+    if (this.editCouponForm.invalid) {
+      return;
+    }
+    this.valuesImplementation();
+    this.companyService.updateCoupon(this.couponModel).subscribe(() => {
+      this.router.navigate(['companyHome']);
+    });
+  }
 
+  private get f() {
+    return this.editCouponForm.controls;
+  }
+
+  valuesImplementation(): void {
+    this.couponModel.categoryName = this.f.category.value;
+    this.couponModel.title = this.f.title.value;
+    this.couponModel.description = this.f.description.value;
+    this.couponModel.startDate = this.f.startDate.value;
+    this.couponModel.endDate = this.f.endDate.value;
+    this.couponModel.amount = this.f.amount.value;
+    this.couponModel.price = this.f.price.value;
+    this.couponModel.image = this.f.image.value;
+  }
 
   private editcouponFormInitialization(): void {
     this.editCouponForm = this.formBuilder.group({
