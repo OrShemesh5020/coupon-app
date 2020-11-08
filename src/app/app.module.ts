@@ -21,6 +21,7 @@ import { CustomerHomeComponent } from './components/customer-home/customer-home.
 import { ReactiveFormsModule } from '@angular/forms';
 import { LogOutComponent } from './components/log-out/log-out.component';
 import { AddCompanyFormComponent } from './components/add-company-form/add-company-form.component';
+import { UpdateCompanyFormComponent } from './components/update-company-form/update-company-form.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { AddCompanyFormComponent } from './components/add-company-form/add-compa
     CustomerHomeComponent,
     LogOutComponent,
     AddCompanyFormComponent,
+    UpdateCompanyFormComponent,
   ],
   imports: [
     HttpClientModule,
