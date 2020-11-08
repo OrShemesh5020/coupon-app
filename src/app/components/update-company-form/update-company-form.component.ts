@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyService } from './../../service/company';
 import { AuthenticationService } from './../../service/authentication';
 import { Company } from 'src/app/models/company';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -14,7 +14,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./update-company-form.component.scss']
 })
 export class UpdateCompanyFormComponent implements OnInit {
-  editCompanyForm: FormGroup;
+  updateCompanyForm: FormGroup;
   companyModel: Company;
   constructor(
     private formBuilder: FormBuilder,
@@ -23,7 +23,13 @@ export class UpdateCompanyFormComponent implements OnInit {
     private adminService: AdminService,
     private activatedRoute: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {
+    this.updateCompanyForm = new FormGroup({
+      name: new FormControl(),
+      email: new FormControl(),
+      password: new FormControl(),
+    });
+  }
 
   ngOnInit(): void {
     if (!this.authentication.userValue || this.authentication.userValue.clientType === ClientType.CUSTOMER) {
@@ -46,7 +52,7 @@ export class UpdateCompanyFormComponent implements OnInit {
     return this.authentication.userValue;
   }
   private editcompanyFormInitialization(): void {
-    this.editCompanyForm = this.formBuilder.group({
+    this.updateCompanyForm = this.formBuilder.group({
       name:
         [this.companyModel.name,
         [
@@ -84,7 +90,7 @@ export class UpdateCompanyFormComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.editCompanyForm.invalid) {
+    if (this.updateCompanyForm.invalid) {
       return;
     }
     this.valuesImplementation();
@@ -108,6 +114,6 @@ export class UpdateCompanyFormComponent implements OnInit {
   }
 
   private get getter() {
-    return this.editCompanyForm.controls;
+    return this.updateCompanyForm.controls;
   }
 }
