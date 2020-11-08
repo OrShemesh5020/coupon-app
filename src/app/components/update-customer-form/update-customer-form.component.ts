@@ -7,7 +7,7 @@ import {
   Validators,
   FormControl,
 } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -22,6 +22,7 @@ export class UpdateCustomerFormComponent implements OnInit {
   constructor(
     private customerService: CustomerService,
     private formBuilder: FormBuilder,
+    private router: Router
   ) {
     // need to review this piece of code, i used it so the updateForm can initialize
     // the values, because otherwise the console gives the error:
@@ -41,7 +42,6 @@ export class UpdateCustomerFormComponent implements OnInit {
       this.customerModel = value;
       console.log('customerModel: ' + this.customerModel.firstName);
       this.updateCustomerForm = this.formBuilder.group({
-        // the '' shows the default value that the parameter would have upon init.
         firstName: [
           this.customerModel.firstName,
           [
@@ -82,7 +82,6 @@ export class UpdateCustomerFormComponent implements OnInit {
         ],
       });
     });
-
   }
 
   onSubmit(): void {
@@ -90,6 +89,12 @@ export class UpdateCustomerFormComponent implements OnInit {
       return;
     }
     this.valuesImplementation();
+    this.customerService
+      .updateCustomerDetails(this.customerModel)
+      .subscribe((value: Customer) => {
+        console.log('value: ' + value);
+        this.router.navigate(['customerHome']);
+      });
   }
 
   valuesImplementation(): void {
