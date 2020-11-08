@@ -24,12 +24,8 @@ export class AdminHomeComponent implements OnInit {
     this.router.navigate(['addCompanyForm']);
   }
 
-  updateCompany(id: number, name: string, email: string, password: string): void {
-    const comapny = new Company(name, email, password, id);
-    this.adminService.updateCompany(comapny).subscribe((value: Company) => {
-      console.log(value);
-      this.loadCompanies();
-    });
+  updateCompany(id: number): void {
+    this.router.navigate(['updateCompanyForm', id]);
   }
 
   deleteCompany(id: number): void {
