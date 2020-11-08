@@ -2,6 +2,7 @@ import { Customer } from './../../models/customer';
 import { AdminService } from './../../service/admin';
 import { Component, OnInit } from '@angular/core';
 import { Company } from 'src/app/models/company';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-home',
@@ -12,19 +13,15 @@ export class AdminHomeComponent implements OnInit {
   companies: Company[];
   customers: Customer[];
 
-  constructor(private adminService: AdminService) { }
+  constructor(private adminService: AdminService, private router: Router) { }
 
   ngOnInit(): void {
     this.loadElements();
   }
 
 
-  addCompany(name: string, email: string, password: string): void {
-    const comapny = new Company(name, email, password);
-    this.adminService.addCompany(comapny).subscribe((value: Company) => {
-      console.log(value);
-      this.loadCompanies();
-    });
+  addCompany(): void {
+    this.router.navigate(['addCompanyForm']);
   }
 
   updateCompany(id: number, name: string, email: string, password: string): void {
