@@ -1,1 +1,25 @@
-<p>update-company-form works!</p>
+<form class="editComapnyForm" (ngSubmit)="onSubmit()" [formGroup]="editCompanyForm">
+  <div>
+    <label>name</label>
+    <input type="text" formControlName="name" />
+    <div *ngIf="editCompanyForm.controls['name'].invalid">name is required</div>
+  </div>
+
+  <div>
+    <label>email</label>
+    <input type="email" formControlName="email" />
+    <div *ngIf="editCompanyForm.controls['email'].invalid">
+      email is required
+    </div>
+  </div>
+
+  <div>
+    <label>password</label>
+    <input type="text" formControlName="password" />
+    <div *ngIf="editCompanyForm.controls['password'].invalid">
+      password is required
+    </div>
+  </div>
+
+  <button class="editButton" type="submit" [disabled]="!editCompanyForm.valid">update details</button>
+</form>
