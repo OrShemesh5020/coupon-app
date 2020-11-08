@@ -1,1 +1,25 @@
-<p>add-company-form works!</p>
+<form (ngSubmit)="onSubmit()" [formGroup]="addCompanyForm">
+  <div>
+    <label>name</label>
+    <input type="text" formControlName="name" />
+    <div *ngIf="addCompanyForm.controls['name'].invalid">name is required</div>
+  </div>
+
+  <div>
+    <label>email</label>
+    <input type="email" formControlName="email" />
+    <div *ngIf="addCompanyForm.controls['email'].invalid">
+      email is required
+    </div>
+  </div>
+
+  <div>
+    <label>password</label>
+    <input type="password" formControlName="password" />
+    <div *ngIf="addCompanyForm.controls['password'].invalid">
+      password is required
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="!addCompanyForm.valid">log in</button>
+</form>
