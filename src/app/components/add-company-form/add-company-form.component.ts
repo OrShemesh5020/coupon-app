@@ -78,12 +78,12 @@ export class AddCompanyFormComponent implements OnInit {
   }
 
   valuesImplementation(): void {
-    this.companyModel.name = this.f.name.value;
-    this.companyModel.email = this.f.email.value;
-    this.companyModel.password = this.f.password.value;
+    this.companyModel.name = this.getter.name.value;
+    this.companyModel.email = this.getter.email.value;
+    this.companyModel.password = this.getter.password.value;
   }
 
-  private get f() {
+  private get getter() {
     return this.addCompanyForm.controls;
   }
 
