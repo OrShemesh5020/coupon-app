@@ -1,5 +1,5 @@
 <p>this is the updateCustomerForm component! ':/'</p>
-<form (ngSubmit)="onSubmit()" [formGroup]="updateCustomerForm" >
+<form (ngSubmit)="onSubmit()" [formGroup]="updateCustomerForm">
   <div >
     <label>firstName</label>
     <input type="text" formControlName="firstName"/>
@@ -31,6 +31,5 @@
       password is required
     </div>
   </div>
-
   <button class="registerButton"type="submit" [disabled]="!updateCustomerForm.valid">update customer</button>
 </form>
