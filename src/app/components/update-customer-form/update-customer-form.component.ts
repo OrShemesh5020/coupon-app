@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs';
+import { ClientType } from './../../models/user';
 import { CustomerService } from './../../service/customer';
 import { AdminService } from './../../service/admin';
 import { Customer } from 'src/app/models/customer';
@@ -9,6 +11,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from 'src/app/service/authentication';
 
 @Component({
   selector: 'app-update-customer-form',
@@ -18,8 +21,10 @@ import { Component, OnInit } from '@angular/core';
 export class UpdateCustomerFormComponent implements OnInit {
   customerModel: Customer;
   updateCustomerForm: FormGroup;
-
   constructor(
+    private adminService: AdminService,
+    private activatedRoute: ActivatedRoute,
+    private authentication: AuthenticationService,
     private customerService: CustomerService,
     private formBuilder: FormBuilder,
     private router: Router
@@ -36,6 +41,29 @@ export class UpdateCustomerFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (
+      !this.authentication.userValue ||
+      this.authentication.userValue.clientType === ClientType.COMPANY
+    ) {
+      this.router.navigate(['log-out']);
+      return;
+    }
+    this.activatedRoute.params.subscribe((params) => {
+      console.log('this users id :' + this.user.id);
+      console.log('this params id : ' + params.id);
+
+      if (
+        this.user.clientType === ClientType.CUSTOMER &&
+        this.user.id != params.id
+      ) {
+        this.router.navigate(['log-out']);
+        return;
+      }
+      this.getModel(params.id).subscribe((value: Customer) => {
+        this.customerModel = value;
+        this.valuesImplementation();
+      });
+    });
     this.customerModel = new Customer();
     this.customerService.getCustomerDetails().subscribe((value: Customer) => {
       console.log('value:' + value);
@@ -98,14 +126,26 @@ export class UpdateCustomerFormComponent implements OnInit {
   }
 
   valuesImplementation(): void {
-    this.customerModel.firstName = this.f.firstName.value;
-    this.customerModel.lastName = this.f.lastName.value;
-    this.customerModel.email = this.f.email.value;
-    this.customerModel.password = this.f.password.value;
+    this.customerModel.firstName = this.getter.firstName.value;
+    this.customerModel.lastName = this.getter.lastName.value;
+    this.customerModel.email = this.getter.email.value;
+    this.customerModel.password = this.getter.password.value;
   }
   // this is a short-cut to the controls of the form
   // tslint:disable-next-line: typedef
-  get f() {
+  private get getter() {
     return this.updateCustomerForm.controls;
+  }
+  private get user() {
+    return this.authentication.userValue;
+  }
+
+  private getModel(id: number): Observable<Customer> {
+    if (this.authentication.userValue.clientType === ClientType.CUSTOMER) {
+      console.log('geting model from customer service');
+      return this.customerService.getCustomerDetails();
+    }
+    console.log('geting model from admin service');
+    return this.adminService.getCustomer(id);
   }
 }
