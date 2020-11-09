@@ -12,9 +12,12 @@ import { Layout, ComponentType } from 'src/app/models/layout';
 export class HeaderComponent implements OnInit {
   headerItems: Layout[];
   user: User;
-  constructor(private layoutService: LayoutService, private authentication: AuthenticationService) {
+  constructor(
+    private layoutService: LayoutService,
+    private authentication: AuthenticationService
+  ) {
     this.authentication.userSubject.subscribe((value: User) => {
-      console.log("HeaderComponent constructor: " + value);
+      console.log('HeaderComponent constructor: ' + value);
       this.user = value;
     });
     //   if (this.authentication.userValue) {
@@ -29,5 +32,8 @@ export class HeaderComponent implements OnInit {
   }
   private get getType(): ClientType {
     return this.user.clientType;
+  }
+  homeChanneling(): void {
+    alert('please insert your client type');
   }
 }

@@ -2,9 +2,10 @@
 <nav>
   <div class="left-side-links">
     <a
-      class="link"
-      *ngFor="let item of headerItems"
-      [routerLink]="item.navigation"
+    class="link"
+    *ngFor="let item of headerItems"
+    [routerLink]="item.navigation"
+    onclick="homeChanneling()"
     >
       {{ item.title }}
     </a>
