@@ -17,7 +17,7 @@ export const routes: Routes = [
   { path: 'companyHome', component: CompanyHomeComponent },
   { path: 'customerHome', component: CustomerHomeComponent },
   { path: 'addCustomerForm', component: AddCustomerFormComponent },
-  { path: 'updateCustomerForm', component: UpdateCustomerFormComponent},
+  { path: 'updateCustomerForm/:id', component: UpdateCustomerFormComponent},
   { path: 'about', component: AboutUsComponent },
   { path: 'sign-in', component: SignInComponent },
   { path: 'log-out', component: LogOutComponent},

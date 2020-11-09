@@ -33,7 +33,7 @@ export class CustomerHomeComponent implements OnInit {
     });
   }
   updateDetails(): void {
-    this.router.navigate(['updateCustomerForm']);
+    this.router.navigate(['updateCustomerForm', this.customer.id]);
   }
   purchaseCoupon(couponId: number): void {
     this.customerService.getCoupon(couponId).subscribe((value: Coupon) => {
