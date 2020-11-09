@@ -1,4 +1,4 @@
-import { User } from './../../models/user';
+import { User, ClientType } from './../../models/user';
 import { AuthenticationService } from './../../service/authentication';
 import { LayoutService } from '../../service/layout';
 import { Component, OnInit } from '@angular/core';
@@ -26,5 +26,8 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.headerItems = this.layoutService.getByType(ComponentType.HEADER);
+  }
+  private get getType(): ClientType {
+    return this.user.clientType;
   }
 }
