@@ -1,3 +1,4 @@
+import { UpdateCouponFormComponent } from './components/update-coupon-form/update-coupon-form.component';
 import { SendToken } from './service/interseptors/send-token';
 import { routes } from './app.routes';
 import { RouterModule } from '@angular/router';
@@ -21,7 +22,6 @@ import { CustomerHomeComponent } from './components/customer-home/customer-home.
 import { ReactiveFormsModule } from '@angular/forms';
 import { LogOutComponent } from './components/log-out/log-out.component';
 import { AddCouponFormComponent } from './components/add-coupon-form/add-coupon-form.component';
-import { UpdateCouponFoemComponent } from './components/update-coupon-foem/update-coupon-foem.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +39,7 @@ import { UpdateCouponFoemComponent } from './components/update-coupon-foem/updat
     CustomerHomeComponent,
     LogOutComponent,
     AddCouponFormComponent,
-    UpdateCouponFoemComponent,
+    UpdateCouponFormComponent,
   ],
   imports: [
     HttpClientModule,
