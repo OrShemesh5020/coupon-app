@@ -27,7 +27,7 @@ export class CompanyHomeComponent implements OnInit {
   }
 
   updateCoupon(couponId: number): void {
-    this.router.navigate(['editCouponForm', couponId]);
+    this.router.navigate(['updateCouponForm', couponId]);
   }
 
 
