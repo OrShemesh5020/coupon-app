@@ -55,11 +55,9 @@ export class GeneralService {
     });
   }
 
-  registerCompany(company: Company): void {
+  registerCompany(company: Company): Observable<Company> {
     const url = 'http://localhost:8080/general/company';
-    this.httpClient.post(url, company).subscribe((value: Company) => {
-      this.addCompanyEvent.next(value);
-    });
+    return this.httpClient.post<Company>(url, company);
   }
   registerCustomer(customer: Customer): void {
     const url = 'http://localhost:8080/general/customer';

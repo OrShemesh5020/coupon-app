@@ -1,7 +1,10 @@
+import { routes } from './../../app.routes';
 import { CompanyService } from './../../service/company';
 import { Company } from './../../models/company';
 import { Coupon } from './../../models/coupon';
 import { Component, OnInit } from '@angular/core';
+import { GeneralService } from 'src/app/service/general';
+import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
@@ -63,11 +66,8 @@ export class CompanyHomeComponent implements OnInit {
     });
   }
 
-  updateCompany(name: string, email: string, password: string): void {
-    const company = new Company(name, email, password, this.company.id);
-    this.companyService.updateDetails(company).subscribe((value: Company) => {
-      this.company = value;
-    });
+  updateCompany(): void {
+    this.router.navigate(['updateCompanyForm', this.company.id]);
   }
 
   getAllCoupons(): void {

@@ -1,3 +1,5 @@
+import { UpdateCompanyFormComponent } from './components/update-company-form/update-company-form.component';
+import { AddCompanyFormComponent } from './components/add-company-form/add-company-form.component';
 import { UpdateCouponFormComponent } from './components/update-coupon-form/update-coupon-form.component';
 import { AddCouponFormComponent } from './components/add-coupon-form/add-coupon-form.component';
 import { LogOutComponent } from './components/log-out/log-out.component';
@@ -15,6 +17,8 @@ export const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'adminHome', component: AdminHomeComponent },
   { path: 'companyHome', component: CompanyHomeComponent },
+  { path: 'addCompanyForm', component: AddCompanyFormComponent },
+  { path: 'updateCompanyForm/:id', component: UpdateCompanyFormComponent },
   { path: 'addCouponForm/:companyName', component: AddCouponFormComponent },
   { path: 'updateCouponForm/:id', component: UpdateCouponFormComponent},
   { path: 'customerHome', component: CustomerHomeComponent },
