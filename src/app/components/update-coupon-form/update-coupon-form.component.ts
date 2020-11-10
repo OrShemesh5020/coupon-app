@@ -2,7 +2,7 @@ import { ClientType } from '../../models/user';
 import { CompanyService } from '../../service/company';
 import { AuthenticationService } from '../../service/authentication';
 import { Coupon } from 'src/app/models/coupon';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -12,14 +12,25 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./update-coupon-form.component.scss']
 })
 export class UpdateCouponFormComponent implements OnInit {
-  editCouponForm: FormGroup;
+  updateCouponForm: FormGroup;
   couponModel: Coupon;
   constructor(
     private formBuilder: FormBuilder,
     private authentication: AuthenticationService,
     private companyService: CompanyService,
     private activatedRoute: ActivatedRoute,
-    private router: Router) { }
+    private router: Router) {
+      this.updateCouponForm = new FormGroup({
+        category: new FormControl(),
+        title: new FormControl(),
+        description: new FormControl(),
+        startDate: new FormControl(),
+        endDate: new FormControl(),
+        amount: new FormControl(),
+        price: new FormControl(),
+        image: new FormControl(),
+      });
+     }
 
   ngOnInit(): void {
     if (!this.authentication.userValue || this.authentication.userValue.clientType !== ClientType.COMPANY) {
@@ -37,7 +48,7 @@ export class UpdateCouponFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.editCouponForm.invalid) {
+    if (this.updateCouponForm.invalid) {
       return;
     }
     this.valuesImplementation();
@@ -46,23 +57,23 @@ export class UpdateCouponFormComponent implements OnInit {
     });
   }
 
-  private get f() {
-    return this.editCouponForm.controls;
+  private get getter() {
+    return this.updateCouponForm.controls;
   }
 
   valuesImplementation(): void {
-    this.couponModel.categoryName = this.f.category.value;
-    this.couponModel.title = this.f.title.value;
-    this.couponModel.description = this.f.description.value;
-    this.couponModel.startDate = this.f.startDate.value;
-    this.couponModel.endDate = this.f.endDate.value;
-    this.couponModel.amount = this.f.amount.value;
-    this.couponModel.price = this.f.price.value;
-    this.couponModel.image = this.f.image.value;
+    this.couponModel.categoryName = this.getter.category.value;
+    this.couponModel.title = this.getter.title.value;
+    this.couponModel.description = this.getter.description.value;
+    this.couponModel.startDate = this.getter.startDate.value;
+    this.couponModel.endDate = this.getter.endDate.value;
+    this.couponModel.amount = this.getter.amount.value;
+    this.couponModel.price = this.getter.price.value;
+    this.couponModel.image = this.getter.image.value;
   }
 
   private editcouponFormInitialization(): void {
-    this.editCouponForm = this.formBuilder.group({
+    this.updateCouponForm = this.formBuilder.group({
       category:
         [this.couponModel.categoryName,
         [
