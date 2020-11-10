@@ -20,17 +20,17 @@ export class UpdateCouponFormComponent implements OnInit {
     private companyService: CompanyService,
     private activatedRoute: ActivatedRoute,
     private router: Router) {
-      this.updateCouponForm = new FormGroup({
-        category: new FormControl(),
-        title: new FormControl(),
-        description: new FormControl(),
-        startDate: new FormControl(),
-        endDate: new FormControl(),
-        amount: new FormControl(),
-        price: new FormControl(),
-        image: new FormControl(),
-      });
-     }
+    this.updateCouponForm = new FormGroup({
+      category: new FormControl(),
+      title: new FormControl(),
+      description: new FormControl(),
+      startDate: new FormControl(),
+      endDate: new FormControl(),
+      amount: new FormControl(),
+      price: new FormControl(),
+      imageUrl: new FormControl(),
+    });
+  }
 
   ngOnInit(): void {
     if (!this.authentication.userValue || this.authentication.userValue.clientType !== ClientType.COMPANY) {
@@ -69,7 +69,7 @@ export class UpdateCouponFormComponent implements OnInit {
     this.couponModel.endDate = this.getter.endDate.value;
     this.couponModel.amount = this.getter.amount.value;
     this.couponModel.price = this.getter.price.value;
-    this.couponModel.image = this.getter.image.value;
+    this.couponModel.image = this.getter.imageUrl.value;
   }
 
   private editcouponFormInitialization(): void {
@@ -98,11 +98,11 @@ export class UpdateCouponFormComponent implements OnInit {
           Validators.maxLength(200)
         ]
         ],
-      startDate: [this.couponModel.startDate, Validators.required],
-      endDate: [this.couponModel.endDate, Validators.required],
+      startDate: [new Date(this.couponModel.startDate).toISOString().slice(0, 10), Validators.required],
+      endDate: [new Date(this.couponModel.endDate).toISOString().slice(0, 10), Validators.required],
       amount: [this.couponModel.amount, Validators.required],
       price: [this.couponModel.price, Validators.required],
-      image:
+      imageUrl:
         [this.couponModel.image,
         [
           Validators.required,
