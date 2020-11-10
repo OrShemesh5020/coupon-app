@@ -1,11 +1,8 @@
 import { CompanyService } from './../../service/company';
 import { Company } from './../../models/company';
-import { AuthenticationService } from './../../service/authentication';
 import { Coupon } from './../../models/coupon';
-import { User } from './../../models/user';
 import { Component, OnInit } from '@angular/core';
-import { GeneralService } from 'src/app/service/general';
-import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-company-home',
@@ -16,7 +13,7 @@ export class CompanyHomeComponent implements OnInit {
   company: Company;
   coupons: Coupon[];
 
-  constructor(private companyService: CompanyService) { }
+  constructor(private companyService: CompanyService, private router: Router) { }
 
   ngOnInit(): void {
     this.getDetails();
@@ -25,26 +22,12 @@ export class CompanyHomeComponent implements OnInit {
     });
   }
 
-
-
-  addCoupon(categoryName: string, title: string, description: string, amount: number, price: number, image: string): void {
-    const startDate = new Date(2020, 11, 20);
-    const endDate = new Date(2022, 10, 10);
-    const coupon = new Coupon(this.company.name, categoryName, title, description, startDate, endDate, amount, price, image);
-    this.companyService.addCoupon(coupon).subscribe((value: Coupon) => {
-      console.log(value);
-      this.getAllCoupons();
-    });
+  addCoupon(): void {
+    this.router.navigate(['addCouponForm', this.company.name]);
   }
 
-  updateCoupon(couponId: number, title: string): void {
-    this.companyService.getCouponById(couponId).subscribe((value: Coupon) => {
-      value.title = title;
-      this.companyService.updateCoupon(value).subscribe((newValue: Coupon) => {
-        console.log(newValue);
-        this.getAllCoupons();
-      });
-    });
+  updateCoupon(couponId: number): void {
+    this.router.navigate(['updateCouponForm', couponId]);
   }
 
 
