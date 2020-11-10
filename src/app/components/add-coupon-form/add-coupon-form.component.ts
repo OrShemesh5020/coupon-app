@@ -72,19 +72,19 @@ export class AddCouponFormComponent implements OnInit {
     });
   }
 
-  private get f() {
+  private get getter() {
     return this.addCouponForm.controls;
   }
 
   valuesImplementation(): void {
-    this.couponModel.categoryName = this.f.category.value;
-    this.couponModel.title = this.f.title.value;
-    this.couponModel.description = this.f.description.value;
-    this.couponModel.startDate = this.f.startDate.value;
-    this.couponModel.endDate = this.f.endDate.value;
-    this.couponModel.amount = this.f.amount.value;
-    this.couponModel.price = this.f.price.value;
-    this.couponModel.image = this.f.image.value;
+    this.couponModel.categoryName = this.getter.category.value;
+    this.couponModel.title = this.getter.title.value;
+    this.couponModel.description = this.getter.description.value;
+    this.couponModel.startDate = this.getter.startDate.value;
+    this.couponModel.endDate = this.getter.endDate.value;
+    this.couponModel.amount = this.getter.amount.value;
+    this.couponModel.price = this.getter.price.value;
+    this.couponModel.image = this.getter.image.value;
 
   }
 
