@@ -1,4 +1,4 @@
-import { ClientType } from '../../models/user';
+import { ClientType, User } from '../../models/user';
 import { CompanyService } from '../../service/company';
 import { AuthenticationService } from '../../service/authentication';
 import { Coupon } from 'src/app/models/coupon';
@@ -33,11 +33,13 @@ export class UpdateCouponFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!this.authentication.userValue || this.authentication.userValue.clientType !== ClientType.COMPANY) {
+    if (!this.user || this.user.clientType !== ClientType.COMPANY) {
       this.router.navigate(['log-out']);
+      return;
     }
     this.couponModel = new Coupon();
     this.activatedRoute.params.subscribe((params) => {
+
       console.log('UpdateCouponFoemComponent:' + params.id);
       this.companyService.getCouponById(params.id).subscribe((value: Coupon) => {
         this.couponModel = value;
@@ -59,6 +61,10 @@ export class UpdateCouponFormComponent implements OnInit {
 
   private get getter() {
     return this.updateCouponForm.controls;
+  }
+
+  private get user(): User {
+    return this.authentication.userValue;
   }
 
   valuesImplementation(): void {
