@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { ClientType } from './../../models/user';
+import { ClientType, User } from './../../models/user';
 import { CustomerService } from './../../service/customer';
 import { AdminService } from './../../service/admin';
 import { Customer } from 'src/app/models/customer';
@@ -41,17 +41,11 @@ export class UpdateCustomerFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (
-      !this.authentication.userValue ||
-      this.authentication.userValue.clientType === ClientType.COMPANY
-    ) {
+    if (!this.user || this.user.clientType === ClientType.COMPANY) {
       this.router.navigate(['log-out']);
       return;
     }
     this.activatedRoute.params.subscribe((params) => {
-      console.log('this users id :' + this.user.id);
-      console.log('this params id : ' + params.id);
-
       if (
         this.user.clientType === ClientType.CUSTOMER &&
         this.user.id != params.id
@@ -59,57 +53,12 @@ export class UpdateCustomerFormComponent implements OnInit {
         this.router.navigate(['log-out']);
         return;
       }
+      this.customerModel = new Customer();
       this.getModel(params.id).subscribe((value: Customer) => {
         this.customerModel = value;
-        this.valuesImplementation();
       });
     });
-    this.customerModel = new Customer();
-    this.customerService.getCustomerDetails().subscribe((value: Customer) => {
-      console.log('value:' + value);
-      this.customerModel = value;
-      console.log('customerModel: ' + this.customerModel.firstName);
-      this.updateCustomerForm = this.formBuilder.group({
-        firstName: [
-          this.customerModel.firstName,
-          [
-            Validators.required,
-            Validators.minLength(2),
-            Validators.maxLength(45),
-          ], // here i tried making the function validate that the name does not contain any numbers, but the pattern validator
-          // doesnt accept a Pattern variable to validate by???
-          // i need to add ['A-Za-z'] pattern to the TEMPLATE of this class
-          // new PatternValidator(),
-        ],
-
-        lastName: [
-          this.customerModel.lastName,
-          [
-            Validators.required,
-            Validators.minLength(2),
-            Validators.maxLength(45),
-          ],
-        ],
-
-        email: [
-          this.customerModel.email,
-          [
-            Validators.required,
-            Validators.minLength(10),
-            Validators.maxLength(45),
-          ],
-        ],
-
-        password: [
-          this.customerModel.password,
-          [
-            Validators.required,
-            Validators.minLength(5),
-            Validators.maxLength(45),
-          ],
-        ],
-      });
-    });
+    this.initializeFormGroup();
   }
 
   onSubmit(): void {
@@ -117,10 +66,15 @@ export class UpdateCustomerFormComponent implements OnInit {
       return;
     }
     this.valuesImplementation();
+    if (this.user.clientType === ClientType.ADMINISTRATOR) {
+      this.adminService.updateCustomer(this.customerModel).subscribe(() => {
+        this.router.navigate(['adminHome']);
+      });
+      return;
+    }
     this.customerService
       .updateCustomerDetails(this.customerModel)
-      .subscribe((value: Customer) => {
-        console.log('value: ' + value);
+      .subscribe(() => {
         this.router.navigate(['customerHome']);
       });
   }
@@ -136,16 +90,56 @@ export class UpdateCustomerFormComponent implements OnInit {
   private get getter() {
     return this.updateCustomerForm.controls;
   }
-  private get user() {
+  private get user(): User {
     return this.authentication.userValue;
   }
 
   private getModel(id: number): Observable<Customer> {
     if (this.authentication.userValue.clientType === ClientType.CUSTOMER) {
-      console.log('geting model from customer service');
       return this.customerService.getCustomerDetails();
     }
-    console.log('geting model from admin service');
     return this.adminService.getCustomer(id);
+  }
+  private initializeFormGroup(): void {
+    this.updateCustomerForm = this.formBuilder.group({
+      firstName: [
+        this.customerModel.firstName,
+        [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(45),
+        ], // here i tried making the function validate that the name does not contain any numbers, but the pattern validator
+        // doesnt accept a Pattern variable to validate by???
+        // i need to add ['A-Za-z'] pattern to the TEMPLATE of this class
+        // new PatternValidator(),
+      ],
+
+      lastName: [
+        this.customerModel.lastName,
+        [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(45),
+        ],
+      ],
+
+      email: [
+        this.customerModel.email,
+        [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(45),
+        ],
+      ],
+
+      password: [
+        this.customerModel.password,
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(45),
+        ],
+      ],
+    });
   }
 }
