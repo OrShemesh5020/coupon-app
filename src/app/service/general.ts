@@ -59,11 +59,9 @@ export class GeneralService {
     const url = 'http://localhost:8080/general/company';
     return this.httpClient.post<Company>(url, company);
   }
-  registerCustomer(customer: Customer): void {
+  registerCustomer(customer: Customer): Observable<Customer> {
     const url = 'http://localhost:8080/general/customer';
-    this.httpClient.post(url, customer).subscribe((value: Customer) => {
-      this.addCustomerEvent.next(value);
-    });
+    return this.httpClient.post<Customer>(url, customer);
   }
 
   getConfigResponse(url: string): Observable<HttpResponse<Config>> {
