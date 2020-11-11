@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { routes } from './../../app.routes';
 import { Customer } from './../../models/customer';
 import { AdminService } from './../../service/admin';
 import { Component, OnInit } from '@angular/core';
@@ -7,18 +9,17 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-admin-home',
   templateUrl: './admin-home.component.html',
-  styleUrls: ['./admin-home.component.scss']
+  styleUrls: ['./admin-home.component.scss'],
 })
 export class AdminHomeComponent implements OnInit {
   companies: Company[];
   customers: Customer[];
 
-  constructor(private adminService: AdminService, private router: Router) { }
+  constructor(private adminService: AdminService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadElements();
   }
-
 
   addCompany(): void {
     this.router.navigate(['addCompanyForm']);
@@ -46,25 +47,17 @@ export class AdminHomeComponent implements OnInit {
     });
   }
 
-  addCustomer(firstName: string, lastName: string, email: string, password: string): void {
-    const customer = new Customer(firstName, lastName, email, password);
-    this.adminService.addCustomer(customer).subscribe((value: Customer) => {
-      console.log(value);
-      this.loadCustomrs();
-    });
+  addCustomer(): void {
+    this.router.navigate(['addCustomerForm']);
   }
 
-  updateCustomer(id: number, firstName: string, lastName: string, email: string, password: string): void {
-    const customer = new Customer(firstName, lastName, email, password, id);
-    this.adminService.updateCustomer(customer).subscribe((value: Customer) => {
-      console.log(value);
-      this.loadCustomrs();
-    });
+  updateCustomer(id: number): void {
+    this.router.navigate(['updateCustomerForm', id]);
   }
 
   deleteCustomer(id: number): void {
     this.adminService.deleteCustomer(id).subscribe(() => {
-      this.loadCustomrs();
+      this.loadCustomers();
     });
   }
 
@@ -76,7 +69,7 @@ export class AdminHomeComponent implements OnInit {
 
   loadElements(): void {
     this.loadCompanies();
-    this.loadCustomrs();
+    this.loadCustomers();
   }
 
   loadCompanies(): void {
@@ -86,7 +79,7 @@ export class AdminHomeComponent implements OnInit {
     });
   }
 
-  loadCustomrs(): void {
+  loadCustomers(): void {
     this.adminService.loadCustomers().subscribe((values: Customer[]) => {
       this.customers = values;
       console.log(values);

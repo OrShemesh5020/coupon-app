@@ -44,8 +44,8 @@ export class CustomerService {
     const url = `http://localhost:8080/customer/details`;
     return this.httpClient.get<Customer>(url);
   }
-  updateCustomerDetails(): Observable<Customer> {
+  updateCustomerDetails(customer: Customer): Observable<Customer> {
     const url = `http://localhost:8080/customer/details`;
-    return this.httpClient.put<Customer>(url, Customer);
+    return this.httpClient.put<Customer>(url, customer);
   }
 }
