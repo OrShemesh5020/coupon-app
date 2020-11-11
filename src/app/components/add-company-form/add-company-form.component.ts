@@ -1,0 +1,90 @@
+import { AdminService } from './../../service/admin';
+import { ClientType } from './../../models/user';
+import { AuthenticationService } from './../../service/authentication';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { Company } from 'src/app/models/company';
+import { Router } from '@angular/router';
+import { GeneralService } from 'src/app/service/general';
+
+@Component({
+  selector: 'app-add-company-form',
+  templateUrl: './add-company-form.component.html',
+  styleUrls: ['./add-company-form.component.scss']
+})
+export class AddCompanyFormComponent implements OnInit {
+  addCompanyForm: FormGroup;
+  companyModel: Company;
+  constructor(
+    private formBuilder: FormBuilder,
+    private authentication: AuthenticationService,
+    private generalService: GeneralService,
+    private adminService: AdminService,
+    private router: Router
+  ) { }
+
+  ngOnInit(): void {
+    if (this.authentication.userValue && this.authentication.userValue.clientType !== ClientType.ADMINISTRATOR) {
+      this.router.navigate(['log-out']);
+    }
+    this.companyModel = new Company();
+    this.addCompanyForm = this.formBuilder.group({
+      name:
+        ['',
+          [
+            Validators.required,
+            Validators.minLength(2),
+            Validators.maxLength(45)
+          ]
+        ],
+      email:
+        ['',
+          [
+            Validators.required,
+            Validators.minLength(2),
+            Validators.maxLength(45)
+          ]
+        ],
+      password:
+        ['',
+          [
+            Validators.required,
+            Validators.minLength(2),
+            Validators.maxLength(45)
+          ]
+        ],
+    });
+  }
+
+  onSubmit(): void {
+    if (this.addCompanyForm.invalid) {
+      return;
+    }
+    this.valuesImplementation();
+    if (!this.authentication.userValue) {
+      this.generalService.registerCompany(this.companyModel).subscribe(() => {
+        this.authentication
+          .login(this.companyModel.email, this.companyModel.password)
+          .subscribe(() => {
+            this.router.navigate(['companyHome']);
+          });
+      });
+    }
+    else if (this.authentication.userValue.clientType === ClientType.ADMINISTRATOR) {
+      this.adminService.addCompany(this.companyModel).subscribe(() => {
+        this.router.navigate(['adminHome']);
+      });
+    }
+  }
+
+  valuesImplementation(): void {
+    this.companyModel.name = this.getter.name.value;
+    this.companyModel.email = this.getter.email.value;
+    this.companyModel.password = this.getter.password.value;
+  }
+
+  private get getter() {
+    return this.addCompanyForm.controls;
+  }
+
+}

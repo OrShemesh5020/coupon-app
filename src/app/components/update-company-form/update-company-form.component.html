@@ -1,0 +1,25 @@
+<form class="editComapnyForm" (ngSubmit)="onSubmit()" [formGroup]="updateCompanyForm">
+  <div>
+    <label>name</label>
+    <input type="text" formControlName="name" />
+    <div *ngIf="updateCompanyForm.controls['name'].invalid">name is required</div>
+  </div>
+
+  <div>
+    <label>email</label>
+    <input type="email" formControlName="email" />
+    <div *ngIf="updateCompanyForm.controls['email'].invalid">
+      email is required
+    </div>
+  </div>
+
+  <div>
+    <label>password</label>
+    <input type="text" formControlName="password" />
+    <div *ngIf="updateCompanyForm.controls['password'].invalid">
+      password is required
+    </div>
+  </div>
+
+  <button class="editButton" type="submit" [disabled]="!updateCompanyForm.valid">update details</button>
+</form>
