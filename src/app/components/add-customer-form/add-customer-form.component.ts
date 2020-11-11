@@ -32,8 +32,10 @@ export class AddCustomerFormComponent implements OnInit {
   ngOnInit(): void {
     if (
       this.authentication.userValue &&
-      this.authentication.userValue.clientType !== ClientType.ADMINISTRATOR ) {
+      this.authentication.userValue.clientType !== ClientType.ADMINISTRATOR
+    ) {
       this.router.navigate(['log-out']);
+      return;
     }
     this.customerModel = new Customer();
     this.addCustomerForm = this.formBuilder.group({
@@ -84,19 +86,21 @@ export class AddCustomerFormComponent implements OnInit {
     }
     this.valuesImplementation();
     if (!this.authentication.userValue) {
-      this.generalService.registerCustomer(this.customerModel);
-
-      this.authentication
-        .login(this.customerModel.email, this.customerModel.password)
-        .subscribe((value: User) => {
-          this.router.navigate(['customerHome']);
+      this.generalService
+        .registerCustomer(this.customerModel)
+        .subscribe(() => {
+          this.authentication
+            .login(this.customerModel.email, this.customerModel.password)
+            .subscribe(() => {
+              this.router.navigate(['customerHome']);
+            });
         });
     } else if (
       this.authentication.userValue.clientType === ClientType.ADMINISTRATOR
     ) {
       this.adminService
         .addCustomer(this.customerModel)
-        .subscribe((value: Customer) => {
+        .subscribe(() => {
           this.router.navigate(['adminHome']);
         });
     }
