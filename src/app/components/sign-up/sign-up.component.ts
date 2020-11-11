@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { Company } from 'src/app/models/company';
 import { Customer } from 'src/app/models/customer';
 import { GeneralService } from 'src/app/service/general';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -45,9 +46,8 @@ export class SignUpComponent implements OnInit {
       console.log(value);
     });
   }
-  registerCompany(name: string, email: string, password: string): void {
-    const company = new Company(name, email, password);
-    this.generalService.registerCompany(company);
+  registerCompany(): void {
+    this.router.navigate(['addCompanyForm']);
   }
   registerCustomer(): void {
     this.router.navigate(['addCustomerForm']);

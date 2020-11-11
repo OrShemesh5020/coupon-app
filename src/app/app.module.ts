@@ -1,3 +1,4 @@
+import { UpdateCouponFormComponent } from './components/update-coupon-form/update-coupon-form.component';
 import { SendToken } from './service/interseptors/send-token';
 import { routes } from './app.routes';
 import { RouterModule } from '@angular/router';
@@ -22,6 +23,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LogOutComponent } from './components/log-out/log-out.component';
 import { AddCustomerFormComponent } from './components/add-customer-form/add-customer-form.component';
 import { UpdateCustomerFormComponent } from './components/update-customer-form/update-customer-form.component';
+import { AddCompanyFormComponent } from './components/add-company-form/add-company-form.component';
+import { UpdateCompanyFormComponent } from './components/update-company-form/update-company-form.component';
+import { AddCouponFormComponent } from './components/add-coupon-form/add-coupon-form.component';
+
 
 @NgModule({
   declarations: [
@@ -40,6 +45,9 @@ import { UpdateCustomerFormComponent } from './components/update-customer-form/u
     LogOutComponent,
     AddCustomerFormComponent,
     UpdateCustomerFormComponent,
+    AddCompanyFormComponent,
+    UpdateCompanyFormComponent,
+    AddCouponFormComponent,
   ],
   imports: [
     HttpClientModule,
