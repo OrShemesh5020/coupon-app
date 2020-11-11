@@ -48,20 +48,11 @@ export class AdminHomeComponent implements OnInit {
   }
 
   addCustomer(): void {
-    this.router.navigate(['addCustomerForm']);}
+    this.router.navigate(['addCustomerForm']);
+  }
 
-  updateCustomer(
-    id: number,
-    firstName: string,
-    lastName: string,
-    email: string,
-    password: string
-  ): void {
-    const customer = new Customer(id, firstName, lastName, email, password);
-    this.adminService.updateCustomer(customer).subscribe((value: Customer) => {
-      console.log(value);
-      this.loadCustomers();
-    });
+  updateCustomer(id: number): void {
+    this.router.navigate(['updateCustomerForm', id]);
   }
 
   deleteCustomer(id: number): void {
