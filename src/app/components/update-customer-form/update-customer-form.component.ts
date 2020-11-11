@@ -56,9 +56,9 @@ export class UpdateCustomerFormComponent implements OnInit {
       this.customerModel = new Customer();
       this.getModel(params.id).subscribe((value: Customer) => {
         this.customerModel = value;
+        this.initializeFormGroup();
       });
     });
-    this.initializeFormGroup();
   }
 
   onSubmit(): void {
