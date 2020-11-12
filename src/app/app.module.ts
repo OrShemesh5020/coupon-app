@@ -19,7 +19,7 @@ import { ConfigComponent } from './config/config/config.component';
 import { AdminHomeComponent } from './components/admin-home/admin-home.component';
 import { CompanyHomeComponent } from './components/company-home/company-home.component';
 import { CustomerHomeComponent } from './components/customer-home/customer-home.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { LogOutComponent } from './components/log-out/log-out.component';
 import { AddCustomerFormComponent } from './components/add-customer-form/add-customer-form.component';
 import { UpdateCustomerFormComponent } from './components/update-customer-form/update-customer-form.component';
