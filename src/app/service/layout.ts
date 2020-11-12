@@ -10,7 +10,7 @@ import { User } from '../models/user';
 export class LayoutService {
   private portalUrl = 'home';
   constructor(private authentication: AuthenticationService) {
-    console.log("LayoutService constructor");
+    console.log('LayoutService constructor');
     this.authentication.userSubject.subscribe((value: User) => {
       if (localStorage.getItem('currentUrl')) {
         this.portalUrl = localStorage.getItem('currentUrl');
