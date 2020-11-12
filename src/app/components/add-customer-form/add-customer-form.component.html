@@ -1,0 +1,36 @@
+<p>this is the addCustomerForm component! ':/'</p>
+<form  class="addCustomerForm" (ngSubmit)="onSubmit()" [formGroup]="addCustomerForm">
+  <div>
+    <label>firstName</label>
+    <input type="text" formControlName="firstName" />
+    <div *ngIf="addCustomerForm.controls['firstName'].invalid">
+      firstName is required
+    </div>
+  </div>
+
+  <div>
+    <label>lastName</label>
+    <input type="text" formControlName="lastName" />
+    <div *ngIf="addCustomerForm.controls['lastName'].invalid">
+      lastName is required
+    </div>
+  </div>
+
+  <div>
+    <label>email </label>
+    <input type="email" formControlName="email" />
+    <div *ngIf="addCustomerForm.controls['email'].invalid">
+      email is required
+    </div>
+  </div>
+
+  <div>
+    <label>password</label>
+    <input type="password" formControlName="password" />
+    <div *ngIf="addCustomerForm.controls['password'].invalid">
+      password is required
+    </div>
+  </div>
+   <!--this button is failing the navigation to the customer home while stating that the password is inccorect-->
+<button class="registerButton"type="submit" [disabled]="!addCustomerForm.valid">register</button>
+</form>

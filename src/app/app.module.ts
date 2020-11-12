@@ -1,3 +1,4 @@
+import { UpdateCouponFormComponent } from './components/update-coupon-form/update-coupon-form.component';
 import { SendToken } from './service/interseptors/send-token';
 import { routes } from './app.routes';
 import { RouterModule } from '@angular/router';
@@ -18,8 +19,14 @@ import { ConfigComponent } from './config/config/config.component';
 import { AdminHomeComponent } from './components/admin-home/admin-home.component';
 import { CompanyHomeComponent } from './components/company-home/company-home.component';
 import { CustomerHomeComponent } from './components/customer-home/customer-home.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LogOutComponent } from './components/log-out/log-out.component';
+import { AddCustomerFormComponent } from './components/add-customer-form/add-customer-form.component';
+import { UpdateCustomerFormComponent } from './components/update-customer-form/update-customer-form.component';
+import { AddCompanyFormComponent } from './components/add-company-form/add-company-form.component';
+import { UpdateCompanyFormComponent } from './components/update-company-form/update-company-form.component';
+import { AddCouponFormComponent } from './components/add-coupon-form/add-coupon-form.component';
+
 
 @NgModule({
   declarations: [
@@ -36,6 +43,12 @@ import { LogOutComponent } from './components/log-out/log-out.component';
     CompanyHomeComponent,
     CustomerHomeComponent,
     LogOutComponent,
+    AddCustomerFormComponent,
+    UpdateCustomerFormComponent,
+    AddCompanyFormComponent,
+    UpdateCompanyFormComponent,
+    AddCouponFormComponent,
+    UpdateCouponFormComponent
   ],
   imports: [
     HttpClientModule,
@@ -53,4 +66,4 @@ import { LogOutComponent } from './components/log-out/log-out.component';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
