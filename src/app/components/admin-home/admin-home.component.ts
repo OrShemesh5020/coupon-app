@@ -1,4 +1,3 @@
-import { Router } from '@angular/router';
 import { routes } from './../../app.routes';
 import { Customer } from './../../models/customer';
 import { AdminService } from './../../service/admin';

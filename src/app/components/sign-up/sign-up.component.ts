@@ -1,4 +1,3 @@
-import { Router } from '@angular/router';
 import { AuthenticationService } from './../../service/authentication';
 import { User, ClientType } from './../../models/user';
 import { Component, OnInit } from '@angular/core';
