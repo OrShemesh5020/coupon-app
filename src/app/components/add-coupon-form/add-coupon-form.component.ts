@@ -1,3 +1,4 @@
+import { User } from './../../models/user';
 import { AuthenticationService } from './../../service/authentication';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Coupon } from 'src/app/models/coupon';
@@ -23,12 +24,12 @@ export class AddCouponFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if (!this.authentication.userValue || this.authentication.userValue.clientType !== ClientType.COMPANY) {
-      this.router.navigate(['log-out']);
+    if (!this.user || this.user.clientType !== ClientType.COMPANY) {
+      this.router.navigate([this.authentication.getUrl]);
+      return;
     }
     this.couponModel = new Coupon();
     this.activatedRoute.params.subscribe((params) => {
-      console.log(params.companyName);
       this.couponModel.companyName = params.companyName;
     });
 
@@ -76,6 +77,10 @@ export class AddCouponFormComponent implements OnInit {
     return this.addCouponForm.controls;
   }
 
+  private get user(): User {
+    return this.authentication.userValue;
+  }
+
   valuesImplementation(): void {
     this.couponModel.categoryName = this.getter.category.value;
     this.couponModel.title = this.getter.title.value;
@@ -95,7 +100,7 @@ export class AddCouponFormComponent implements OnInit {
     }
     this.valuesImplementation();
     this.companyService.addCoupon(this.couponModel).subscribe(() => {
-      this.router.navigate(['companyHome']);
+      this.router.navigate([this.authentication.getUrl]);
     });
   }
 }
