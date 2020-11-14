@@ -1,3 +1,4 @@
+import { AuthenticationService } from 'src/app/service/authentication';
 import { routes } from './../../app.routes';
 import { CompanyService } from './../../service/company';
 import { Company } from './../../models/company';
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { GeneralService } from 'src/app/service/general';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
+import { ClientType } from 'src/app/models/user';
 
 @Component({
   selector: 'app-company-home',
@@ -16,7 +18,12 @@ export class CompanyHomeComponent implements OnInit {
   company: Company;
   coupons: Coupon[];
 
-  constructor(private companyService: CompanyService, private router: Router) { }
+  constructor(private companyService: CompanyService, private router: Router, private authentication: AuthenticationService) {
+    if (!this.authentication.userValue || authentication.userValue.clientType !== ClientType.COMPANY) {
+      this.router.navigate([this.authentication.getUrl]);
+      return;
+    }
+   }
 
   ngOnInit(): void {
     this.getDetails();
