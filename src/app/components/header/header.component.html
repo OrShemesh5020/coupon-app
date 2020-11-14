@@ -1,24 +1,15 @@
-<!-- <img > -->
 <nav>
   <div class="left-side-links">
-    <a
-      class="link"
-      *ngFor="let item of headerItems"
-      [routerLink]="item.navigation"
-    >
-      {{ item.title }}
-    </a>
+    <a class="link" [routerLink]="authentication.getUrl"> home </a>
+    <a class="link" href="about"> about us </a>
   </div>
   <div class="right-side-links">
-    <div>
-      <a class="link" *ngIf="user" href="log-out">log out</a>
-      <a class="link" *ngIf="!user" href="sign-in">sign in</a>
-      <a class="link" *ngIf="!user" href="sign-up">sign up</a>
+    <div *ngIf="authentication.userValue">
+      <a class="link" href="log-out">log out</a>
+    </div>
+    <div *ngIf="!authentication.userValue">
+      <a class="link" href="sign-in">sign in</a>
+      <a class="link" href="sign-up">sign up</a>
     </div>
   </div>
 </nav>
-<!-- <ul>
-  <li *ngFor="let item of headerItems" [routerLink]="item.navigation">
-    {{ item.title }}
-  </li>
-</ul> -->

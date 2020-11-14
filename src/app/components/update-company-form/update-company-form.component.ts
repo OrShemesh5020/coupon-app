@@ -32,13 +32,13 @@ export class UpdateCompanyFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!this.authentication.userValue || this.authentication.userValue.clientType === ClientType.CUSTOMER) {
-      this.router.navigate(['log-out']);
+    if (!this.user || this.user.clientType === ClientType.CUSTOMER) {
+      this.router.navigate([this.authentication.getUrl]);
     }
     this.companyModel = new Company();
     this.activatedRoute.params.subscribe((params) => {
       if (this.user.clientType === ClientType.COMPANY && this.user.id != params.id) {
-        this.router.navigate(['log-out']);
+        this.router.navigate([this.authentication.getUrl]);
       }
       this.getModel(params.id).subscribe((value: Company) => {
         this.companyModel = value;
@@ -82,10 +82,8 @@ export class UpdateCompanyFormComponent implements OnInit {
 
   private getModel(id: number): Observable<Company> {
     if (this.authentication.userValue.clientType === ClientType.COMPANY) {
-      console.log('geting model from company service');
       return this.companyService.getDetails();
     }
-    console.log('geting model from admin service');
     return this.adminService.getCompanyById(id);
   }
 
@@ -96,12 +94,12 @@ export class UpdateCompanyFormComponent implements OnInit {
     this.valuesImplementation();
     if (this.user.clientType === ClientType.COMPANY) {
       this.companyService.updateDetails(this.companyModel).subscribe(() => {
-        this.router.navigate(['companyHome']);
+        this.router.navigate([this.authentication.getUrl]);
       });
     }
     else if (this.user.clientType === ClientType.ADMINISTRATOR) {
       this.adminService.updateCompany(this.companyModel).subscribe(() => {
-        this.router.navigate(['adminHome']);
+        this.router.navigate([this.authentication.getUrl]);
       });
     }
 

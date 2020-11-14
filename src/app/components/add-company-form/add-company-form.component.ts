@@ -1,5 +1,5 @@
 import { AdminService } from './../../service/admin';
-import { ClientType } from './../../models/user';
+import { ClientType, User } from './../../models/user';
 import { AuthenticationService } from './../../service/authentication';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -24,8 +24,9 @@ export class AddCompanyFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if (this.authentication.userValue && this.authentication.userValue.clientType !== ClientType.ADMINISTRATOR) {
-      this.router.navigate(['log-out']);
+    if (this.user && this.user.clientType !== ClientType.ADMINISTRATOR) {
+      this.router.navigate([this.authentication.getUrl]);
+      return;
     }
     this.companyModel = new Company();
     this.addCompanyForm = this.formBuilder.group({
@@ -56,23 +57,27 @@ export class AddCompanyFormComponent implements OnInit {
     });
   }
 
+  private get user(): User {
+    return this.authentication.userValue;
+  }
+
   onSubmit(): void {
     if (this.addCompanyForm.invalid) {
       return;
     }
     this.valuesImplementation();
-    if (!this.authentication.userValue) {
+    if (!this.user) {
       this.generalService.registerCompany(this.companyModel).subscribe(() => {
         this.authentication
           .login(this.companyModel.email, this.companyModel.password)
           .subscribe(() => {
-            this.router.navigate(['companyHome']);
+            this.router.navigate([this.authentication.getUrl]);
           });
       });
     }
-    else if (this.authentication.userValue.clientType === ClientType.ADMINISTRATOR) {
+    else if (this.user.clientType === ClientType.ADMINISTRATOR) {
       this.adminService.addCompany(this.companyModel).subscribe(() => {
-        this.router.navigate(['adminHome']);
+        this.router.navigate([this.authentication.getUrl]);
       });
     }
   }

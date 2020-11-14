@@ -29,9 +29,6 @@ export class UpdateCustomerFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router
   ) {
-    // need to review this piece of code, i used it so the updateForm can initialize
-    // the values, because otherwise the console gives the error:
-    // core.js:4197 ERROR Error: formGroup expects a FormGroup instance. Please pass one in.
     this.updateCustomerForm = new FormGroup({
       firstName: new FormControl(),
       lastName: new FormControl(),
@@ -42,7 +39,7 @@ export class UpdateCustomerFormComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.user || this.user.clientType === ClientType.COMPANY) {
-      this.router.navigate(['log-out']);
+      this.router.navigate([this.authentication.getUrl]);
       return;
     }
     this.activatedRoute.params.subscribe((params) => {
@@ -68,14 +65,14 @@ export class UpdateCustomerFormComponent implements OnInit {
     this.valuesImplementation();
     if (this.user.clientType === ClientType.ADMINISTRATOR) {
       this.adminService.updateCustomer(this.customerModel).subscribe(() => {
-        this.router.navigate(['adminHome']);
+        this.router.navigate([this.authentication.getUrl]);
       });
       return;
     }
     this.customerService
       .updateCustomerDetails(this.customerModel)
       .subscribe(() => {
-        this.router.navigate(['customerHome']);
+        this.router.navigate([this.authentication.getUrl]);
       });
   }
 
@@ -85,8 +82,6 @@ export class UpdateCustomerFormComponent implements OnInit {
     this.customerModel.email = this.getter.email.value;
     this.customerModel.password = this.getter.password.value;
   }
-  // this is a short-cut to the controls of the form
-  // tslint:disable-next-line: typedef
   private get getter() {
     return this.updateCustomerForm.controls;
   }
@@ -108,10 +103,7 @@ export class UpdateCustomerFormComponent implements OnInit {
           Validators.required,
           Validators.minLength(2),
           Validators.maxLength(45),
-        ], // here i tried making the function validate that the name does not contain any numbers, but the pattern validator
-        // doesnt accept a Pattern variable to validate by???
-        // i need to add ['A-Za-z'] pattern to the TEMPLATE of this class
-        // new PatternValidator(),
+        ],
       ],
 
       lastName: [

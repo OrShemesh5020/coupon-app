@@ -34,16 +34,13 @@ export class UpdateCouponFormComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.user || this.user.clientType !== ClientType.COMPANY) {
-      this.router.navigate(['log-out']);
+      this.router.navigate([this.authentication.getUrl]);
       return;
     }
     this.couponModel = new Coupon();
     this.activatedRoute.params.subscribe((params) => {
-
-      console.log('UpdateCouponFoemComponent:' + params.id);
       this.companyService.getCouponById(params.id).subscribe((value: Coupon) => {
         this.couponModel = value;
-        console.log('couponModel: ' + this.couponModel);
         this.editcouponFormInitialization();
       });
     });
@@ -55,7 +52,7 @@ export class UpdateCouponFormComponent implements OnInit {
     }
     this.valuesImplementation();
     this.companyService.updateCoupon(this.couponModel).subscribe(() => {
-      this.router.navigate(['companyHome']);
+      this.router.navigate([this.authentication.getUrl]);
     });
   }
 
