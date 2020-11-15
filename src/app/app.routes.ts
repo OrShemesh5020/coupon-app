@@ -1,3 +1,4 @@
+import { AuthGuard } from './service/auth-guard';
 import { UpdateCustomerFormComponent } from './components/update-customer-form/update-customer-form.component';
 import { AddCustomerFormComponent } from './components/add-customer-form/add-customer-form.component';
 import { UpdateCompanyFormComponent } from './components/update-company-form/update-company-form.component';
@@ -17,18 +18,18 @@ import { CustomerHomeComponent } from './components/customer-home/customer-home.
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'home/administrator', component: AdminHomeComponent },
+  { path: 'home/administrator', component: AdminHomeComponent, canActivate: [AuthGuard] },
   { path: 'home/company', component: CompanyHomeComponent },
   { path: 'addCompanyForm', component: AddCompanyFormComponent },
   { path: 'updateCompanyForm/:id', component: UpdateCompanyFormComponent },
   { path: 'addCouponForm/:companyName', component: AddCouponFormComponent },
-  { path: 'updateCouponForm/:id', component: UpdateCouponFormComponent},
+  { path: 'updateCouponForm/:id', component: UpdateCouponFormComponent },
   { path: 'home/customer', component: CustomerHomeComponent },
   { path: 'addCustomerForm', component: AddCustomerFormComponent },
-  { path: 'updateCustomerForm/:id', component: UpdateCustomerFormComponent},
+  { path: 'updateCustomerForm/:id', component: UpdateCustomerFormComponent },
   { path: 'about', component: AboutUsComponent },
   { path: 'sign-in', component: SignInComponent },
-  { path: 'log-out', component: LogOutComponent},
+  { path: 'log-out', component: LogOutComponent },
   { path: 'sign-up', component: SignUpComponent },
   { path: '**', component: PageNotFoundComponent },
 
