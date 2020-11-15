@@ -1,3 +1,4 @@
+import { AuthenticationService } from 'src/app/service/authentication';
 import { Router } from '@angular/router';
 import { Coupon } from './../../models/coupon';
 import { Customer } from 'src/app/models/customer';
@@ -15,7 +16,8 @@ export class CustomerHomeComponent implements OnInit {
 
   constructor(
     private customerService: CustomerService,
-    private router: Router
+    private router: Router,
+    private authentication: AuthenticationService
   ) { }
 
   ngOnInit(): void {
@@ -32,7 +34,7 @@ export class CustomerHomeComponent implements OnInit {
     });
   }
   updateDetails(): void {
-    this.router.navigate(['updateCustomerForm', this.customer.id]);
+    this.router.navigate([`${this.authentication.getUrl}/update-details`, this.customer.id]);
   }
   purchaseCoupon(couponId: number): void {
     this.customerService.getCoupon(couponId).subscribe((value: Coupon) => {

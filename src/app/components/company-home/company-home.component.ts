@@ -1,3 +1,4 @@
+import { AuthenticationService } from 'src/app/service/authentication';
 import { CompanyService } from './../../service/company';
 import { Company } from './../../models/company';
 import { Coupon } from './../../models/coupon';
@@ -13,7 +14,7 @@ export class CompanyHomeComponent implements OnInit {
   company: Company;
   coupons: Coupon[];
 
-  constructor(private companyService: CompanyService, private router: Router) { }
+  constructor(private companyService: CompanyService, private router: Router, private authentication: AuthenticationService) { }
 
   ngOnInit(): void {
     this.getDetails();
@@ -23,11 +24,11 @@ export class CompanyHomeComponent implements OnInit {
   }
 
   addCoupon(): void {
-    this.router.navigate(['addCouponForm', this.company.name]);
+    this.router.navigate([`${this.authentication.getUrl}/add-coupon`, this.company.name]);
   }
 
   updateCoupon(couponId: number): void {
-    this.router.navigate(['updateCouponForm', couponId]);
+    this.router.navigate([`${this.authentication.getUrl}/update/coupon`, couponId]);
   }
 
 
@@ -64,7 +65,7 @@ export class CompanyHomeComponent implements OnInit {
   }
 
   updateCompany(): void {
-    this.router.navigate(['updateCompanyForm', this.company.id]);
+    this.router.navigate([`${this.authentication.getUrl}/update/details`, this.company.id]);
   }
 
   getAllCoupons(): void {

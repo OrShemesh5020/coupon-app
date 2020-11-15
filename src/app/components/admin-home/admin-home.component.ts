@@ -1,3 +1,4 @@
+import { AuthenticationService } from 'src/app/service/authentication';
 import { Customer } from './../../models/customer';
 import { AdminService } from './../../service/admin';
 import { Component, OnInit } from '@angular/core';
@@ -13,18 +14,18 @@ export class AdminHomeComponent implements OnInit {
   companies: Company[];
   customers: Customer[];
 
-  constructor(private adminService: AdminService, private router: Router) { }
+  constructor(private adminService: AdminService, private router: Router, private authentication: AuthenticationService) { }
 
   ngOnInit(): void {
     this.loadElements();
   }
 
   addCompany(): void {
-    this.router.navigate(['addCompanyForm']);
+    this.router.navigate([`${this.authentication.getUrl}/add/company`]);
   }
 
   updateCompany(id: number): void {
-    this.router.navigate(['updateCompanyForm', id]);
+    this.router.navigate([`${this.authentication.getUrl}/update/company`, id]);
   }
 
   deleteCompany(id: number): void {
@@ -46,11 +47,11 @@ export class AdminHomeComponent implements OnInit {
   }
 
   addCustomer(): void {
-    this.router.navigate(['addCustomerForm']);
+    this.router.navigate([`${this.authentication.getUrl}/add/customer`]);
   }
 
   updateCustomer(id: number): void {
-    this.router.navigate(['updateCustomerForm', id]);
+    this.router.navigate([`${this.authentication.getUrl}/update/customer`, id]);
   }
 
   deleteCustomer(id: number): void {

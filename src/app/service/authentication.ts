@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { User } from './../models/user';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
@@ -10,7 +11,7 @@ import { map } from 'rxjs/operators';
 export class AuthenticationService {
   userSubject: BehaviorSubject<User>;
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private router: Router) {
     this.userSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('activeUser')));
   }
 
@@ -20,7 +21,7 @@ export class AuthenticationService {
 
   public get getUrl(): string {
     if (!this.userValue) {
-      return '';
+      return 'home/public';
     }
     return `home/${this.userValue.clientType.toLowerCase()}`;
   }
@@ -47,5 +48,6 @@ export class AuthenticationService {
   public logout(): void {
     localStorage.removeItem('activeUser');
     this.userSubject.next(null);
+    this.router.navigate(['/']);
   }
 }
