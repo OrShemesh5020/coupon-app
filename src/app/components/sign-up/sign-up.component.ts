@@ -1,3 +1,4 @@
+import { AuthenticationService } from 'src/app/service/authentication';
 import { User } from './../../models/user';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -10,7 +11,12 @@ import { Router } from '@angular/router';
 export class SignUpComponent implements OnInit {
   user: User;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authentication: AuthenticationService) {
+    if (this.authentication.userValue) {
+      this.router.navigate([this.authentication.getUrl]);
+      return;
+    }
+  }
 
   ngOnInit(): void { }
 
