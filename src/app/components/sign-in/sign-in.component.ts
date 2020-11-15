@@ -1,6 +1,5 @@
 import { AuthenticationService } from './../../service/authentication';
 import { Router } from '@angular/router';
-import { User } from './../../models/user';
 import { Component, Injectable, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -19,12 +18,7 @@ export class SignInComponent implements OnInit {
   constructor(
     private authentication: AuthenticationService,
     private router: Router,
-    private formBuilder: FormBuilder) {
-      if (this.authentication.userValue) {
-        this.router.navigate([this.authentication.getUrl]);
-        return;
-      }
-  }
+    private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
 
@@ -43,8 +37,15 @@ export class SignInComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
-    this.authentication.login(this.getter.email.value, this.getter.password.value).subscribe((value: User) => {
+    this.authentication.login(this.getter.email.value, this.getter.password.value).subscribe(() => {
       this.router.navigate([this.authentication.getUrl]);
     });
+  }
+
+  registerCompany(): void {
+    this.router.navigate([`${this.authentication.getUrl}/sign-up/company`]);
+  }
+  registerCustomer(): void {
+    this.router.navigate([`${this.authentication.getUrl}/sign-up/customer`]);
   }
 }
