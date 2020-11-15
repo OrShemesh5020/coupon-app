@@ -5,11 +5,10 @@
   </div>
   <div class="right-side-links">
     <div *ngIf="authentication.userValue">
-      <a class="link" href="log-out">log out</a>
+      <a class="link" (click)="authentication.logout()">log out</a>
     </div>
     <div *ngIf="!authentication.userValue">
       <a class="link" href="sign-in">sign in</a>
-      <a class="link" href="sign-up">sign up</a>
     </div>
   </div>
 </nav>

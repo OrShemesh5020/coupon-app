@@ -9,7 +9,6 @@ import { Injectable } from '@angular/core';
 })
 export class AuthGuard implements CanActivate {
 
-  // private connectionRequired: boolean;
   private disconnectionRequired: boolean;
   private clientType: ClientType;
   constructor(private router: Router, private authentication: AuthenticationService) { }
