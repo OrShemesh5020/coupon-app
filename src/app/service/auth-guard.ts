@@ -16,30 +16,16 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     this.clientType = route.data.clientType;
-    this.connectionRequired = route.data.connectionRequired;
-    this.disconnectionRequired = route.data.disconnectionRequired;
 
-    if (this.disconnectionRequired) {
-      if (this.hasConnection()) {
-        this.router.navigate([this.authentication.getUrl]);
-        return false;
-      }
-      return true;
+    if (!this.hasConnection()) {
+      this.router.navigate(['sign-in']);
+      return false;
     }
-
-    if (this.connectionRequired) {
-      if (!this.hasConnection()) {
-        this.router.navigate(['sign-in']);
-        return false;
-      }
-      if (!this.theUserTypeMatches()) {
-        this.router.navigate([this.authentication.getUrl]);
-        return false;
-      }
-      return true;
+    if (!this.theUserTypeMatches()) {
+      this.router.navigate([this.authentication.getUrl]);
+      return false;
     }
-
-
+    return true;
   }
 
   private hasConnection(): boolean {
