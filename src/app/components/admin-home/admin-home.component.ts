@@ -1,11 +1,8 @@
-import { AuthenticationService } from 'src/app/service/authentication';
-import { routes } from './../../app.routes';
 import { Customer } from './../../models/customer';
 import { AdminService } from './../../service/admin';
 import { Component, OnInit } from '@angular/core';
 import { Company } from 'src/app/models/company';
 import { Router } from '@angular/router';
-import { ClientType } from 'src/app/models/user';
 
 @Component({
   selector: 'app-admin-home',
@@ -16,12 +13,7 @@ export class AdminHomeComponent implements OnInit {
   companies: Company[];
   customers: Customer[];
 
-  constructor(private adminService: AdminService, private router: Router, private authentication: AuthenticationService) {
-    if (!this.authentication.userValue || authentication.userValue.clientType !== ClientType.ADMINISTRATOR) {
-      this.router.navigate([this.authentication.getUrl]);
-      return;
-    }
-  }
+  constructor(private adminService: AdminService, private router: Router) { }
 
   ngOnInit(): void {
     this.loadElements();
