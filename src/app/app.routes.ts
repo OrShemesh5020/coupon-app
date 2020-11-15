@@ -23,19 +23,13 @@ export const routes: Routes = [
     path: 'home/administrator',
     component: AdminHomeComponent,
     canActivate: [AuthGuard],
-    data: {
-      connectionRequired: true,
-      clientType: ClientType.ADMINISTRATOR
-    }
+    data: { clientType: ClientType.ADMINISTRATOR }
   },
   {
     path: 'home/company',
     component: CompanyHomeComponent,
     canActivate: [AuthGuard],
-    data: {
-      connectionRequired: true,
-      clientType: ClientType.COMPANY
-    }
+    data: { clientType: ClientType.COMPANY }
   },
   { path: 'addCompanyForm', component: AddCompanyFormComponent },
   { path: 'updateCompanyForm/:id', component: UpdateCompanyFormComponent },
@@ -45,30 +39,15 @@ export const routes: Routes = [
     path: 'home/customer',
     component: CustomerHomeComponent,
     canActivate: [AuthGuard],
-    data: {
-      connectionRequired: true,
-      clientType: ClientType.CUSTOMER
-    }
+    data: { clientType: ClientType.CUSTOMER }
   },
   { path: 'addCustomerForm', component: AddCustomerFormComponent },
   { path: 'updateCustomerForm/:id', component: UpdateCustomerFormComponent },
   { path: 'about', component: AboutUsComponent },
-  {
-    path: 'sign-in',
-    component: SignInComponent,
-    canActivate: [AuthGuard],
-    data: {
-      disconnectionRequired: true,
-    }
-  },
+  { path: 'sign-in', component: SignInComponent },
   { path: 'log-out', component: LogOutComponent },
   {
-    path: 'sign-up',
-    component: SignUpComponent,
-    canActivate: [AuthGuard],
-    data: {
-      disconnectionRequired: true,
-    }
+    path: 'sign-up', component: SignUpComponent
   },
   { path: '**', component: PageNotFoundComponent },
 
