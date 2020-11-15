@@ -32,9 +32,6 @@ export class UpdateCompanyFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!this.user || this.user.clientType === ClientType.CUSTOMER) {
-      this.router.navigate([this.authentication.getUrl]);
-    }
     this.companyModel = new Company();
     this.activatedRoute.params.subscribe((params) => {
       if (this.user.clientType === ClientType.COMPANY && this.user.id != params.id) {

@@ -38,16 +38,12 @@ export class UpdateCustomerFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!this.user || this.user.clientType === ClientType.COMPANY) {
-      this.router.navigate([this.authentication.getUrl]);
-      return;
-    }
     this.activatedRoute.params.subscribe((params) => {
       if (
         this.user.clientType === ClientType.CUSTOMER &&
         this.user.id != params.id
       ) {
-        this.router.navigate(['log-out']);
+        this.router.navigate([this.authentication.getUrl]);
         return;
       }
       this.customerModel = new Customer();
