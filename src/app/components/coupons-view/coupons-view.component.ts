@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./coupons-view.component.scss']
 })
 export class CouponsViewComponent implements OnInit {
-  ccoupons: Coupon[];
+  coupons: Coupon[];
   constructor() { }
 
   ngOnInit(): void {
