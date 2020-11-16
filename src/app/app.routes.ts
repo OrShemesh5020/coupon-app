@@ -128,10 +128,6 @@ export const routes: Routes = [
       }
     ]
   },
-  { path: 'updateCompanyForm/:id', component: UpdateCompanyFormComponent },
-  { path: 'addCouponForm/:companyName', component: AddCouponFormComponent },
-  { path: 'updateCouponForm/:id', component: UpdateCouponFormComponent },
-  { path: 'updateCustomerForm/:id', component: UpdateCustomerFormComponent },
   { path: 'about', component: AboutUsComponent },
   {
     path: 'sign-in', component: SignInComponent,
