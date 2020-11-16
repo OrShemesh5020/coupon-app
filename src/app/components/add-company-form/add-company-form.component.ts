@@ -24,10 +24,6 @@ export class AddCompanyFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if (this.user && this.user.clientType !== ClientType.ADMINISTRATOR) {
-      this.router.navigate([this.authentication.getUrl]);
-      return;
-    }
     this.companyModel = new Company();
     this.addCompanyForm = this.formBuilder.group({
       name:

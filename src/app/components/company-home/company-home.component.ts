@@ -1,13 +1,9 @@
 import { AuthenticationService } from 'src/app/service/authentication';
-import { routes } from './../../app.routes';
 import { CompanyService } from './../../service/company';
 import { Company } from './../../models/company';
 import { Coupon } from './../../models/coupon';
 import { Component, OnInit } from '@angular/core';
-import { GeneralService } from 'src/app/service/general';
-import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
-import { ClientType } from 'src/app/models/user';
 
 @Component({
   selector: 'app-company-home',
@@ -18,12 +14,7 @@ export class CompanyHomeComponent implements OnInit {
   company: Company;
   coupons: Coupon[];
 
-  constructor(private companyService: CompanyService, private router: Router, private authentication: AuthenticationService) {
-    if (!this.authentication.userValue || authentication.userValue.clientType !== ClientType.COMPANY) {
-      this.router.navigate([this.authentication.getUrl]);
-      return;
-    }
-   }
+  constructor(private companyService: CompanyService, private router: Router, private authentication: AuthenticationService) { }
 
   ngOnInit(): void {
     this.getDetails();
@@ -33,11 +24,11 @@ export class CompanyHomeComponent implements OnInit {
   }
 
   addCoupon(): void {
-    this.router.navigate(['addCouponForm', this.company.name]);
+    this.router.navigate([`${this.authentication.getUrl}/add-coupon`, this.company.name]);
   }
 
   updateCoupon(couponId: number): void {
-    this.router.navigate(['updateCouponForm', couponId]);
+    this.router.navigate([`${this.authentication.getUrl}/update/coupon`, couponId]);
   }
 
 
@@ -74,7 +65,7 @@ export class CompanyHomeComponent implements OnInit {
   }
 
   updateCompany(): void {
-    this.router.navigate(['updateCompanyForm', this.company.id]);
+    this.router.navigate([`${this.authentication.getUrl}/update/details`, this.company.id]);
   }
 
   getAllCoupons(): void {

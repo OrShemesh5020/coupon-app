@@ -1,35 +1,139 @@
+import { ClientType } from 'src/app/models/user';
+import { AuthGuard } from './service/auth-guard';
 import { UpdateCustomerFormComponent } from './components/update-customer-form/update-customer-form.component';
 import { AddCustomerFormComponent } from './components/add-customer-form/add-customer-form.component';
 import { UpdateCompanyFormComponent } from './components/update-company-form/update-company-form.component';
 import { AddCompanyFormComponent } from './components/add-company-form/add-company-form.component';
 import { UpdateCouponFormComponent } from './components/update-coupon-form/update-coupon-form.component';
 import { AddCouponFormComponent } from './components/add-coupon-form/add-coupon-form.component';
-import { LogOutComponent } from './components/log-out/log-out.component';
-import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { AboutUsComponent } from './components/about-us/about-us.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { HomeComponent } from './components/home/home.component';
-import { Routes } from '@angular/router';
+import { Routes, CanActivate } from '@angular/router';
 import { AdminHomeComponent } from './components/admin-home/admin-home.component';
 import { CompanyHomeComponent } from './components/company-home/company-home.component';
 import { CustomerHomeComponent } from './components/customer-home/customer-home.component';
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
-  { path: 'home/administrator', component: AdminHomeComponent },
-  { path: 'home/company', component: CompanyHomeComponent },
-  { path: 'addCompanyForm', component: AddCompanyFormComponent },
-  { path: 'updateCompanyForm/:id', component: UpdateCompanyFormComponent },
-  { path: 'addCouponForm/:companyName', component: AddCouponFormComponent },
-  { path: 'updateCouponForm/:id', component: UpdateCouponFormComponent},
-  { path: 'home/customer', component: CustomerHomeComponent },
-  { path: 'addCustomerForm', component: AddCustomerFormComponent },
-  { path: 'updateCustomerForm/:id', component: UpdateCustomerFormComponent},
+  {
+    path: 'home',
+    children: [
+      { path: '', pathMatch: 'full', redirectTo: 'public' },
+      {
+        path: 'public',
+        children: [
+          { path: '', component: HomeComponent },
+          {
+            path: 'sign-up',
+            children: [
+              {
+                path: 'company', component: AddCompanyFormComponent,
+                canActivate: [AuthGuard],
+                data: { disconnectionRequired: true }
+              },
+              {
+                path: 'customer', component: AddCustomerFormComponent,
+                canActivate: [AuthGuard],
+                data: { disconnectionRequired: true }
+              }
+            ]
+          },
+        ]
+      },
+      {
+        path: 'administrator',
+        children: [
+          {
+            path: '', component: AdminHomeComponent,
+            canActivate: [AuthGuard],
+            data: { clientType: ClientType.ADMINISTRATOR }
+          },
+          {
+            path: 'add',
+            children: [
+              {
+                path: 'company', component: AddCompanyFormComponent,
+                canActivate: [AuthGuard],
+                data: { clientType: ClientType.ADMINISTRATOR }
+              },
+              {
+                path: 'customer', component: AddCustomerFormComponent,
+                canActivate: [AuthGuard],
+                data: { clientType: ClientType.ADMINISTRATOR }
+              }
+            ]
+          },
+          {
+            path: 'update',
+            children: [
+              {
+                path: 'company/:id', component: UpdateCompanyFormComponent,
+                canActivate: [AuthGuard],
+                data: { clientType: ClientType.ADMINISTRATOR }
+              },
+              {
+                path: 'customer/:id', component: UpdateCustomerFormComponent,
+                canActivate: [AuthGuard],
+                data: { clientType: ClientType.ADMINISTRATOR }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        path: 'company',
+        children: [
+          {
+            path: '', component: CompanyHomeComponent,
+            canActivate: [AuthGuard],
+            data: { clientType: ClientType.COMPANY }
+          },
+          {
+            path: 'add-coupon/:companyName', component: AddCouponFormComponent,
+            canActivate: [AuthGuard],
+            data: { clientType: ClientType.COMPANY }
+          },
+          {
+            path: 'update',
+            children: [
+              {
+                path: 'details/:id', component: UpdateCompanyFormComponent,
+                canActivate: [AuthGuard],
+                data: { clientType: ClientType.COMPANY }
+              },
+              {
+                path: 'coupon/:id', component: UpdateCouponFormComponent,
+                canActivate: [AuthGuard],
+                data: { clientType: ClientType.COMPANY }
+              }
+            ]
+          },
+        ]
+      },
+      {
+        path: 'customer',
+        children: [
+          {
+            path: '', component: CustomerHomeComponent,
+            canActivate: [AuthGuard],
+            data: { clientType: ClientType.CUSTOMER }
+          },
+          {
+            path: 'update-details/:id', component: UpdateCustomerFormComponent,
+            canActivate: [AuthGuard],
+            data: { clientType: ClientType.CUSTOMER }
+          }
+        ]
+      }
+    ]
+  },
   { path: 'about', component: AboutUsComponent },
-  { path: 'sign-in', component: SignInComponent },
-  { path: 'log-out', component: LogOutComponent},
-  { path: 'sign-up', component: SignUpComponent },
+  {
+    path: 'sign-in', component: SignInComponent,
+    canActivate: [AuthGuard],
+    data: { disconnectionRequired: true }
+  },
   { path: '**', component: PageNotFoundComponent },
 
 ];

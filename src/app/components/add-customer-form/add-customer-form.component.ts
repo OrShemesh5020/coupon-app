@@ -29,13 +29,6 @@ export class AddCustomerFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if (
-      this.user &&
-      this.user.clientType !== ClientType.ADMINISTRATOR
-    ) {
-      this.router.navigate([this.authentication.getUrl]);
-      return;
-    }
     this.customerModel = new Customer();
     this.addCustomerForm = this.formBuilder.group({
       firstName: [

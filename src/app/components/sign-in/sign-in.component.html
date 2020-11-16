@@ -13,11 +13,12 @@
       password is required
     </div>
   </div>
-  <br/>
-  <br/>
-  <button type="submit" [disabled]="!loginForm.valid">
-    log in
-  </button>
+  <br />
+  <br />
+  <button type="submit" [disabled]="!loginForm.valid">log in</button>
 </form>
-<!-- <button (click)="onSubmit()">login</button> -->
-<!-- <button (click)="loadCoupons()">load coupons</button> -->
+<br />
+<p>Not registered yet?</p>
+<a (click)="registerCustomer()">Join our hundreds of satisfied customers</a>
+<br />
+<a (click)="registerCompany()">Let's be one of our coupon marketers</a>

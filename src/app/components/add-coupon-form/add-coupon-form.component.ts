@@ -24,10 +24,6 @@ export class AddCouponFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if (!this.user || this.user.clientType !== ClientType.COMPANY) {
-      this.router.navigate([this.authentication.getUrl]);
-      return;
-    }
     this.couponModel = new Coupon();
     this.activatedRoute.params.subscribe((params) => {
       this.couponModel.companyName = params.companyName;

@@ -4,8 +4,6 @@ import { Coupon } from './../../models/coupon';
 import { Customer } from 'src/app/models/customer';
 import { CustomerService } from './../../service/customer';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { ClientType } from 'src/app/models/user';
 
 @Component({
   selector: 'app-customer-home',
@@ -20,12 +18,7 @@ export class CustomerHomeComponent implements OnInit {
     private customerService: CustomerService,
     private router: Router,
     private authentication: AuthenticationService
-  ) {
-    if (!this.authentication.userValue || authentication.userValue.clientType !== ClientType.CUSTOMER) {
-      this.router.navigate([this.authentication.getUrl]);
-      return;
-    }
-  }
+  ) { }
 
   ngOnInit(): void {
     this.getDetails();
@@ -41,7 +34,7 @@ export class CustomerHomeComponent implements OnInit {
     });
   }
   updateDetails(): void {
-    this.router.navigate(['updateCustomerForm', this.customer.id]);
+    this.router.navigate([`${this.authentication.getUrl}/update-details`, this.customer.id]);
   }
   purchaseCoupon(couponId: number): void {
     this.customerService.getCoupon(couponId).subscribe((value: Coupon) => {
