@@ -10,6 +10,7 @@ export class CustomersViewComponent implements OnInit {
   @Input() customersView: Customer[];
   @Output() updateCustomer: EventEmitter<Customer> = new EventEmitter();
   @Output() deleteCustomer: EventEmitter<Customer> = new EventEmitter();
+  @Output() addCustomer: EventEmitter<void> = new EventEmitter();
   constructor() { }
 
   ngOnInit(): void {
@@ -20,5 +21,8 @@ export class CustomersViewComponent implements OnInit {
   }
   onDeleteCustomer(customer: Customer): void {
     this.deleteCustomer.emit(customer);
+  }
+  onAddCustomer(): void {
+    this.addCustomer.emit();
   }
 }
