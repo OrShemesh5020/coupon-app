@@ -1,8 +1,8 @@
+import { Company } from './../../models/company';
 import { AuthenticationService } from 'src/app/service/authentication';
 import { Customer } from './../../models/customer';
 import { AdminService } from './../../service/admin';
 import { Component, OnInit } from '@angular/core';
-import { Company } from 'src/app/models/company';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,6 +13,8 @@ import { Router } from '@angular/router';
 export class AdminHomeComponent implements OnInit {
   companies: Company[];
   customers: Customer[];
+  displayCompanies = true;
+  buttonText = 'show all customers';
 
   constructor(private adminService: AdminService, private router: Router, private authentication: AuthenticationService) { }
 
@@ -24,12 +26,12 @@ export class AdminHomeComponent implements OnInit {
     this.router.navigate([`${this.authentication.getUrl}/add/company`]);
   }
 
-  updateCompany(id: number): void {
-    this.router.navigate([`${this.authentication.getUrl}/update/company`, id]);
+  updateCompany(company: Company): void {
+    this.router.navigate([`${this.authentication.getUrl}/update/company`, company.id]);
   }
 
-  deleteCompany(id: number): void {
-    this.adminService.deleteCompany(id).subscribe(() => {
+  deleteCompany(company: Company): void {
+    this.adminService.deleteCompany(company.id).subscribe(() => {
       this.loadCompanies();
     });
   }
@@ -50,12 +52,12 @@ export class AdminHomeComponent implements OnInit {
     this.router.navigate([`${this.authentication.getUrl}/add/customer`]);
   }
 
-  updateCustomer(id: number): void {
-    this.router.navigate([`${this.authentication.getUrl}/update/customer`, id]);
+  updateCustomer(customer: Customer): void {
+    this.router.navigate([`${this.authentication.getUrl}/update/customer`, customer.id]);
   }
 
-  deleteCustomer(id: number): void {
-    this.adminService.deleteCustomer(id).subscribe(() => {
+  deleteCustomer(customer: Customer): void {
+    this.adminService.deleteCustomer(customer.id).subscribe(() => {
       this.loadCustomers();
     });
   }
@@ -66,6 +68,15 @@ export class AdminHomeComponent implements OnInit {
     });
   }
 
+  switchDisplay(): void {
+    this.displayCompanies = !this.displayCompanies;
+    if (this.displayCompanies) {
+      this.buttonText = 'show all customers';
+    } else {
+      this.buttonText = 'show all companies';
+    }
+  }
+
   loadElements(): void {
     this.loadCompanies();
     this.loadCustomers();
@@ -74,14 +85,12 @@ export class AdminHomeComponent implements OnInit {
   loadCompanies(): void {
     this.adminService.loadCompanies().subscribe((values: Company[]) => {
       this.companies = values;
-      console.log(values);
     });
   }
 
   loadCustomers(): void {
     this.adminService.loadCustomers().subscribe((values: Customer[]) => {
       this.customers = values;
-      console.log(values);
     });
   }
 }

@@ -90,7 +90,7 @@ export const routes: Routes = [
             data: { clientType: ClientType.COMPANY }
           },
           {
-            path: 'add-coupon/:companyName', component: AddCouponFormComponent,
+            path: 'add-coupon', component: AddCouponFormComponent,
             canActivate: [AuthGuard],
             data: { clientType: ClientType.COMPANY }
           },
@@ -98,7 +98,7 @@ export const routes: Routes = [
             path: 'update',
             children: [
               {
-                path: 'details/:id', component: UpdateCompanyFormComponent,
+                path: 'details', component: UpdateCompanyFormComponent,
                 canActivate: [AuthGuard],
                 data: { clientType: ClientType.COMPANY }
               },
@@ -120,7 +120,7 @@ export const routes: Routes = [
             data: { clientType: ClientType.CUSTOMER }
           },
           {
-            path: 'update-details/:id', component: UpdateCustomerFormComponent,
+            path: 'update-details', component: UpdateCustomerFormComponent,
             canActivate: [AuthGuard],
             data: { clientType: ClientType.CUSTOMER }
           }

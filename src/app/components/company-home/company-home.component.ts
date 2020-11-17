@@ -24,7 +24,7 @@ export class CompanyHomeComponent implements OnInit {
   }
 
   addCoupon(): void {
-    this.router.navigate([`${this.authentication.getUrl}/add-coupon`, this.company.name]);
+    this.router.navigate([`${this.authentication.getUrl}/add-coupon`]);
   }
 
   updateCoupon(couponId: number): void {
@@ -65,7 +65,7 @@ export class CompanyHomeComponent implements OnInit {
   }
 
   updateCompany(): void {
-    this.router.navigate([`${this.authentication.getUrl}/update/details`, this.company.id]);
+    this.router.navigate([`${this.authentication.getUrl}/update/details`]);
   }
 
   getAllCoupons(): void {

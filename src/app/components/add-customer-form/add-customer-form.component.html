@@ -1,4 +1,8 @@
-<form  class="addCustomerForm" (ngSubmit)="onSubmit()" [formGroup]="addCustomerForm">
+<form
+  class="addCustomerForm"
+  (ngSubmit)="onSubmit()"
+  [formGroup]="addCustomerForm"
+>
   <div>
     <label>firstName</label>
     <input type="text" formControlName="firstName" />
@@ -30,6 +34,11 @@
       password is required
     </div>
   </div>
-   <!--this button is failing the navigation to the customer home while stating that the password is inccorect-->
-<button class="registerButton"type="submit" [disabled]="!addCustomerForm.valid">register</button>
+  <button
+    class="registerButton"
+    type="submit"
+    [disabled]="!addCustomerForm.valid"
+  >
+    {{ buttonText }}
+  </button>
 </form>

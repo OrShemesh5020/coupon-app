@@ -1,5 +1,5 @@
 import { Customer } from './../../models/customer';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-customers-view',
@@ -7,10 +7,22 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./customers-view.component.scss']
 })
 export class CustomersViewComponent implements OnInit {
-  @Input() customers: Customer[];
+  @Input() customersView: Customer[];
+  @Output() updateCustomer: EventEmitter<Customer> = new EventEmitter();
+  @Output() deleteCustomer: EventEmitter<Customer> = new EventEmitter();
+  @Output() addCustomer: EventEmitter<void> = new EventEmitter();
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  onEditCustomer(customer: Customer): void {
+    this.updateCustomer.emit(customer);
+  }
+  onDeleteCustomer(customer: Customer): void {
+    this.deleteCustomer.emit(customer);
+  }
+  onAddCustomer(): void {
+    this.addCustomer.emit();
+  }
 }

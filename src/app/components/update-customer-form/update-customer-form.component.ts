@@ -39,13 +39,6 @@ export class UpdateCustomerFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
-      if (
-        this.user.clientType === ClientType.CUSTOMER &&
-        this.user.id != params.id
-      ) {
-        this.router.navigate([this.authentication.getUrl]);
-        return;
-      }
       this.customerModel = new Customer();
       this.getModel(params.id).subscribe((value: Customer) => {
         this.customerModel = value;

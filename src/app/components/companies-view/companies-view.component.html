@@ -1,16 +1,22 @@
 <div>
+  <h2>Companies</h2>
+  <button class="rightButton" (click)="onAddCompany()">addCompany</button>
   <table>
     <thead>
       <th>id</th>
       <th>name</th>
       <th>email</th>
       <th>password</th>
+      <th>edit</th>
+      <th>delete</th>
     </thead>
-    <tr *ngFor="let company of companies" >
+    <tr *ngFor="let company of companiesView" >
       <td>{{company.id}}</td>
       <td>{{company.name}}</td>
       <td>{{company.email}}</td>
       <td>{{company.password}}</td>
+      <td><button (click)="onEditCompany(company)">E</button></td>
+      <td><button (click)="onDeleteCompany(company)">D</button></td>
     </tr>
   </table>
 </div>
