@@ -34,9 +34,6 @@ export class UpdateCompanyFormComponent implements OnInit {
   ngOnInit(): void {
     this.companyModel = new Company();
     this.activatedRoute.params.subscribe((params) => {
-      if (this.user.clientType === ClientType.COMPANY && this.user.id != params.id) {
-        this.router.navigate([this.authentication.getUrl]);
-      }
       this.getModel(params.id).subscribe((value: Company) => {
         this.companyModel = value;
         this.editcompanyFormInitialization();

@@ -34,7 +34,7 @@ export class CustomerHomeComponent implements OnInit {
     });
   }
   updateDetails(): void {
-    this.router.navigate([`${this.authentication.getUrl}/update-details`, this.customer.id]);
+    this.router.navigate([`${this.authentication.getUrl}/update-details`]);
   }
   purchaseCoupon(couponId: number): void {
     this.customerService.getCoupon(couponId).subscribe((value: Coupon) => {
