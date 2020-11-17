@@ -17,3 +17,10 @@
   update company
 </button>
 <button (click)="getAllCoupons()">get all company coupons</button>
+
+
+<div *ngIf="coupons">
+<div *ngFor="let coupon of coupons">
+<app-coupon-view [couponView]="coupon"></app-coupon-view>
+</div>
+</div>
