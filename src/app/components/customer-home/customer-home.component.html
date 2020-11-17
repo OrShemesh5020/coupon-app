@@ -7,5 +7,10 @@
 <button (click)="removePurchasedCoupon(198)">remove a coupon</button>
 <button (click)="getDetails()">get customer's details</button>
 <button (click)="updateDetails()">update customer's details</button>
+<div *ngIf="coupons">
+<div *ngFor="let coupon of coupons">
+  <app-customers-view> </app-customers-view>
 
+</div>
+</div>
 
