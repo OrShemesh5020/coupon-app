@@ -19,6 +19,7 @@ import { Component, OnInit } from '@angular/core';
 export class AddCustomerFormComponent implements OnInit {
   addCustomerForm: FormGroup;
   customerModel: Customer;
+  buttonText: string;
 
   constructor(
     private authentication: AuthenticationService,
@@ -29,6 +30,7 @@ export class AddCustomerFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.buttonText = !this.user ? 'register' : 'add customer';
     this.customerModel = new Customer();
     this.addCustomerForm = this.formBuilder.group({
       firstName: [

@@ -15,6 +15,8 @@ import { GeneralService } from 'src/app/service/general';
 export class AddCompanyFormComponent implements OnInit {
   addCompanyForm: FormGroup;
   companyModel: Company;
+  buttonText: string;
+
   constructor(
     private formBuilder: FormBuilder,
     private authentication: AuthenticationService,
@@ -24,6 +26,7 @@ export class AddCompanyFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.buttonText = !this.user ? 'register' : 'add company';
     this.companyModel = new Company();
     this.addCompanyForm = this.formBuilder.group({
       name:
