@@ -7,10 +7,13 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./companies-view.component.scss']
 })
 export class CompaniesViewComponent implements OnInit {
-  @Input() companies: Company[];
+  @Input() companiesView: Company[];
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  printCompany(company: Company): void {
+    console.log(company);
+  }
 }
