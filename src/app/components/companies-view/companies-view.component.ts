@@ -1,5 +1,5 @@
 import { Company } from './../../models/company';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-companies-view',
@@ -8,12 +8,20 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class CompaniesViewComponent implements OnInit {
   @Input() companiesView: Company[];
+  @Output() updateCompany: EventEmitter<Company> = new EventEmitter();
+  @Output() deleteCompany: EventEmitter<Company> = new EventEmitter();
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  printCompany(company: Company): void {
-    console.log(company);
+  onEditCompany(company: Company): void {
+    console.log('updating company');
+    this.updateCompany.emit(company);
+  }
+
+  onDeleteCompany(company: Company): void {
+    console.log('deleting company');
+    this.deleteCompany.emit(company);
   }
 }
