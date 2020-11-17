@@ -13,13 +13,12 @@ import { Router } from '@angular/router';
 export class AdminHomeComponent implements OnInit {
   companies: Company[];
   customers: Customer[];
-  displayCompanies: boolean;
-  displayCustomers: boolean;
+  displayCompanies = true;
+  buttonText = 'show all customers';
 
   constructor(private adminService: AdminService, private router: Router, private authentication: AuthenticationService) { }
 
   ngOnInit(): void {
-    this.resetdisplaying();
     this.loadElements();
   }
 
@@ -69,27 +68,13 @@ export class AdminHomeComponent implements OnInit {
     });
   }
 
-  showCompanies(): void {
-    if (!this.displayCompanies) {
-      this.displayCustomers = false;
-      this.displayCompanies = true;
+  switchDisplay(): void {
+    this.displayCompanies = !this.displayCompanies;
+    if (this.displayCompanies) {
+      this.buttonText = 'show all customers';
     } else {
-      this.displayCompanies = false;
+      this.buttonText = 'show all companies';
     }
-  }
-
-  showCustomers(): void {
-    if (!this.displayCustomers) {
-      this.displayCompanies = false;
-      this.displayCustomers = true;
-    } else {
-      this.displayCustomers = false;
-    }
-  }
-
-  resetdisplaying(): void {
-    this.displayCompanies = false;
-    this.displayCustomers = false;
   }
 
   loadElements(): void {
@@ -100,14 +85,12 @@ export class AdminHomeComponent implements OnInit {
   loadCompanies(): void {
     this.adminService.loadCompanies().subscribe((values: Company[]) => {
       this.companies = values;
-      console.log(values);
     });
   }
 
   loadCustomers(): void {
     this.adminService.loadCustomers().subscribe((values: Customer[]) => {
       this.customers = values;
-      console.log(values);
     });
   }
 }
