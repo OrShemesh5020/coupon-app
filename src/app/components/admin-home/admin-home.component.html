@@ -1,14 +1,5 @@
 <p>Welcome admin</p>
 <br />
-<button (click)="addCompany()">add company</button>
-<button (click)="updateCompany(269)">update company</button>
-<button (click)="deleteCompany(266)">delete company</button>
-<button (click)="getCompanyById(8)">get company by id</button>
-<button (click)="getCompanyByName('zap')">get company by name</button>
-<button (click)="addCustomer()">add customer</button>
-<button (click)="updateCustomer(235)">update customer</button>
-<button (click)="deleteCustomer(235)">delete customer</button>
-<button (click)="getCustomer(1)">get customer</button>
 <button (click)="showCompanies()">show all companies</button>
 <button (click)="showCustomers()">show all customers</button>
 <br />
@@ -17,8 +8,14 @@
 <app-companies-view
   *ngIf="displayCompanies"
   [companiesView]="companies"
+  (updateCompany)="updateCompany($event)"
+  (deleteCompany)="deleteCompany($event)"
+  (addCompany)="addCompany()"
 ></app-companies-view>
 <app-customers-view
   *ngIf="displayCustomers"
   [customersView]="customers"
+  (updateCustomer)="updateCustomer($event)"
+  (deleteCustomer)="deleteCustomer($event)"
+  (addCustomer)="addCustomer()"
 ></app-customers-view>

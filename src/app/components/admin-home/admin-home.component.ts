@@ -1,8 +1,8 @@
+import { Company } from './../../models/company';
 import { AuthenticationService } from 'src/app/service/authentication';
 import { Customer } from './../../models/customer';
 import { AdminService } from './../../service/admin';
 import { Component, OnInit } from '@angular/core';
-import { Company } from 'src/app/models/company';
 import { Router } from '@angular/router';
 
 @Component({
@@ -27,12 +27,12 @@ export class AdminHomeComponent implements OnInit {
     this.router.navigate([`${this.authentication.getUrl}/add/company`]);
   }
 
-  updateCompany(id: number): void {
-    this.router.navigate([`${this.authentication.getUrl}/update/company`, id]);
+  updateCompany(company: Company): void {
+    this.router.navigate([`${this.authentication.getUrl}/update/company`, company.id]);
   }
 
-  deleteCompany(id: number): void {
-    this.adminService.deleteCompany(id).subscribe(() => {
+  deleteCompany(company: Company): void {
+    this.adminService.deleteCompany(company.id).subscribe(() => {
       this.loadCompanies();
     });
   }
@@ -53,12 +53,12 @@ export class AdminHomeComponent implements OnInit {
     this.router.navigate([`${this.authentication.getUrl}/add/customer`]);
   }
 
-  updateCustomer(id: number): void {
-    this.router.navigate([`${this.authentication.getUrl}/update/customer`, id]);
+  updateCustomer(customer: Customer): void {
+    this.router.navigate([`${this.authentication.getUrl}/update/customer`, customer.id]);
   }
 
-  deleteCustomer(id: number): void {
-    this.adminService.deleteCustomer(id).subscribe(() => {
+  deleteCustomer(customer: Customer): void {
+    this.adminService.deleteCustomer(customer.id).subscribe(() => {
       this.loadCustomers();
     });
   }
