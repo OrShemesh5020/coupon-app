@@ -1,1 +1,16 @@
-<p>companies-view works!</p>
+<div>
+  <table>
+    <thead>
+      <th>id</th>
+      <th>name</th>
+      <th>email</th>
+      <th>password</th>
+    </thead>
+    <tr *ngFor="let company of companies" >
+      <td>{{company.id}}</td>
+      <td>{{company.name}}</td>
+      <td>{{company.email}}</td>
+      <td>{{company.password}}</td>
+    </tr>
+  </table>
+</div>
