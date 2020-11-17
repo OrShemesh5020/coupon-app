@@ -1,0 +1,13 @@
+.wrapper {
+  width: 200px;
+  height: 200px;
+  border: red solid 4px;
+  .image_wrapper {
+    width: 200px;
+    height: 100px;
+  }
+}
+.wrapper_details {
+  background-color: white;
+  color: black;
+}
