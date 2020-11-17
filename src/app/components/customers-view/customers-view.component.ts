@@ -7,10 +7,13 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./customers-view.component.scss']
 })
 export class CustomersViewComponent implements OnInit {
-  @Input() customers: Customer[];
+  @Input() customersView: Customer[];
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  printCustomer(customer: Customer): void {
+    console.log(customer);
+  }
 }
