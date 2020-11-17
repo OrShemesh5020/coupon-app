@@ -13,10 +13,13 @@ import { Router } from '@angular/router';
 export class AdminHomeComponent implements OnInit {
   companies: Company[];
   customers: Customer[];
+  displayCompanies: boolean;
+  displayCustomers: boolean;
 
   constructor(private adminService: AdminService, private router: Router, private authentication: AuthenticationService) { }
 
   ngOnInit(): void {
+    this.resetdisplaying();
     this.loadElements();
   }
 
@@ -64,6 +67,29 @@ export class AdminHomeComponent implements OnInit {
     this.adminService.getCustomer(id).subscribe((value: Customer) => {
       console.log(value);
     });
+  }
+
+  showCompanies(): void {
+    if (!this.displayCompanies) {
+      this.displayCustomers = false;
+      this.displayCompanies = true;
+    } else {
+      this.displayCompanies = false;
+    }
+  }
+
+  showCustomers(): void {
+    if (!this.displayCustomers) {
+      this.displayCompanies = false;
+      this.displayCustomers = true;
+    } else {
+      this.displayCustomers = false;
+    }
+  }
+
+  resetdisplaying(): void {
+    this.displayCompanies = false;
+    this.displayCustomers = false;
   }
 
   loadElements(): void {
