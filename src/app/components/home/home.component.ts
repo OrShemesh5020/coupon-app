@@ -1,8 +1,6 @@
 import { AuthenticationService } from './../../service/authentication';
 import { GeneralService } from './../../service/general';
 import { Coupon } from './../../models/coupon';
-import { Company } from './../../models/company';
-import { AdminService } from './../../service/admin';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -12,6 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
   coupons: Coupon[];
+  displayByCategory = {};
 
   constructor(private generalService: GeneralService, private authentication: AuthenticationService) { }
 
@@ -22,10 +21,27 @@ export class HomeComponent implements OnInit {
   loadCoupons(): void {
     this.generalService.loadCoupons().subscribe((values: Coupon[]) => {
       this.coupons = values;
+      this.loadCategories();
     });
   }
 
   printTitle(coupon: Coupon): void {
     console.log(coupon.title);
+  }
+
+  filterCoupons(categortName: string): Coupon[] {
+    return this.coupons.filter((value: Coupon) => {
+      return value.categoryName === categortName;
+    });
+  }
+  loadCategories(): void {
+    this.coupons.forEach((coupon: Coupon) => {
+      if (!this.displayByCategory[coupon.categoryName]) {
+        this.displayByCategory[coupon.categoryName] = [coupon];
+      } else {
+        this.displayByCategory[coupon.categoryName].push(coupon);
+      }
+    });
+    console.log(this.displayByCategory);
   }
 }
