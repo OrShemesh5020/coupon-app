@@ -1,3 +1,4 @@
+import { GeneralService } from './../../service/general';
 import { AuthenticationService } from 'src/app/service/authentication';
 import { Router } from '@angular/router';
 import { Coupon } from './../../models/coupon';
@@ -16,6 +17,7 @@ export class CustomerHomeComponent implements OnInit {
 
   constructor(
     private customerService: CustomerService,
+    private generalService: GeneralService,
     private router: Router,
     private authentication: AuthenticationService
   ) { }
@@ -74,5 +76,11 @@ export class CustomerHomeComponent implements OnInit {
       this.coupons = values;
       console.log(values);
     });
+  }
+  showCoupons(): Coupon[]{
+    return this.coupons;
+  }
+  showAvailableCoupons(): Coupon[]{
+    Coupon [] availableCoupons = this.generalService.loadCoupons();
   }
 }
