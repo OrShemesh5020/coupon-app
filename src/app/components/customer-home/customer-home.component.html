@@ -1,15 +1,19 @@
 <p *ngIf="customer">welcome {{ customer.firstName }}</p>
 <!-- remember to sign in as customer 3 as he is the one that owns the 197th coupon -->
-<button (click)="getCoupon(197)"> get a coupon </button>
-<button (click)="getCustomerCouponsByCategory(4)">get all the customer's coupons by category</button>
-<button (click)="getCustomerCouponsByPrice(15000)">get all the customer's coupons by price</button>
+<button (click)="getCoupon(197)">get a coupon</button>
+<button (click)="getCustomerCouponsByCategory(4)">
+  get all the customer's coupons by category
+</button>
+<button (click)="getCustomerCouponsByPrice(15000)">
+  get all the customer's coupons by price
+</button>
 <button (click)="purchaseCoupon(198)">purchase a coupon</button>
 <button (click)="removePurchasedCoupon(198)">remove a coupon</button>
 <button (click)="getDetails()">get customer's details</button>
 <button (click)="updateDetails()">update customer's details</button>
-<div *ngIf="coupons">
-<div *ngFor="let coupon of coupons">
-            <app-coupon-view [couponView]="coupon"></app-coupon-view>
-</div>
-</div>
 
+<div class="couponsDisplay" *ngIf="coupons">
+  <div *ngFor="let coupon of coupons">
+    <app-coupon-view [couponView]="coupon"></app-coupon-view>
+  </div>
+</div>
