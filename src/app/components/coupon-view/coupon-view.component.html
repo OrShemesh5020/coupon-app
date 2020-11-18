@@ -3,7 +3,8 @@
     <img src="{{ couponView.image }}" />
   </div>
   <div class="wrapper_details">
-    title: {{ couponView.title }} <br />
-    price: {{ couponView.price }}
+    <div class="title">{{ couponView.title }}</div>
+    <div class="price">{{ couponView.price }}₪</div>
+    <div class="amount">only {{ couponView.amount }} left</div>
   </div>
 </div>
