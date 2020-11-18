@@ -3,6 +3,7 @@
     <app-coupon-view
       *ngFor="let coupon of coupons"
       [couponView]="coupon"
+      (choosing)="printTitle($event)"
     ></app-coupon-view>
   </div>
 </div>

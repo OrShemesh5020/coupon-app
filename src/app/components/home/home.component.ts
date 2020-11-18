@@ -24,4 +24,8 @@ export class HomeComponent implements OnInit {
       this.coupons = values;
     });
   }
+
+  printTitle(coupon: Coupon): void {
+    console.log(coupon.title);
+  }
 }
