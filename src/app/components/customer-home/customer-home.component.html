@@ -11,6 +11,7 @@
 <button (click)="removePurchasedCoupon(198)">remove a coupon</button>
 <button (click)="getDetails()">get customer's details</button>
 <button (click)="updateDetails()">update customer's details</button>
+<button (click)="showCoupons()">show me my coupons!</button>
 
 <div class="couponsDisplay" *ngIf="coupons">
   <div *ngFor="let coupon of coupons">
