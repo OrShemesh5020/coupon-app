@@ -1,4 +1,4 @@
-<form class="updateCustomerForm" (ngSubmit)="onSubmit()" [formGroup]="updateCustomerForm">
+<form *ngIf="!loading"  class="updateCustomerForm" (ngSubmit)="onSubmit()" [formGroup]="updateCustomerForm">
   <div >
     <label>firstName</label>
     <input type="text" formControlName="firstName"/>

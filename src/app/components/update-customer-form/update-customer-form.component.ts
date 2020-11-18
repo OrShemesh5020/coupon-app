@@ -21,6 +21,7 @@ import { AuthenticationService } from 'src/app/service/authentication';
 export class UpdateCustomerFormComponent implements OnInit {
   customerModel: Customer;
   updateCustomerForm: FormGroup;
+  loading = true;
   constructor(
     private adminService: AdminService,
     private activatedRoute: ActivatedRoute,
@@ -29,15 +30,6 @@ export class UpdateCustomerFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router
   ) {
-    this.updateCustomerForm = new FormGroup({
-      firstName: new FormControl(),
-      lastName: new FormControl(),
-      email: new FormControl(),
-      password: new FormControl(),
-    });
-  }
-
-  ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
       this.customerModel = new Customer();
       this.getModel(params.id).subscribe((value: Customer) => {
@@ -45,6 +37,9 @@ export class UpdateCustomerFormComponent implements OnInit {
         this.initializeFormGroup();
       });
     });
+  }
+
+  ngOnInit(): void {
   }
 
   onSubmit(): void {
@@ -122,5 +117,6 @@ export class UpdateCustomerFormComponent implements OnInit {
         ],
       ],
     });
+    this.loading = false;
   }
 }

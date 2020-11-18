@@ -1,4 +1,4 @@
-<form class="editComapnyForm" (ngSubmit)="onSubmit()" [formGroup]="updateCompanyForm">
+<form *ngIf="!loading"  class="editComapnyForm" (ngSubmit)="onSubmit()" [formGroup]="updateCompanyForm">
   <div>
     <label>name</label>
     <input type="text" formControlName="name" />

@@ -16,6 +16,7 @@ import { Component, OnInit } from '@angular/core';
 export class UpdateCompanyFormComponent implements OnInit {
   updateCompanyForm: FormGroup;
   companyModel: Company;
+  loading = true;
   constructor(
     private formBuilder: FormBuilder,
     private authentication: AuthenticationService,
@@ -24,14 +25,6 @@ export class UpdateCompanyFormComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {
-    this.updateCompanyForm = new FormGroup({
-      name: new FormControl(),
-      email: new FormControl(),
-      password: new FormControl(),
-    });
-  }
-
-  ngOnInit(): void {
     this.companyModel = new Company();
     this.activatedRoute.params.subscribe((params) => {
       this.getModel(params.id).subscribe((value: Company) => {
@@ -39,8 +32,9 @@ export class UpdateCompanyFormComponent implements OnInit {
         this.editcompanyFormInitialization();
       });
     });
-
   }
+
+  ngOnInit(): void { }
 
   private get user(): User {
     return this.authentication.userValue;
@@ -48,12 +42,16 @@ export class UpdateCompanyFormComponent implements OnInit {
   private editcompanyFormInitialization(): void {
     this.updateCompanyForm = this.formBuilder.group({
       name:
-        [this.companyModel.name,
         [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.maxLength(45)
-        ]
+          {
+            value: this.companyModel.name,
+            disabled: true
+          },
+          [
+            Validators.required,
+            Validators.minLength(2),
+            Validators.maxLength(45)
+          ],
         ],
       email:
         [this.companyModel.email,
@@ -72,6 +70,7 @@ export class UpdateCompanyFormComponent implements OnInit {
         ]
         ],
     });
+    this.loading = false;
   }
 
   private getModel(id: number): Observable<Company> {
