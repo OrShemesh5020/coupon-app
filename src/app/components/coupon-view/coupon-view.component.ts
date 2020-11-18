@@ -1,5 +1,5 @@
 import { Coupon } from './../../models/coupon';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-coupon-view',
@@ -8,9 +8,13 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class CouponViewComponent implements OnInit {
   @Input() couponView: Coupon;
+  @Output() choosing: EventEmitter<Coupon> = new EventEmitter();
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  onClick(): void {
+    this.choosing.emit(this.couponView);
+  }
 }
