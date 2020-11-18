@@ -27,6 +27,9 @@ import { AddCouponFormComponent } from './components/add-coupon-form/add-coupon-
 import { CompaniesViewComponent } from './components/companies-view/companies-view.component';
 import { CustomersViewComponent } from './components/customers-view/customers-view.component';
 import { CouponViewComponent } from './components/coupon-view/coupon-view.component';
+import { CouponProfileComponent } from './components/coupon-profile/coupon-profile.component';
+import { CompanyProfileComponent } from './components/company-profile/company-profile.component';
+import { CustomerProfileComponent } from './components/customer-profile/customer-profile.component';
 
 
 @NgModule({
@@ -51,6 +54,9 @@ import { CouponViewComponent } from './components/coupon-view/coupon-view.compon
     CompaniesViewComponent,
     CustomersViewComponent,
     CouponViewComponent,
+    CouponProfileComponent,
+    CompanyProfileComponent,
+    CustomerProfileComponent,
   ],
   imports: [
     HttpClientModule,
