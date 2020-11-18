@@ -3,12 +3,18 @@
     class="display_wrapper"
     *ngFor="let category of displayByCategory | keyvalue"
   >
-    <div class="coupon_wrapper" *ngIf="coupons">
+    <div class="category">
+      {{ category.key }}
+    </div>
+    <div class="coupon_wrapper">
       <app-coupon-view
         *ngFor="let coupon of category.value"
         [couponView]="coupon"
         (choosing)="printTitle($event)"
       ></app-coupon-view>
+    </div>
+    <div>
+      <hr class="hr" />
     </div>
   </div>
 </div>
