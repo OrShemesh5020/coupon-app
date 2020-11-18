@@ -29,11 +29,6 @@ export class HomeComponent implements OnInit {
     console.log(coupon.title);
   }
 
-  filterCoupons(categortName: string): Coupon[] {
-    return this.coupons.filter((value: Coupon) => {
-      return value.categoryName === categortName;
-    });
-  }
   loadCategories(): void {
     this.coupons.forEach((coupon: Coupon) => {
       if (!this.displayByCategory[coupon.categoryName]) {
