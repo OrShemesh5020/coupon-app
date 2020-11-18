@@ -1,1 +1,9 @@
-<p>home works!</p>
+<div class="display_wrapper">
+  <div class="coupon_wrapper" *ngIf="coupons">
+    <app-coupon-view
+      *ngFor="let coupon of coupons"
+      [couponView]="coupon"
+      (choosing)="printTitle($event)"
+    ></app-coupon-view>
+  </div>
+</div>
