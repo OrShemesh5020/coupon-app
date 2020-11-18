@@ -4,7 +4,7 @@
     *ngFor="let category of displayByCategory | keyvalue"
   >
     <div class="category">
-      {{ category.key }}
+      {{ category.key | titlecase }}
     </div>
     <div class="coupon_wrapper">
       <app-coupon-view
