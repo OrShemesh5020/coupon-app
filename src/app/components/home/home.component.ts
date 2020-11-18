@@ -15,5 +15,13 @@ export class HomeComponent implements OnInit {
 
   constructor(private generalService: GeneralService, private authentication: AuthenticationService) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.loadCoupons();
+  }
+
+  loadCoupons(): void {
+    this.generalService.loadCoupons().subscribe((values: Coupon[]) => {
+      this.coupons = values;
+    });
+  }
 }
