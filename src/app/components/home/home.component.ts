@@ -1,3 +1,6 @@
+import { AuthenticationService } from './../../service/authentication';
+import { GeneralService } from './../../service/general';
+import { Coupon } from './../../models/coupon';
 import { Company } from './../../models/company';
 import { AdminService } from './../../service/admin';
 import { Component, OnInit } from '@angular/core';
@@ -8,7 +11,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor() { }
+  coupons: Coupon[];
+
+  constructor(private generalService: GeneralService, private authentication: AuthenticationService) { }
 
   ngOnInit(): void { }
 }
