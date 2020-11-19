@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AuthenticationService } from './../../service/authentication';
 import { GeneralService } from './../../service/general';
 import { Coupon } from './../../models/coupon';
@@ -12,7 +13,7 @@ export class HomeComponent implements OnInit {
   coupons: Coupon[];
   displayByCategory = {};
 
-  constructor(private generalService: GeneralService, private authentication: AuthenticationService) { }
+  constructor(private generalService: GeneralService, private authentication: AuthenticationService, private router: Router) { }
 
   ngOnInit(): void {
     this.loadCoupons();
@@ -25,8 +26,8 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  printTitle(coupon: Coupon): void {
-    console.log(coupon.title);
+  openProfile(coupon: Coupon): void {
+    this.router.navigate(['home/public/coupon-details', coupon.id]);
   }
 
   loadCategories(): void {
