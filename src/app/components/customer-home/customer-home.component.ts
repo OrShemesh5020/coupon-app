@@ -81,6 +81,6 @@ export class CustomerHomeComponent implements OnInit {
     return this.coupons;
   }
   showAvailableCoupons(): Coupon[]{
-    Coupon [] availableCoupons = this.generalService.loadCoupons();
+    Coupon[] availableCoupons = this.generalService.loadCoupons();
   }
 }
