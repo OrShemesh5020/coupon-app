@@ -1,6 +1,7 @@
 <nav>
   <div class="left-side-links">
-    <a class="link" [routerLink]="authentication.getUrl"> home </a>
+    <a class="link" [routerLink]="['home/public']"> home </a>
+    <a *ngIf="authentication.userValue"  class="link" [routerLink]="authentication.getUrl"> My acount </a>
     <a class="link" href="about"> about us </a>
   </div>
   <div class="right-side-links">
