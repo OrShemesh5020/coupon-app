@@ -11,8 +11,7 @@ export class CouponViewComponent implements OnInit {
   @Output() choosing: EventEmitter<Coupon> = new EventEmitter();
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   onClick(): void {
     this.choosing.emit(this.couponView);
