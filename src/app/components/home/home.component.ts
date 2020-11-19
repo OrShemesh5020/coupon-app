@@ -21,7 +21,9 @@ export class HomeComponent implements OnInit {
 
   loadCoupons(): void {
     this.generalService.loadCoupons().subscribe((values: Coupon[]) => {
-      this.coupons = values;
+      this.coupons = values.filter((value: Coupon) => {
+        return (new Date(value.startDate).valueOf()) <= new Date().valueOf();
+      });
       this.loadCategories();
     });
   }
@@ -38,6 +40,5 @@ export class HomeComponent implements OnInit {
         this.displayByCategory[coupon.categoryName].push(coupon);
       }
     });
-    console.log(this.displayByCategory);
   }
 }
