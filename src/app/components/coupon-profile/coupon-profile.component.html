@@ -1,1 +1,12 @@
-<p>coupon-profile works!</p>
+<div *ngIf="coupon" class="wrapper">
+  <div class="left_side">
+    <div class="top">
+      <div id="title">{{ coupon.title }}</div>
+      <div id="price">{{ coupon.price }}</div>
+    </div>
+    <div class="bottom">{{ coupon.description }}</div>
+  </div>
+  <div class="right_side">
+    <img src="{{ coupon.image }}" />
+  </div>
+</div>

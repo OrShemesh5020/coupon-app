@@ -28,7 +28,6 @@ export class CouponProfileComponent implements OnInit {
     this.activatedRoute.params.subscribe((params) => {
       this.getModel(params.id).subscribe((value: Coupon) => {
         this.coupon = value;
-        console.log(this.coupon);
       });
     });
   }
