@@ -9,4 +9,16 @@
   <div class="right_side">
     <img src="{{ coupon.image }}" />
   </div>
+  <div class="buttons">
+    <div class="companyButtons" *ngIf="editable">
+      <button (click)="updateCoupon()">update</button>
+      <button (click)="deleteCoupon()">delete</button>
+    </div>
+    <div class="coupon_purchase_button" *ngIf="purchasable">
+      <button (click)="purchaseACoupon()">Buy now!</button>
+    </div>
+    <div class="cansel_purchase_button" *ngIf="cancelable">
+      <button (click)="cancelPurchase()">cancel purchase</button>
+    </div>
+  </div>
 </div>
