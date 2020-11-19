@@ -52,6 +52,9 @@ export class SendToken implements HttpInterceptor {
             if (error.status === 403) {
               console.log("you can't accsess this function!");
             }
+            if (error.status === 404) {
+              this.route.navigate([this.authentication.getUrl]);
+            }
           }
           console.log(errMsg);
           return throwError(errMsg);
