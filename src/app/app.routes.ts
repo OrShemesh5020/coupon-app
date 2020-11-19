@@ -1,3 +1,4 @@
+import { CouponProfileComponent } from './components/coupon-profile/coupon-profile.component';
 import { ClientType } from 'src/app/models/user';
 import { AuthGuard } from './service/auth-guard';
 import { UpdateCustomerFormComponent } from './components/update-customer-form/update-customer-form.component';
@@ -39,6 +40,7 @@ export const routes: Routes = [
               }
             ]
           },
+          { path: 'coupon-details/:id', component: CouponProfileComponent }
         ]
       },
       {
@@ -95,6 +97,11 @@ export const routes: Routes = [
             data: { clientType: ClientType.COMPANY }
           },
           {
+            path: 'coupon-details/:id', component: CouponProfileComponent,
+            canActivate: [AuthGuard],
+            data: { clientType: ClientType.COMPANY }
+          },
+          {
             path: 'update',
             children: [
               {
@@ -116,6 +123,11 @@ export const routes: Routes = [
         children: [
           {
             path: '', component: CustomerHomeComponent,
+            canActivate: [AuthGuard],
+            data: { clientType: ClientType.CUSTOMER }
+          },
+          {
+            path: 'coupon-details/:id', component: CouponProfileComponent,
             canActivate: [AuthGuard],
             data: { clientType: ClientType.CUSTOMER }
           },
