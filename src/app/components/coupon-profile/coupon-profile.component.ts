@@ -26,23 +26,10 @@ export class CouponProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
-      this.getModel(params.id).subscribe((value: Coupon) => {
+      this.generalService.getCoupon(params.id).subscribe((value: Coupon) => {
         this.coupon = value;
       });
     });
-  }
-
-  getModel(id: number): Observable<Coupon> {
-    if (this.user) {
-      switch (this.user.clientType) {
-        case ClientType.COMPANY:
-          return this.companyService.getCouponById(id);
-        case ClientType.CUSTOMER:
-          return this.customerService.getCoupon(id);
-      }
-    }
-    return this.generalService.getCoupon(id);
-
   }
 
   private get user(): User {
