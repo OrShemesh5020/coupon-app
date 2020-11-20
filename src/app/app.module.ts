@@ -28,8 +28,7 @@ import { CompaniesViewComponent } from './components/companies-view/companies-vi
 import { CustomersViewComponent } from './components/customers-view/customers-view.component';
 import { CouponViewComponent } from './components/coupon-view/coupon-view.component';
 import { CouponProfileComponent } from './components/coupon-profile/coupon-profile.component';
-import { CompanyProfileComponent } from './components/company-profile/company-profile.component';
-import { CustomerProfileComponent } from './components/customer-profile/customer-profile.component';
+import { ProfileDisplayComponent } from './components/profile-display/profile-display.component';
 
 
 @NgModule({
@@ -55,8 +54,7 @@ import { CustomerProfileComponent } from './components/customer-profile/customer
     CustomersViewComponent,
     CouponViewComponent,
     CouponProfileComponent,
-    CompanyProfileComponent,
-    CustomerProfileComponent,
+    ProfileDisplayComponent,
   ],
   imports: [
     HttpClientModule,
