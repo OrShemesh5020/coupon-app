@@ -1,3 +1,8 @@
+import { Router } from '@angular/router';
+import { ClientType, User } from './../../models/user';
+import { AuthenticationService } from './../../service/authentication';
+import { CustomerService } from './../../service/customer';
+import { Customer } from './../../models/customer';
 import { CompanyService } from './../../service/company';
 import { Company } from './../../models/company';
 import { Component, OnInit } from '@angular/core';
@@ -9,16 +14,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileDisplayComponent implements OnInit {
   company: Company;
+  customer: Customer;
 
-  constructor(private companyService: CompanyService) { }
+  constructor(
+    private authentication: AuthenticationService,
+    private companyService: CompanyService,
+    private customerService: CustomerService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
-    this.companyService.getDetails().subscribe((value: Company) => {
-      this.company = value;
-    });
+    if (this.user.clientType === ClientType.COMPANY) {
+      this.companyService.getDetails().subscribe((value: Company) => {
+        this.company = value;
+      });
+    } else {
+      this.customerService.getCustomerDetails().subscribe((value: Customer) => {
+        this.customer = value;
+      });
+    }
   }
 
   updateDetails(): void {
+    this.router.navigate([`${this.authentication.getUrl}/update/details`]);
+  }
 
+  private get user(): User {
+    return this.authentication.userValue;
   }
 }
