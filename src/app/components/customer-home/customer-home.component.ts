@@ -79,7 +79,7 @@ export class CustomerHomeComponent implements OnInit {
     });
   }
 
-  openProfile(coupon: Coupon): void {
+  openCouponProfile(coupon: Coupon): void {
     // this.router.navigate[
     //   (`${this.authentication.getUrl}/coupon-details`, coupon.id)
     // ];
