@@ -1,12 +1,20 @@
 <nav>
   <div class="left-side-links">
     <a class="link" [routerLink]="['home/public']"> home </a>
-    <a *ngIf="authentication.userValue"  class="link" [routerLink]="authentication.getUrl"> My account </a>
+    <a
+      *ngIf="authentication.userValue"
+      class="link"
+      [routerLink]="authentication.getUrl"
+    >
+      My account
+    </a>
     <a class="link" href="about"> about us </a>
   </div>
   <div class="right-side-links">
     <div *ngIf="authentication.userValue">
-      <a class="link" >My Profile</a>
+      <div class="profile" *ngIf="authentication.userValue.clientType !== 'ADMINISTRATOR'">
+        <a class="link" (click)="openProfile()">My Profile</a>
+      </div>
       <a class="link" (click)="authentication.logout()">log out</a>
     </div>
     <div *ngIf="!authentication.userValue">
