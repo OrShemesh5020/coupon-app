@@ -1,3 +1,5 @@
+import { CustomerProfileComponent } from './components/customer-profile/customer-profile.component';
+import { CompanyProfileComponent } from './components/company-profile/company-profile.component';
 import { CouponProfileComponent } from './components/coupon-profile/coupon-profile.component';
 import { ClientType } from 'src/app/models/user';
 import { AuthGuard } from './service/auth-guard';
@@ -116,6 +118,11 @@ export const routes: Routes = [
               }
             ]
           },
+          {
+            path: 'profile', component: CompanyProfileComponent,
+            canActivate: [AuthGuard],
+            data: { clientType: ClientType.COMPANY }
+          }
         ]
       },
       {
@@ -133,6 +140,11 @@ export const routes: Routes = [
           },
           {
             path: 'update-details', component: UpdateCustomerFormComponent,
+            canActivate: [AuthGuard],
+            data: { clientType: ClientType.CUSTOMER }
+          },
+          {
+            path: 'profile', component: CustomerProfileComponent,
             canActivate: [AuthGuard],
             data: { clientType: ClientType.CUSTOMER }
           }
