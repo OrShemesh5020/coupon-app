@@ -14,7 +14,7 @@ import { Component, OnInit } from '@angular/core';
 export class CustomerHomeComponent implements OnInit {
   customer: Customer;
   customerCoupons: Coupon[];
-  filteredCoupons: Coupon[];
+  //filteredCoupons: Coupon[];
   availableCoupons: Coupon[];
   couponsByCategory = {};
   constructor(
@@ -59,16 +59,16 @@ export class CustomerHomeComponent implements OnInit {
     this.customerService
       .getCustomerCouponsByCategory(categoryId)
       .subscribe((values: Coupon[]) => {
-        this.filteredCoupons = values;
-        console.log(values);
+        this.customerCoupons = values;
+        this.refreshCoupons();
       });
   }
   getCustomerCouponsByPrice(price: number): void {
     this.customerService
       .getCustomerCouponsByPrice(price)
       .subscribe((values: Coupon[]) => {
-        this.filteredCoupons = values;
-        console.log(values);
+        this.customerCoupons = values;
+        this.refreshCoupons();
       });
   }
   loadCoupons(): void {
@@ -98,5 +98,24 @@ export class CustomerHomeComponent implements OnInit {
     this.generalService.loadCoupons().subscribe((values: Coupon[]) => {
       this.availableCoupons = values;
     });
+  }
+  refreshCoupons(): void {
+    this.couponsByCategory = {};
+    this.filterByCategory();
+  }
+  filterCoupons(filterEelement: HTMLSelectElement): void {
+    const selectedFilter =
+      filterEelement.options[filterEelement.selectedIndex].value;
+    switch (selectedFilter) {
+      case 'couponsByCategory':
+        this.getCustomerCouponsByCategory(2);
+        break;
+      case 'couponsByPrice':
+        this.getCustomerCouponsByPrice(1000);
+        break;
+      default:
+        this.loadCoupons();
+        break;
+    }
   }
 }
