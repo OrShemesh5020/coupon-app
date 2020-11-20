@@ -1,3 +1,5 @@
+import { CompanyService } from './../../service/company';
+import { Company } from './../../models/company';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./company-profile.component.scss']
 })
 export class CompanyProfileComponent implements OnInit {
-
-  constructor() { }
+  company: Company;
+  constructor(private companyService: CompanyService) { }
 
   ngOnInit(): void {
+    this.companyService.getDetails().subscribe((value: Company) => {
+      this.company = value;
+    });
   }
 
 }
