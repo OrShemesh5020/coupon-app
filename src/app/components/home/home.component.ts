@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   loadCoupons(): void {
     this.generalService.loadCoupons().subscribe((values: Coupon[]) => {
       this.coupons = values.filter((value: Coupon) => {
-        return (new Date(value.startDate).valueOf()) <= new Date().valueOf();
+        return (new Date(value.startDate).valueOf()) <= new Date().valueOf() && value.amount > 0;
       });
       this.loadCategories();
     });
