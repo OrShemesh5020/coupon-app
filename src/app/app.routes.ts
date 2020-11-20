@@ -138,9 +138,14 @@ export const routes: Routes = [
             data: { clientType: ClientType.CUSTOMER }
           },
           {
-            path: 'update-details', component: UpdateCustomerFormComponent,
-            canActivate: [AuthGuard],
-            data: { clientType: ClientType.CUSTOMER }
+            path: 'update',
+            children: [
+              {
+                path: 'details', component: UpdateCustomerFormComponent,
+                canActivate: [AuthGuard],
+                data: { clientType: ClientType.CUSTOMER }
+              }
+            ]
           },
           {
             path: 'profile', component: ProfileDisplayComponent,
