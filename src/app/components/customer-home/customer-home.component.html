@@ -1,35 +1,48 @@
-<p *ngIf="customer">welcome {{ customer.firstName }}</p>
-<!-- remember to sign in as customer 3 as he is the one that owns the 197th coupon -->
-<button (click)="getCoupon(197)">get a coupon</button>
-<button (click)="getCustomerCouponsByCategory(4)">
-  get all the customer's coupons by category
-</button>
-<button (click)="getCustomerCouponsByPrice(15000)">
-  get all the customer's coupons by price
-</button>
-<button (click)="purchaseCoupon(197)">purchase a coupon</button>
-<button (click)="removePurchasedCoupon(197)">remove a coupon</button>
-<button (click)="getDetails()">get customer's details</button>
-<button (click)="updateDetails()">update customer's details</button>
-<!-- <button (click)="loadCoupons()">show me my coupons!</button> -->
-
-<div *ngIf="couponsByCategory">
-  <div
-    class="display_wrapper"
-    *ngFor="let category of couponsByCategory | keyvalue"
+<br />
+<br />
+<p *ngIf="customer">
+  <em
+    ><b>welcome {{ customer.firstName }}</b></em
   >
-    <div class="category">
-      {{ category.key | titlecase }}
-    </div>
-    <div class="coupon_wrapper">
-      <app-coupon-view
-        *ngFor="let coupon of category.value"
-        [couponView]="coupon"
-        (choosing)="openProfile($event)"
-      ></app-coupon-view>
-    </div>
-    <div>
-      <hr class="hr" />
+</p>
+<br />
+<br />
+  <select #selectedFilter (change)="filterCoupons(selectedFilter)">
+    <option value="displayCustomerCoupons">get all customer's coupons</option>
+    <option value="couponsByCategory">get all the customer's coupons by category</option>
+    <option value="couponsByPrice">get all the customer's coupons by price</option>
+  </select>
+  <hr />
+  <br />
+  <div class="couponsToBeRemoved">
+    <button (click)="getCoupon(197)">get a coupon</button>
+    <button (click)="purchaseCoupon(15)">purchase a coupon</button>
+    <button (click)="removePurchasedCoupon(197)">remove a coupon</button>
+    <button (click)="getDetails()">get customer's details</button>
+    <button (click)="updateDetails()">update customer's details</button>
+  </div>
+  <!-- 1.display all coupons that belong to the coupons - V -->
+  <!-- 2. navigate to couponProfile - Vx  -->
+  <!-- 3. only leave getCustomerCouponsByCategory, getCustomerCouponsByPrice, and loadCoupons buttons and functions in this class,  - X -->
+  <!-- 4.   -->
+  <div *ngIf="couponsByCategory">
+    <div
+      class="display_wrapper"
+      *ngFor="let category of couponsByCategory | keyvalue"
+    >
+      <div class="category">
+        {{ category.key | titlecase }}
+      </div>
+      <div class="coupon_wrapper">
+        <app-coupon-view
+          *ngFor="let coupon of category.value"
+          [couponView]="coupon"
+          (choosing)="openProfile($event)"
+        ></app-coupon-view>
+      </div>
+      <div>
+        <hr class="hr" />
+      </div>
     </div>
   </div>
-</div>
+
