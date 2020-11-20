@@ -18,6 +18,7 @@ export class CustomerHomeComponent implements OnInit {
   couponsByCategory = {};
   constructor(
     private customerService: CustomerService,
+    private generalService: GeneralService,
     private router: Router,
     private authentication: AuthenticationService
   ) {}
@@ -91,5 +92,11 @@ export class CustomerHomeComponent implements OnInit {
         this.couponsByCategory[coupon.categoryName].push(coupon);
       }
     });
+  }
+  showCoupons(): Coupon[]{
+    return this.coupons;
+  }
+  showAvailableCoupons(): Coupon[]{
+    Coupon[] availableCoupons = this.generalService.loadCoupons();
   }
 }
