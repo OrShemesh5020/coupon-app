@@ -1,0 +1,8 @@
+<div class="details" *ngIf="company">
+  name: {{ company.name }}<br />
+  email: {{ company.email }}<br />
+  password: {{ company.password }}
+  <div class="button">
+    <button (click)="updateDetails()">update details</button>
+  </div>
+</div>
