@@ -15,6 +15,7 @@ export class CustomerHomeComponent implements OnInit {
   customer: Customer;
   customerCoupons: Coupon[];
   filteredCoupons: Coupon[];
+  availableCoupons: Coupon[];
   couponsByCategory = {};
   constructor(
     private customerService: CustomerService,
@@ -84,7 +85,7 @@ export class CustomerHomeComponent implements OnInit {
     // ];
     console.log(coupon);
   }
-  filterByCategory() {
+  filterByCategory(): void {
     this.customerCoupons.forEach((coupon: Coupon) => {
       if (!this.couponsByCategory[coupon.categoryName]) {
         this.couponsByCategory[coupon.categoryName] = [coupon];
@@ -93,10 +94,9 @@ export class CustomerHomeComponent implements OnInit {
       }
     });
   }
-  showCoupons(): Coupon[]{
-    return this.coupons;
-  }
-  showAvailableCoupons(): Coupon[]{
-    Coupon[] availableCoupons = this.generalService.loadCoupons();
+  showAvailableCoupons(): void {
+    this.generalService.loadCoupons().subscribe((values: Coupon[]) => {
+      this.availableCoupons = values;
+    });
   }
 }
