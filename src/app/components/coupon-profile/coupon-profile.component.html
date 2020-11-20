@@ -1,10 +1,15 @@
 <div *ngIf="coupon" class="wrapper">
   <div class="left_side">
     <div class="top">
-      <div id="title">{{ coupon.title }}</div>
-      <div id="price">{{ coupon.price }}</div>
+      <div id="title">title: {{ coupon.title }}</div>
+      <div id="price">price: {{ coupon.price }}₪</div>
     </div>
-    <div class="bottom">{{ coupon.description }}</div>
+    <div class="bottom">
+      description: {{ coupon.description }}<br />
+      expiration date: {{ coupon.endDate | date: "d/M/yyyy" }}
+      <div *ngIf="coupon.amount <= 50">only {{ coupon.amount }} left!</div>
+      <div *ngIf="coupon.amount > 50">{{ coupon.amount }} are available</div>
+    </div>
   </div>
   <div class="right_side">
     <img src="{{ coupon.image }}" />
