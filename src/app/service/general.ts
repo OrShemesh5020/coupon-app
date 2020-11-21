@@ -18,6 +18,11 @@ export class GeneralService {
     return this.httpClient.get<Coupon[]>(url);
   }
 
+  getCoupon(id: number): Observable<Coupon> {
+    const url = `http://localhost:8080/general/coupon/${id}`;
+    return this.httpClient.get<Coupon>(url);
+  }
+
   registerCompany(company: Company): Observable<Company> {
     const url = 'http://localhost:8080/general/company';
     return this.httpClient.post<Company>(url, company);

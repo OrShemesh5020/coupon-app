@@ -1,3 +1,5 @@
+import { ProfileDisplayComponent } from './components/profile-display/profile-display.component';
+import { CouponProfileComponent } from './components/coupon-profile/coupon-profile.component';
 import { ClientType } from 'src/app/models/user';
 import { AuthGuard } from './service/auth-guard';
 import { UpdateCustomerFormComponent } from './components/update-customer-form/update-customer-form.component';
@@ -39,6 +41,7 @@ export const routes: Routes = [
               }
             ]
           },
+          { path: 'coupon-details/:id', component: CouponProfileComponent }
         ]
       },
       {
@@ -95,6 +98,11 @@ export const routes: Routes = [
             data: { clientType: ClientType.COMPANY }
           },
           {
+            path: 'coupon-details/:id', component: CouponProfileComponent,
+            canActivate: [AuthGuard],
+            data: { clientType: ClientType.COMPANY }
+          },
+          {
             path: 'update',
             children: [
               {
@@ -109,6 +117,11 @@ export const routes: Routes = [
               }
             ]
           },
+          {
+            path: 'profile', component: ProfileDisplayComponent,
+            canActivate: [AuthGuard],
+            data: { clientType: ClientType.COMPANY }
+          }
         ]
       },
       {
@@ -120,7 +133,22 @@ export const routes: Routes = [
             data: { clientType: ClientType.CUSTOMER }
           },
           {
-            path: 'update-details', component: UpdateCustomerFormComponent,
+            path: 'coupon-details/:id', component: CouponProfileComponent,
+            canActivate: [AuthGuard],
+            data: { clientType: ClientType.CUSTOMER }
+          },
+          {
+            path: 'update',
+            children: [
+              {
+                path: 'details', component: UpdateCustomerFormComponent,
+                canActivate: [AuthGuard],
+                data: { clientType: ClientType.CUSTOMER }
+              }
+            ]
+          },
+          {
+            path: 'profile', component: ProfileDisplayComponent,
             canActivate: [AuthGuard],
             data: { clientType: ClientType.CUSTOMER }
           }

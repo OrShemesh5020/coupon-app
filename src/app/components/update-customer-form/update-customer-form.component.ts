@@ -46,6 +46,10 @@ export class UpdateCustomerFormComponent implements OnInit {
     if (this.updateCustomerForm.invalid) {
       return;
     }
+    if (!this.thePasswordsMatch()) {
+      console.log('the passwords do not match!');
+      return;
+    }
     this.valuesImplementation();
     if (this.user.clientType === ClientType.ADMINISTRATOR) {
       this.adminService.updateCustomer(this.customerModel).subscribe(() => {
@@ -58,6 +62,12 @@ export class UpdateCustomerFormComponent implements OnInit {
       .subscribe(() => {
         this.router.navigate([this.authentication.getUrl]);
       });
+  }
+
+  thePasswordsMatch(): boolean {
+    const password = (document.getElementById('password') as HTMLInputElement).value;
+    const confirmPassword = (document.getElementById('confirm_password') as HTMLInputElement).value;
+    return password === confirmPassword;
   }
 
   valuesImplementation(): void {

@@ -74,6 +74,10 @@ export class AddCustomerFormComponent implements OnInit {
     if (this.addCustomerForm.invalid) {
       return;
     }
+    if (!this.thePasswordsMatch()) {
+      console.log('the passwords do not match!');
+      return;
+    }
     this.valuesImplementation();
     if (!this.user) {
       this.generalService
@@ -94,6 +98,12 @@ export class AddCustomerFormComponent implements OnInit {
           this.router.navigate([this.authentication.getUrl]);
         });
     }
+  }
+
+  thePasswordsMatch(): boolean {
+    const password = (document.getElementById('password') as HTMLInputElement).value;
+    const confirmPassword = (document.getElementById('confirm_password') as HTMLInputElement).value;
+    return password === confirmPassword;
   }
 
   valuesImplementation(): void {

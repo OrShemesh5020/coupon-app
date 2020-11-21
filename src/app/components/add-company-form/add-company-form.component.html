@@ -19,10 +19,14 @@
 
   <div>
     <label>password</label>
-    <input type="password" formControlName="password" />
+    <input id="password" type="password" formControlName="password" />
     <div *ngIf="addCompanyForm.controls['password'].invalid">
       password is required
     </div>
+  </div>
+  <div>
+    <label>confirm password</label>
+    <input id="confirm_password" type="password"/>
   </div>
 
   <button

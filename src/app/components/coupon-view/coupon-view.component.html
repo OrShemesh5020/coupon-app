@@ -5,6 +5,14 @@
   <div class="wrapper_details">
     <div class="title">{{ couponView.title }}</div>
     <div class="price">{{ couponView.price }}₪</div>
-    <div class="amount">only {{ couponView.amount }} left</div>
+    <div class="amount">
+      <div *ngIf="couponView.amount === 0">no coupons left!</div>
+      <div *ngIf="couponView.amount <= 25 && couponView.amount > 0">
+        only {{ couponView.amount }} left!
+      </div>
+      <div *ngIf="couponView.amount > 25">
+        {{ couponView.amount }} are available
+      </div>
+    </div>
   </div>
 </div>
