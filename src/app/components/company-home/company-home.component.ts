@@ -128,9 +128,6 @@ export class CompanyHomeComponent implements OnInit {
     this.filterByCategory();
   }
   openCouponProfile(coupon: Coupon): void {
-    // this.router.navigate[
-    //   (`${this.authentication.getUrl}/coupon-details`, coupon.id)
-    // ];
-    console.log(coupon);
+    this.router.navigate([`${this.authentication.getUrl}/coupon-details`, coupon.id]);
   }
 }

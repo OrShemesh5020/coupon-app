@@ -20,7 +20,7 @@ export class CustomerHomeComponent implements OnInit {
     private generalService: GeneralService,
     private router: Router,
     private authentication: AuthenticationService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadCoupons();
@@ -50,10 +50,7 @@ export class CustomerHomeComponent implements OnInit {
   }
 
   openCouponProfile(coupon: Coupon): void {
-    // this.router.navigate[
-    //   (`${this.authentication.getUrl}/coupon-details`, coupon.id)
-    // ];
-    console.log(coupon);
+    this.router.navigate([`${this.authentication.getUrl}/coupon-details`, coupon.id]);
   }
   filterByCategory(): void {
     this.customerCoupons.forEach((coupon: Coupon) => {
