@@ -27,22 +27,22 @@ export class CompanyHomeComponent implements OnInit {
     this.router.navigate([`${this.authentication.getUrl}/add-coupon`]);
   }
 
-  updateCoupon(couponId: number): void {
-    this.router.navigate([`${this.authentication.getUrl}/update/coupon`, couponId]);
-  }
+  // updateCoupon(couponId: number): void {
+  //   this.router.navigate([`${this.authentication.getUrl}/update/coupon`, couponId]);
+  // }
 
 
-  deleteCoupon(id: number): void {
-    this.companyService.deleteCoupon(id).subscribe(() => {
-      this.getAllCoupons();
-    });
-  }
+  // deleteCoupon(id: number): void {
+  //   this.companyService.deleteCoupon(id).subscribe(() => {
+  //     this.getAllCoupons();
+  //   });
+  // }
 
-  getCouponById(id: number): void {
-    this.companyService.getCouponById(id).subscribe((value: Coupon) => {
-      console.log(value);
-    });
-  }
+  // getCouponById(id: number): void {
+  //   this.companyService.getCouponById(id).subscribe((value: Coupon) => {
+  //     console.log(value);
+  //   });
+  // }
 
   getCouponByTitle(title: string): void {
     this.companyService.getCouponByTitle(title).subscribe((value: Coupon) => {
@@ -64,16 +64,16 @@ export class CompanyHomeComponent implements OnInit {
     });
   }
 
-  updateCompany(): void {
-    this.router.navigate([`${this.authentication.getUrl}/update/details`]);
-  }
+  // updateCompany(): void {
+  //   this.router.navigate([`${this.authentication.getUrl}/update/details`]);
+  // }
 
-  getAllCoupons(): void {
-    this.companyService.loadCoupons().subscribe((values: Coupon[]) => {
-      this.coupons = values;
-      console.log(values);
-    });
-  }
+  // getAllCoupons(): void {
+  //   this.companyService.loadCoupons().subscribe((values: Coupon[]) => {
+  //     this.coupons = values;
+  //     console.log(values);
+  //   });
+  // }
 
   getDetails(): void {
     this.companyService.getDetails().subscribe((value: Company) => {
