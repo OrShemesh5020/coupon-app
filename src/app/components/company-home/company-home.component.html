@@ -1,26 +1,40 @@
-<p *ngIf="company">welcome {{ company.name }}</p>
-
 <button (click)="addCoupon()">
+
   add coupon
 </button>
-<button (click)="updateCoupon(197)">update coupon</button>
-<button (click)="deleteCoupon(235)">delete 2nd coupon</button>
-<button (click)="getCouponById(199)">get 2nd coupon</button>
-<button (click)="getCouponByTitle('phone')">get coupon by title</button>
-<button (click)="getCompanyCouponsByPrice(1000)">
-  get company coupons by price
-</button>
-<button (click)="getCompanyCouponsByCategory(2)">
-  get company coupons by category
-</button>
-<button (click)="updateCompany()">
-  update company
-</button>
-<button (click)="getAllCoupons()">get all company coupons</button>
+
+<select #selectedFilter (change)="filterCoupons(selectedFilter)" >
+<option value="displayCompanyCoupons"  >get all my coupons</option>
+<option value="displayCouponByTitle"  >get coupon by title</option>
+<option value="companyCouponsByPrice">  get company coupons by price</option>
+<option value="companyCouponsByCategory"> get company coupons by category</option>
+</select>
 
 
-<div *ngIf="coupons">
-<div *ngFor="let coupon of coupons">
-<app-coupon-view [couponView]="coupon"></app-coupon-view>
-</div>
+<!--1. copying customer-home's display (switch from buttons to options like in customer)  - V -->
+<!--2. adding filter by category(add the couponsByCategory array to replace coupons in line 31)
+  (like filterByCategory in customer-home CLASS) and showing this filter on display - V-->
+<!--3. add function getAllCoupons, and do task 1 on him.  -V -->
+<!--4. use listener(choosing) event from the child component (app-coupon-view), and call openCouponProfile()(and declare the function) -->
+<!--5.  -->
+
+<div *ngIf="couponsByCategory">
+  <div
+    class="display_wrapper"
+    *ngFor="let category of couponsByCategory | keyvalue"
+  >
+    <div class="category">
+      {{ category.key | titlecase }}
+    </div>
+    <div class="coupon_wrapper">
+      <app-coupon-view
+        *ngFor="let coupon of category.value"
+        [couponView]="coupon"
+        (choosing)="openCouponProfile($event)"
+      ></app-coupon-view>
+    </div>
+    <div>
+      <hr class="hr" />
+    </div>
+  </div>
 </div>

@@ -1,12 +1,5 @@
 <br />
 <br />
-<p *ngIf="customer">
-  <em
-    ><b>welcome {{ customer.firstName }}</b></em
-  >
-</p>
-<br />
-<br />
   <select #selectedFilter (change)="filterCoupons(selectedFilter)">
     <option value="displayCustomerCoupons">get all customer's coupons</option>
     <option value="couponsByCategory">get all the customer's coupons by category</option>
@@ -14,16 +7,9 @@
   </select>
   <hr />
   <br />
-  <div class="couponsToBeRemoved">
-    <button (click)="getCoupon(197)">get a coupon</button>
-    <button (click)="purchaseCoupon(15)">purchase a coupon</button>
-    <button (click)="removePurchasedCoupon(197)">remove a coupon</button>
-    <button (click)="getDetails()">get customer's details</button>
-    <button (click)="updateDetails()">update customer's details</button>
-  </div>
   <!-- 1.display all coupons that belong to the coupons - V -->
   <!-- 2. navigate to couponProfile - Vx  -->
-  <!-- 3. only leave getCustomerCouponsByCategory, getCustomerCouponsByPrice, and loadCoupons buttons and functions in this class,  - X -->
+  <!-- 3. only leave getCustomerCouponsByCategory, getCustomerCouponsByPrice, and loadCoupons buttons and functions in this class,  - V -->
   <!-- 4.   -->
   <div *ngIf="couponsByCategory">
     <div
@@ -37,7 +23,7 @@
         <app-coupon-view
           *ngFor="let coupon of category.value"
           [couponView]="coupon"
-          (choosing)="openProfile($event)"
+          (choosing)="openCouponProfile($event)"
         ></app-coupon-view>
       </div>
       <div>
