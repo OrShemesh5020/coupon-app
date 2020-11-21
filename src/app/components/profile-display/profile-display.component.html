@@ -21,10 +21,15 @@
     <div class="statistics_wrapper">
       <div class="statistics" *ngFor="let key of getDetailsKeys(statistics)">
         <div class="key">
-          {{ key | titlecase }}
+          {{ key }}
         </div>
         <div class="value">
-          {{ statistics[key] }}
+          <div *ngIf="statistics[key].type === 'number'">
+            {{ statistics[key].value }}
+          </div>
+          <div *ngIf="statistics[key].type === 'price'">
+            {{ statistics[key].value }} ₪
+          </div>
         </div>
       </div>
     </div>
