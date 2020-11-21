@@ -1,15 +1,32 @@
-<div class="details">
-  <div *ngIf="company">
-    name: {{ company.name }}<br />
-    email: {{ company.email }}<br />
-    password: {{ company.password }}
-  </div>
-  <div *ngIf="customer">
-    name: {{ customer.firstName }} {{ customer.lastName }}<br />
-    email: {{ customer.email }}<br />
-    password: {{ customer.password }}
-  </div>
-  <div class="button">
+<div *ngIf="status">
+  <div class="header_wrapper">
+    <h1>profile:</h1>
     <button (click)="updateDetails()">update details</button>
+  </div>
+  <hr />
+  <div>
+    <h1>your details</h1>
+    <div class="status_wrapper">
+      <div class="status" *ngFor="let key of getDetailsKeys(status)">
+        <div class="key">
+          {{ key | titlecase }}
+        </div>
+        <div class="value">
+          {{ status[key] }}
+        </div>
+      </div>
+    </div>
+    <hr />
+    <h1>some statistics</h1>
+    <div class="statistics_wrapper">
+      <div class="statistics" *ngFor="let key of getDetailsKeys(statistics)">
+        <div class="key">
+          {{ key | titlecase }}
+        </div>
+        <div class="value">
+          {{ statistics[key] }}
+        </div>
+      </div>
+    </div>
   </div>
 </div>
