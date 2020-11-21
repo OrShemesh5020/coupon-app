@@ -48,8 +48,7 @@ export class ProfileDisplayComponent implements OnInit {
 
   getStatistics(): void {
     this.getNumOfCoupons();
-    this.getTotlaMoney();
-
+    this.getTotalMoney();
   }
 
   getNumOfCoupons(): void {
@@ -62,7 +61,7 @@ export class ProfileDisplayComponent implements OnInit {
     });
   }
 
-  getTotlaMoney() {
+  getTotalMoney() {
     let totalMoney = 0;
     this.getCoupons().subscribe((values: Coupon[]) => {
       if (this.company) {
