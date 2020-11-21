@@ -69,7 +69,7 @@ export class ProfileDisplayComponent implements OnInit {
         values.forEach((value: Coupon) => {
           totalMoney += (value.amount * value.price);
         });
-        this.statistics['Totle price of coupons left'] =
+        this.statistics['Total price of coupons left'] =
         {
           type: 'price',
           value: totalMoney
