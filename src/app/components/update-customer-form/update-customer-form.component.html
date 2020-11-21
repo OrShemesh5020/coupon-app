@@ -1,7 +1,12 @@
-<form *ngIf="!loading"  class="updateCustomerForm" (ngSubmit)="onSubmit()" [formGroup]="updateCustomerForm">
-  <div >
+<form
+  *ngIf="!loading"
+  class="updateCustomerForm"
+  (ngSubmit)="onSubmit()"
+  [formGroup]="updateCustomerForm"
+>
+  <div>
     <label>firstName</label>
-    <input type="text" formControlName="firstName"/>
+    <input type="text" formControlName="firstName" />
     <div *ngIf="updateCustomerForm.controls['firstName'].invalid">
       firstName is required
     </div>
@@ -25,10 +30,20 @@
 
   <div>
     <label>password</label>
-    <input type="text" formControlName="password" />
+    <input id="password" type="password" formControlName="password" />
     <div *ngIf="updateCustomerForm.controls['password'].invalid">
       password is required
     </div>
   </div>
-  <button class="updateButton"type="submit" [disabled]="!updateCustomerForm.valid">update customer</button>
+  <div>
+    <label>confirm password</label>
+    <input id="confirm_password" type="password" />
+  </div>
+  <button
+    class="updateButton"
+    type="submit"
+    [disabled]="!updateCustomerForm.valid"
+  >
+    update customer
+  </button>
 </form>

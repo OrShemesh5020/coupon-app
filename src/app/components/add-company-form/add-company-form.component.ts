@@ -64,6 +64,10 @@ export class AddCompanyFormComponent implements OnInit {
     if (this.addCompanyForm.invalid) {
       return;
     }
+    if (!this.thePasswordsAreSame()) {
+      console.log('the passwords do not match!');
+      return;
+    }
     this.valuesImplementation();
     if (!this.user) {
       this.generalService.registerCompany(this.companyModel).subscribe(() => {
@@ -79,6 +83,12 @@ export class AddCompanyFormComponent implements OnInit {
         this.router.navigate([this.authentication.getUrl]);
       });
     }
+  }
+
+  thePasswordsAreSame(): boolean {
+    const password = (document.getElementById('password') as HTMLInputElement).value;
+    const confirmPassword = (document.getElementById('confirm_password') as HTMLInputElement).value;
+    return password === confirmPassword;
   }
 
   valuesImplementation(): void {

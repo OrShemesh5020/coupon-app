@@ -84,6 +84,10 @@ export class UpdateCompanyFormComponent implements OnInit {
     if (this.updateCompanyForm.invalid) {
       return;
     }
+    if (!this.thePasswordsAreSame()) {
+      console.log('the passwords do not match!')
+      return;
+    }
     this.valuesImplementation();
     if (this.user.clientType === ClientType.COMPANY) {
       this.companyService.updateDetails(this.companyModel).subscribe(() => {
@@ -102,6 +106,12 @@ export class UpdateCompanyFormComponent implements OnInit {
     this.companyModel.name = this.getter.name.value;
     this.companyModel.email = this.getter.email.value;
     this.companyModel.password = this.getter.password.value;
+  }
+
+  thePasswordsAreSame(): boolean {
+    const password = (document.getElementById('password') as HTMLInputElement).value;
+    const confirmPassword = (document.getElementById('confirm_password') as HTMLInputElement).value;
+    return password === confirmPassword;
   }
 
   private get getter() {
