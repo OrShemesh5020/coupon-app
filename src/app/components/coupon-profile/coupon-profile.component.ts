@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { Company } from './../../models/company';
 import { CustomerService } from './../../service/customer';
 import { CompanyService } from './../../service/company';
@@ -15,6 +16,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CouponProfileComponent implements OnInit {
   coupon: Coupon;
+  company: Company;
   editable = false;
   purchasable = false;
   cancelable = false;
@@ -28,9 +30,10 @@ export class CouponProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getCompany();
     this.activatedRoute.params.subscribe((params) => {
       this.generalService.getCoupon(params.id).subscribe((value: Coupon) => {
-        if ((new Date(value.startDate).valueOf()) > new Date().valueOf()) {
+        if ((new Date(value.startDate).valueOf()) > new Date().valueOf() && !this.theCouponBelongsToTheCurrentCompany(value)) {
           this.router.navigate([this.authentication.getUrl]);
           return;
         }
@@ -98,6 +101,21 @@ export class CouponProfileComponent implements OnInit {
     this.customerService.removePurchasedCoupon(this.coupon.id).subscribe(() => {
       this.router.navigate([this.authentication.getUrl]);
     });
+  }
+
+  theCouponBelongsToTheCurrentCompany(coupon: Coupon): boolean {
+    if (this.company) {
+      return this.company.name === coupon.companyName;
+    }
+    return false;
+  }
+
+  getCompany(): void {
+    if (this.user && this.user.clientType === ClientType.COMPANY) {
+      this.companyService.getDetails().subscribe((value: Company) => {
+        this.company = value;
+      });
+    }
   }
 
   public get user(): User {
