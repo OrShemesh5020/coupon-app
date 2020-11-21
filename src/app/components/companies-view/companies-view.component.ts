@@ -13,9 +13,7 @@ export class CompaniesViewComponent implements OnInit {
   @Output() addCompany: EventEmitter<void> = new EventEmitter();
   constructor() { }
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void { }
   onEditCompany(company: Company): void {
     this.updateCompany.emit(company);
   }

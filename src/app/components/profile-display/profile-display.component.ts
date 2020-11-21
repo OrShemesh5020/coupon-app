@@ -105,7 +105,7 @@ export class ProfileDisplayComponent implements OnInit {
       this.status['email'] = this.company.email;
       this.status['password'] = this.getHiddenPassword(this.company.password.length);
     } else {
-      this.status['name'] = this.customer.firstName + this.customer.lastName;
+      this.status['name'] = this.customer.firstName + ' ' + this.customer.lastName;
       this.status['email'] = this.customer.email;
       this.status['password'] = this.getHiddenPassword(this.customer.password.length);
     }
