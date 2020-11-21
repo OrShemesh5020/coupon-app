@@ -1,12 +1,5 @@
 <br />
 <br />
-<p *ngIf="customer">
-  <em
-    ><b>welcome {{ customer.firstName }}</b></em
-  >
-</p>
-<br />
-<br />
   <select #selectedFilter (change)="filterCoupons(selectedFilter)">
     <option value="displayCustomerCoupons">get all customer's coupons</option>
     <option value="couponsByCategory">get all the customer's coupons by category</option>
