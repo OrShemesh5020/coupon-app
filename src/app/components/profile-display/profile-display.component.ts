@@ -30,14 +30,14 @@ export class ProfileDisplayComponent implements OnInit {
     if (this.user.clientType === ClientType.COMPANY) {
       this.companyService.getDetails().subscribe((value: Company) => {
         this.company = value;
-        this.setDetails();
-        this.setStatistics();
+        this.setStatus();
+        this.getStatistics();
       });
     } else {
       this.customerService.getCustomerDetails().subscribe((value: Customer) => {
         this.customer = value;
-        this.setDetails();
-        this.setStatistics();
+        this.setStatus();
+        this.getStatistics();
       });
     }
   }
@@ -46,14 +46,46 @@ export class ProfileDisplayComponent implements OnInit {
     this.router.navigate([`${this.authentication.getUrl}/update/details`]);
   }
 
-  setStatistics(): void {
+  getStatistics(): void {
     this.getNumOfCoupons();
+    this.getTotlaMoney();
 
   }
 
   getNumOfCoupons(): void {
     this.getCoupons().subscribe((values: Coupon[]) => {
-      this.statistics['number of coupons'] = values.length;
+      this.statistics['Number of coupons'] =
+      {
+        type: 'number',
+        value: values.length
+      };
+    });
+  }
+
+  getTotlaMoney() {
+    let totalMoney = 0;
+    this.getCoupons().subscribe((values: Coupon[]) => {
+      if (this.company) {
+        console.log('company');
+        values.forEach((value: Coupon) => {
+          totalMoney += (value.amount * value.price);
+        });
+        this.statistics['Totle price of coupons left'] =
+        {
+          type: 'price',
+          value: totalMoney
+        };
+      } else {
+        console.log('customer');
+        values.forEach((value: Coupon) => {
+          totalMoney += value.price;
+        });
+        this.statistics['Total coupons price'] =
+        {
+          type: 'price',
+          value: totalMoney
+        };
+      }
     });
   }
 
@@ -68,16 +100,24 @@ export class ProfileDisplayComponent implements OnInit {
     return Object.keys(object);
   }
 
-  setDetails(): void {
+  setStatus(): void {
     if (this.company) {
       this.status['name'] = this.company.name;
       this.status['email'] = this.company.email;
-      this.status['password'] = this.company.password;
+      this.status['password'] = this.getHiddenPassword(this.company.password.length);
     } else {
       this.status['name'] = this.customer.firstName + this.customer.lastName;
       this.status['email'] = this.customer.email;
-      this.status['password'] = this.customer.password;
+      this.status['password'] = this.getHiddenPassword(this.customer.password.length);
     }
+  }
+
+  getHiddenPassword(passLength: number): string {
+    let hiddenPassword = '';
+    for (let index = 0; index < passLength; index++) {
+      hiddenPassword += '*';
+    }
+    return hiddenPassword;
   }
 
   private get user(): User {
