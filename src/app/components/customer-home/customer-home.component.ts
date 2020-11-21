@@ -12,9 +12,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./customer-home.component.scss'],
 })
 export class CustomerHomeComponent implements OnInit {
-  customer: Customer;
   customerCoupons: Coupon[];
-  //filteredCoupons: Coupon[];
   availableCoupons: Coupon[];
   couponsByCategory = {};
   constructor(
@@ -25,35 +23,7 @@ export class CustomerHomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getDetails();
     this.loadCoupons();
-  }
-
-  getDetails(): void {
-    this.customerService.getCustomerDetails().subscribe((value: Customer) => {
-      this.customer = value;
-      console.log(value);
-    });
-  }
-  updateDetails(): void {
-    this.router.navigate([`${this.authentication.getUrl}/update-details`]);
-  }
-  purchaseCoupon(couponId: number): void {
-    this.customerService.getCoupon(couponId).subscribe((value: Coupon) => {
-      this.customerService.purchaseCoupon(value).subscribe(() => {
-        this.loadCoupons();
-      });
-    });
-  }
-  removePurchasedCoupon(couponId: number): void {
-    this.customerService.removePurchasedCoupon(couponId).subscribe(() => {
-      this.loadCoupons();
-    });
-  }
-  getCoupon(couponId: number): void {
-    this.customerService.getCoupon(couponId).subscribe((value: Coupon) => {
-      console.log(value);
-    });
   }
   getCustomerCouponsByCategory(categoryId: number): void {
     this.customerService
