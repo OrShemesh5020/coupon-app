@@ -1,22 +1,18 @@
-<button (click)="addCoupon()">
-
-  add coupon
-</button>
-
-<select #selectedFilter (change)="filterCoupons(selectedFilter)" >
-<option value="displayCompanyCoupons"  >get all my coupons</option>
-<option value="displayCouponByTitle"  >get coupon by title</option>
-<option value="companyCouponsByPrice">  get company coupons by price</option>
-<option value="companyCouponsByCategory"> get company coupons by category</option>
+<br />
+<br />
+<br />
+<hr />
+<select #selectedFilter (change)="filterCoupons(selectedFilter)">
+  <option value="displayCompanyCoupons">get all my coupons</option>
+  <option value="displayCouponByTitle">get coupon by title</option>
+  <option value="companyCouponsByPrice">get company coupons by price</option>
+  <option value="companyCouponsByCategory">
+    get company coupons by category
+  </option>
 </select>
-
-
-<!--1. copying customer-home's display (switch from buttons to options like in customer)  - V -->
-<!--2. adding filter by category(add the couponsByCategory array to replace coupons in line 31)
-  (like filterByCategory in customer-home CLASS) and showing this filter on display - V-->
-<!--3. add function getAllCoupons, and do task 1 on him.  -V -->
-<!--4. use listener(choosing) event from the child component (app-coupon-view), and call openCouponProfile()(and declare the function) -->
-<!--5.  -->
+<hr />
+<br />
+<button (click)="addCoupon()">add coupon</button>
 
 <div *ngIf="couponsByCategory">
   <div

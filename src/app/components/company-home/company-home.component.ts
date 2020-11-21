@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./company-home.component.scss'],
 })
 export class CompanyHomeComponent implements OnInit {
-  company: Company;
   coupons: Coupon[];
   couponsByCategory = {};
 
@@ -19,41 +18,21 @@ export class CompanyHomeComponent implements OnInit {
     private companyService: CompanyService,
     private router: Router,
     private authentication: AuthenticationService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.companyService.loadCoupons().subscribe((values: Coupon[]) => {
-      this.coupons = values;
-      this.filterByCategory();
-    });
+    this.getAllCoupons();
   }
 
   addCoupon(): void {
     this.router.navigate([`${this.authentication.getUrl}/add-coupon`]);
   }
 
-  // updateCoupon(couponId: number): void {
-  //   this.router.navigate([`${this.authentication.getUrl}/update/coupon`, couponId]);
-  // }
-
-  // deleteCoupon(id: number): void {
-  //   this.companyService.deleteCoupon(id).subscribe(() => {
-  //     this.getAllCoupons();
-  //   });
-  // }
-
-  // getCouponById(id: number): void {
-  //   this.companyService.getCouponById(id).subscribe((value: Coupon) => {
-  //     console.log(value);
-  //   });
-  // }
-
   getCouponByTitle(title: string): void {
     this.companyService.getCouponByTitle(title).subscribe((value: Coupon) => {
       this.coupons = [];
       this.coupons.push(value);
       this.refreshCoupons();
-
     });
   }
 
@@ -62,7 +41,6 @@ export class CompanyHomeComponent implements OnInit {
       .getCompanyCouponsByPrice(price)
       .subscribe((values: Coupon[]) => {
         this.coupons = values;
-        console.log(values);
         this.refreshCoupons();
       });
   }
@@ -72,26 +50,14 @@ export class CompanyHomeComponent implements OnInit {
       .getCompanyCouponsByCategory(categoryId)
       .subscribe((values: Coupon[]) => {
         this.coupons = values;
-        console.log(values);
         this.refreshCoupons();
       });
   }
 
-  // updateCompany(): void {
-  //   this.router.navigate([`${this.authentication.getUrl}/update/details`]);
-  // }
-
   getAllCoupons(): void {
     this.companyService.loadCoupons().subscribe((values: Coupon[]) => {
       this.coupons = values;
-      console.log(values);
       this.refreshCoupons();
-    });
-  }
-
-  getDetails(): void {
-    this.companyService.getDetails().subscribe((value: Company) => {
-      this.company = value;
     });
   }
 
@@ -119,8 +85,8 @@ export class CompanyHomeComponent implements OnInit {
         this.getCouponByTitle('phone');
         break;
       default:
-          this.getAllCoupons();
-          break;
+        this.getAllCoupons();
+        break;
     }
   }
   refreshCoupons(): void {
