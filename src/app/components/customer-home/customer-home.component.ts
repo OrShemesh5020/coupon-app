@@ -2,7 +2,6 @@ import { GeneralService } from './../../service/general';
 import { AuthenticationService } from 'src/app/service/authentication';
 import { Router } from '@angular/router';
 import { Coupon } from './../../models/coupon';
-import { Customer } from 'src/app/models/customer';
 import { CustomerService } from './../../service/customer';
 import { Component, OnInit } from '@angular/core';
 
@@ -13,7 +12,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomerHomeComponent implements OnInit {
   customerCoupons: Coupon[];
-  availableCoupons: Coupon[];
   couponsByCategory = {};
   constructor(
     private customerService: CustomerService,
@@ -52,6 +50,7 @@ export class CustomerHomeComponent implements OnInit {
   openCouponProfile(coupon: Coupon): void {
     this.router.navigate([`${this.authentication.getUrl}/coupon-details`, coupon.id]);
   }
+
   filterByCategory(): void {
     this.customerCoupons.forEach((coupon: Coupon) => {
       if (!this.couponsByCategory[coupon.categoryName]) {
@@ -61,15 +60,12 @@ export class CustomerHomeComponent implements OnInit {
       }
     });
   }
-  showAvailableCoupons(): void {
-    this.generalService.loadCoupons().subscribe((values: Coupon[]) => {
-      this.availableCoupons = values;
-    });
-  }
+
   refreshCoupons(): void {
     this.couponsByCategory = {};
     this.filterByCategory();
   }
+
   filterCoupons(filterEelement: HTMLSelectElement): void {
     const selectedFilter =
       filterEelement.options[filterEelement.selectedIndex].value;

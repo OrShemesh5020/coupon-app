@@ -1,6 +1,5 @@
 import { AuthenticationService } from 'src/app/service/authentication';
 import { CompanyService } from './../../service/company';
-import { Company } from './../../models/company';
 import { Coupon } from './../../models/coupon';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';

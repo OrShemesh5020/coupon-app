@@ -1,5 +1,7 @@
 <br />
 <br />
+<br />
+<hr />
   <select #selectedFilter (change)="filterCoupons(selectedFilter)">
     <option value="displayCustomerCoupons">get all customer's coupons</option>
     <option value="couponsByCategory">get all the customer's coupons by category</option>
@@ -7,10 +9,6 @@
   </select>
   <hr />
   <br />
-  <!-- 1.display all coupons that belong to the coupons - V -->
-  <!-- 2. navigate to couponProfile - Vx  -->
-  <!-- 3. only leave getCustomerCouponsByCategory, getCustomerCouponsByPrice, and loadCoupons buttons and functions in this class,  - V -->
-  <!-- 4.   -->
   <div *ngIf="couponsByCategory">
     <div
       class="display_wrapper"
