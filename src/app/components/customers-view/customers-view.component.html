@@ -6,15 +6,13 @@
       <th>id</th>
       <th>name</th>
       <th>email</th>
-      <th>password</th>
       <th>edit</th>
       <th>delete</th>
     </thead>
-    <tr *ngFor="let customer of customersView" >
-      <td>{{customer.id}}</td>
-      <td>{{customer.firstName}} {{customer.lastName}}</td>
-      <td>{{customer.email}}</td>
-      <td>{{customer.password}}</td>
+    <tr *ngFor="let customer of customersView">
+      <td>{{ customer.id }}</td>
+      <td>{{ customer.firstName }} {{ customer.lastName }}</td>
+      <td>{{ customer.email }}</td>
       <td><button (click)="onEditCustomer(customer)">E</button></td>
       <td><button (click)="onDeleteCustomer(customer)">D</button></td>
     </tr>
