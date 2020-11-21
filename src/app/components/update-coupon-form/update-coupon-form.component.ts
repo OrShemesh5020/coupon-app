@@ -87,7 +87,12 @@ export class UpdateCouponFormComponent implements OnInit {
           Validators.maxLength(200)
         ]
         ],
-      startDate: [new Date(this.couponModel.startDate).toISOString().slice(0, 10), Validators.required],
+      startDate: [
+        {
+          value: new Date(this.couponModel.startDate).toISOString().slice(0, 10),
+          disabled: this.hasTheCouponBeenLaunched(),
+        },
+        Validators.required],
       endDate: [new Date(this.couponModel.endDate).toISOString().slice(0, 10), Validators.required],
       amount: [this.couponModel.amount, Validators.required],
       price: [this.couponModel.price, Validators.required],
@@ -101,6 +106,10 @@ export class UpdateCouponFormComponent implements OnInit {
         ],
     });
     this.loading = false;
+  }
+
+  hasTheCouponBeenLaunched(): boolean {
+    return new Date(this.couponModel.startDate).valueOf() < new Date().valueOf();
   }
 
 }
