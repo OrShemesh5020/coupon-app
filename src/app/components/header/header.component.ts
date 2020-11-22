@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AuthenticationService } from './../../service/authentication';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(public authentication: AuthenticationService) { }
+  constructor(public authentication: AuthenticationService, private router: Router) { }
 
   ngOnInit(): void { }
+
+  openProfile(): void {
+    this.router.navigate([`${this.authentication.getUrl}/profile`]);
+  }
 }

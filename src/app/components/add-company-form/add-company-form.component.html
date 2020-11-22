@@ -1,4 +1,8 @@
-<form class="addComapnyForm" (ngSubmit)="onSubmit()" [formGroup]="addCompanyForm">
+<form
+  class="addComapnyForm"
+  (ngSubmit)="onSubmit()"
+  [formGroup]="addCompanyForm"
+>
   <div>
     <label>name</label>
     <input type="text" formControlName="name" />
@@ -15,11 +19,21 @@
 
   <div>
     <label>password</label>
-    <input type="password" formControlName="password" />
+    <input id="password" type="password" formControlName="password" />
     <div *ngIf="addCompanyForm.controls['password'].invalid">
       password is required
     </div>
   </div>
+  <div>
+    <label>confirm password</label>
+    <input id="confirm_password" type="password"/>
+  </div>
 
-  <button class="registerButton" type="submit" [disabled]="!addCompanyForm.valid">register</button>
+  <button
+    class="registerButton"
+    type="submit"
+    [disabled]="!addCompanyForm.valid"
+  >
+    {{ buttonText }}
+  </button>
 </form>

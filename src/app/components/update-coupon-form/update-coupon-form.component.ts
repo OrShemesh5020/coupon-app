@@ -14,25 +14,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class UpdateCouponFormComponent implements OnInit {
   updateCouponForm: FormGroup;
   couponModel: Coupon;
+  loading = true;
   constructor(
     private formBuilder: FormBuilder,
     private authentication: AuthenticationService,
     private companyService: CompanyService,
     private activatedRoute: ActivatedRoute,
     private router: Router) {
-    this.updateCouponForm = new FormGroup({
-      category: new FormControl(),
-      title: new FormControl(),
-      description: new FormControl(),
-      startDate: new FormControl(),
-      endDate: new FormControl(),
-      amount: new FormControl(),
-      price: new FormControl(),
-      imageUrl: new FormControl(),
-    });
-  }
-
-  ngOnInit(): void {
     this.couponModel = new Coupon();
     this.activatedRoute.params.subscribe((params) => {
       this.companyService.getCouponById(params.id).subscribe((value: Coupon) => {
@@ -41,6 +29,8 @@ export class UpdateCouponFormComponent implements OnInit {
       });
     });
   }
+
+  ngOnInit(): void { }
 
   onSubmit(): void {
     if (this.updateCouponForm.invalid) {
@@ -97,7 +87,12 @@ export class UpdateCouponFormComponent implements OnInit {
           Validators.maxLength(200)
         ]
         ],
-      startDate: [new Date(this.couponModel.startDate).toISOString().slice(0, 10), Validators.required],
+      startDate: [
+        {
+          value: new Date(this.couponModel.startDate).toISOString().slice(0, 10),
+          disabled: this.hasTheCouponBeenLaunched(),
+        },
+        Validators.required],
       endDate: [new Date(this.couponModel.endDate).toISOString().slice(0, 10), Validators.required],
       amount: [this.couponModel.amount, Validators.required],
       price: [this.couponModel.price, Validators.required],
@@ -110,6 +105,11 @@ export class UpdateCouponFormComponent implements OnInit {
         ]
         ],
     });
+    this.loading = false;
+  }
+
+  hasTheCouponBeenLaunched(): boolean {
+    return new Date(this.couponModel.startDate).valueOf() < new Date().valueOf();
   }
 
 }

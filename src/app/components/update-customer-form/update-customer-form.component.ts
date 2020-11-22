@@ -21,6 +21,7 @@ import { AuthenticationService } from 'src/app/service/authentication';
 export class UpdateCustomerFormComponent implements OnInit {
   customerModel: Customer;
   updateCustomerForm: FormGroup;
+  loading = true;
   constructor(
     private adminService: AdminService,
     private activatedRoute: ActivatedRoute,
@@ -29,23 +30,7 @@ export class UpdateCustomerFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router
   ) {
-    this.updateCustomerForm = new FormGroup({
-      firstName: new FormControl(),
-      lastName: new FormControl(),
-      email: new FormControl(),
-      password: new FormControl(),
-    });
-  }
-
-  ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
-      if (
-        this.user.clientType === ClientType.CUSTOMER &&
-        this.user.id != params.id
-      ) {
-        this.router.navigate([this.authentication.getUrl]);
-        return;
-      }
       this.customerModel = new Customer();
       this.getModel(params.id).subscribe((value: Customer) => {
         this.customerModel = value;
@@ -54,8 +39,15 @@ export class UpdateCustomerFormComponent implements OnInit {
     });
   }
 
+  ngOnInit(): void {
+  }
+
   onSubmit(): void {
     if (this.updateCustomerForm.invalid) {
+      return;
+    }
+    if (!this.thePasswordsMatch()) {
+      console.log('the passwords do not match!');
       return;
     }
     this.valuesImplementation();
@@ -70,6 +62,12 @@ export class UpdateCustomerFormComponent implements OnInit {
       .subscribe(() => {
         this.router.navigate([this.authentication.getUrl]);
       });
+  }
+
+  thePasswordsMatch(): boolean {
+    const password = (document.getElementById('password') as HTMLInputElement).value;
+    const confirmPassword = (document.getElementById('confirm_password') as HTMLInputElement).value;
+    return password === confirmPassword;
   }
 
   valuesImplementation(): void {
@@ -129,5 +127,6 @@ export class UpdateCustomerFormComponent implements OnInit {
         ],
       ],
     });
+    this.loading = false;
   }
 }

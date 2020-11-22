@@ -19,6 +19,7 @@ import { Component, OnInit } from '@angular/core';
 export class AddCustomerFormComponent implements OnInit {
   addCustomerForm: FormGroup;
   customerModel: Customer;
+  buttonText: string;
 
   constructor(
     private authentication: AuthenticationService,
@@ -29,6 +30,7 @@ export class AddCustomerFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.buttonText = !this.user ? 'register' : 'add customer';
     this.customerModel = new Customer();
     this.addCustomerForm = this.formBuilder.group({
       firstName: [
@@ -72,6 +74,10 @@ export class AddCustomerFormComponent implements OnInit {
     if (this.addCustomerForm.invalid) {
       return;
     }
+    if (!this.thePasswordsMatch()) {
+      console.log('the passwords do not match!');
+      return;
+    }
     this.valuesImplementation();
     if (!this.user) {
       this.generalService
@@ -92,6 +98,12 @@ export class AddCustomerFormComponent implements OnInit {
           this.router.navigate([this.authentication.getUrl]);
         });
     }
+  }
+
+  thePasswordsMatch(): boolean {
+    const password = (document.getElementById('password') as HTMLInputElement).value;
+    const confirmPassword = (document.getElementById('confirm_password') as HTMLInputElement).value;
+    return password === confirmPassword;
   }
 
   valuesImplementation(): void {

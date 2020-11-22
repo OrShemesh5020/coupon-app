@@ -8,11 +8,11 @@ import { Coupon } from './../models/coupon';
   providedIn: 'root',
 })
 export class CustomerService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
-  purchaseCoupon(coupon: Coupon): Observable<void> {
+  purchaseCoupon(coupon: Coupon): Observable<Coupon> {
     const url = 'http://localhost:8080/customer/coupon';
-    return this.httpClient.post<void>(url, coupon);
+    return this.httpClient.post<Coupon>(url, coupon);
   }
   // here i changed what the function received from "coupon" to "couponId" because the url required an id.
   removePurchasedCoupon(couponId: number): Observable<void> {

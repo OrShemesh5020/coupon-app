@@ -1,7 +1,7 @@
+import { GeneralService } from './../../service/general';
 import { AuthenticationService } from 'src/app/service/authentication';
 import { Router } from '@angular/router';
 import { Coupon } from './../../models/coupon';
-import { Customer } from 'src/app/models/customer';
 import { CustomerService } from './../../service/customer';
 import { Component, OnInit } from '@angular/core';
 
@@ -11,68 +11,74 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./customer-home.component.scss'],
 })
 export class CustomerHomeComponent implements OnInit {
-  customer: Customer;
-  coupons: Coupon[];
-
+  customerCoupons: Coupon[];
+  couponsByCategory = {};
   constructor(
     private customerService: CustomerService,
+    private generalService: GeneralService,
     private router: Router,
     private authentication: AuthenticationService
   ) { }
 
   ngOnInit(): void {
-    this.getDetails();
-    this.customerService.loadCoupons().subscribe((values: Coupon[]) => {
-      this.coupons = values;
-    });
-  }
-
-  getDetails(): void {
-    this.customerService.getCustomerDetails().subscribe((value: Customer) => {
-      this.customer = value;
-      console.log(value);
-    });
-  }
-  updateDetails(): void {
-    this.router.navigate([`${this.authentication.getUrl}/update-details`, this.customer.id]);
-  }
-  purchaseCoupon(couponId: number): void {
-    this.customerService.getCoupon(couponId).subscribe((value: Coupon) => {
-      this.customerService.purchaseCoupon(value).subscribe(() => {
-        this.loadCoupons();
-      });
-    });
-  }
-  removePurchasedCoupon(couponId: number): void {
-    this.customerService.removePurchasedCoupon(couponId).subscribe(() => {
-      this.loadCoupons();
-    });
-  }
-  getCoupon(couponId: number): void {
-    this.customerService.getCoupon(couponId).subscribe((value: Coupon) => {
-      console.log(value);
-    });
+    this.loadCoupons();
   }
   getCustomerCouponsByCategory(categoryId: number): void {
     this.customerService
       .getCustomerCouponsByCategory(categoryId)
       .subscribe((values: Coupon[]) => {
-        this.coupons = values;
-        console.log(values);
+        this.customerCoupons = values;
+        this.refreshCoupons();
       });
   }
   getCustomerCouponsByPrice(price: number): void {
     this.customerService
       .getCustomerCouponsByPrice(price)
       .subscribe((values: Coupon[]) => {
-        this.coupons = values;
-        console.log(values);
+        this.customerCoupons = values;
+        this.refreshCoupons();
       });
   }
   loadCoupons(): void {
+    this.couponsByCategory = {};
     this.customerService.loadCoupons().subscribe((values: Coupon[]) => {
-      this.coupons = values;
-      console.log(values);
+      this.customerCoupons = values;
+      this.filterByCategory();
     });
+  }
+
+  openCouponProfile(coupon: Coupon): void {
+    this.router.navigate([`${this.authentication.getUrl}/coupon-details`, coupon.id]);
+  }
+
+  filterByCategory(): void {
+    this.customerCoupons.forEach((coupon: Coupon) => {
+      if (!this.couponsByCategory[coupon.categoryName]) {
+        this.couponsByCategory[coupon.categoryName] = [coupon];
+      } else {
+        this.couponsByCategory[coupon.categoryName].push(coupon);
+      }
+    });
+  }
+
+  refreshCoupons(): void {
+    this.couponsByCategory = {};
+    this.filterByCategory();
+  }
+
+  filterCoupons(filterEelement: HTMLSelectElement): void {
+    const selectedFilter =
+      filterEelement.options[filterEelement.selectedIndex].value;
+    switch (selectedFilter) {
+      case 'couponsByCategory':
+        this.getCustomerCouponsByCategory(2);
+        break;
+      case 'couponsByPrice':
+        this.getCustomerCouponsByPrice(1000);
+        break;
+      default:
+        this.loadCoupons();
+        break;
+    }
   }
 }

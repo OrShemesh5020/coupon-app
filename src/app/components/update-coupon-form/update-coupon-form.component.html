@@ -1,4 +1,4 @@
-<form
+<form *ngIf="!loading"
   class="editCouponForm"
   (ngSubmit)="onSubmit()"
   [formGroup]="updateCouponForm"

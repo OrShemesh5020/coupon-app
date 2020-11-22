@@ -1,3 +1,5 @@
+import { ProfileDisplayComponent } from './components/profile-display/profile-display.component';
+import { CouponProfileComponent } from './components/coupon-profile/coupon-profile.component';
 import { ClientType } from 'src/app/models/user';
 import { AuthGuard } from './service/auth-guard';
 import { UpdateCustomerFormComponent } from './components/update-customer-form/update-customer-form.component';
@@ -39,6 +41,7 @@ export const routes: Routes = [
               }
             ]
           },
+          { path: 'coupon-details/:id', component: CouponProfileComponent }
         ]
       },
       {
@@ -90,7 +93,12 @@ export const routes: Routes = [
             data: { clientType: ClientType.COMPANY }
           },
           {
-            path: 'add-coupon/:companyName', component: AddCouponFormComponent,
+            path: 'add-coupon', component: AddCouponFormComponent,
+            canActivate: [AuthGuard],
+            data: { clientType: ClientType.COMPANY }
+          },
+          {
+            path: 'coupon-details/:id', component: CouponProfileComponent,
             canActivate: [AuthGuard],
             data: { clientType: ClientType.COMPANY }
           },
@@ -98,7 +106,7 @@ export const routes: Routes = [
             path: 'update',
             children: [
               {
-                path: 'details/:id', component: UpdateCompanyFormComponent,
+                path: 'details', component: UpdateCompanyFormComponent,
                 canActivate: [AuthGuard],
                 data: { clientType: ClientType.COMPANY }
               },
@@ -109,6 +117,11 @@ export const routes: Routes = [
               }
             ]
           },
+          {
+            path: 'profile', component: ProfileDisplayComponent,
+            canActivate: [AuthGuard],
+            data: { clientType: ClientType.COMPANY }
+          }
         ]
       },
       {
@@ -120,7 +133,22 @@ export const routes: Routes = [
             data: { clientType: ClientType.CUSTOMER }
           },
           {
-            path: 'update-details/:id', component: UpdateCustomerFormComponent,
+            path: 'coupon-details/:id', component: CouponProfileComponent,
+            canActivate: [AuthGuard],
+            data: { clientType: ClientType.CUSTOMER }
+          },
+          {
+            path: 'update',
+            children: [
+              {
+                path: 'details', component: UpdateCustomerFormComponent,
+                canActivate: [AuthGuard],
+                data: { clientType: ClientType.CUSTOMER }
+              }
+            ]
+          },
+          {
+            path: 'profile', component: ProfileDisplayComponent,
             canActivate: [AuthGuard],
             data: { clientType: ClientType.CUSTOMER }
           }

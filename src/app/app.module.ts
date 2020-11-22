@@ -24,6 +24,11 @@ import { UpdateCustomerFormComponent } from './components/update-customer-form/u
 import { AddCompanyFormComponent } from './components/add-company-form/add-company-form.component';
 import { UpdateCompanyFormComponent } from './components/update-company-form/update-company-form.component';
 import { AddCouponFormComponent } from './components/add-coupon-form/add-coupon-form.component';
+import { CompaniesViewComponent } from './components/companies-view/companies-view.component';
+import { CustomersViewComponent } from './components/customers-view/customers-view.component';
+import { CouponViewComponent } from './components/coupon-view/coupon-view.component';
+import { CouponProfileComponent } from './components/coupon-profile/coupon-profile.component';
+import { ProfileDisplayComponent } from './components/profile-display/profile-display.component';
 
 
 @NgModule({
@@ -44,7 +49,12 @@ import { AddCouponFormComponent } from './components/add-coupon-form/add-coupon-
     AddCompanyFormComponent,
     UpdateCompanyFormComponent,
     AddCouponFormComponent,
-    UpdateCouponFormComponent
+    UpdateCouponFormComponent,
+    CompaniesViewComponent,
+    CustomersViewComponent,
+    CouponViewComponent,
+    CouponProfileComponent,
+    ProfileDisplayComponent,
   ],
   imports: [
     HttpClientModule,

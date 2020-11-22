@@ -1,3 +1,4 @@
+import { Company } from './../../models/company';
 import { User } from './../../models/user';
 import { AuthenticationService } from './../../service/authentication';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -19,14 +20,13 @@ export class AddCouponFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authentication: AuthenticationService,
     private companyService: CompanyService,
-    private activatedRoute: ActivatedRoute,
     private router: Router
   ) { }
 
   ngOnInit(): void {
     this.couponModel = new Coupon();
-    this.activatedRoute.params.subscribe((params) => {
-      this.couponModel.companyName = params.companyName;
+    this.companyService.getDetails().subscribe((value: Company) => {
+      this.couponModel.companyName = value.name;
     });
 
     this.addCouponForm = this.formBuilder.group({

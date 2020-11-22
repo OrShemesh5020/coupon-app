@@ -4,6 +4,10 @@
 .right-side-links{
   float: right;
   right: 0;
+
+  .profile{
+    display: inline;
+  }
 }
 .link {
   margin: 7.5px;

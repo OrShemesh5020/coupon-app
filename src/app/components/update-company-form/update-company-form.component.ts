@@ -16,6 +16,7 @@ import { Component, OnInit } from '@angular/core';
 export class UpdateCompanyFormComponent implements OnInit {
   updateCompanyForm: FormGroup;
   companyModel: Company;
+  loading = true;
   constructor(
     private formBuilder: FormBuilder,
     private authentication: AuthenticationService,
@@ -24,26 +25,16 @@ export class UpdateCompanyFormComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {
-    this.updateCompanyForm = new FormGroup({
-      name: new FormControl(),
-      email: new FormControl(),
-      password: new FormControl(),
-    });
-  }
-
-  ngOnInit(): void {
     this.companyModel = new Company();
     this.activatedRoute.params.subscribe((params) => {
-      if (this.user.clientType === ClientType.COMPANY && this.user.id != params.id) {
-        this.router.navigate([this.authentication.getUrl]);
-      }
       this.getModel(params.id).subscribe((value: Company) => {
         this.companyModel = value;
         this.editcompanyFormInitialization();
       });
     });
-
   }
+
+  ngOnInit(): void { }
 
   private get user(): User {
     return this.authentication.userValue;
@@ -51,12 +42,16 @@ export class UpdateCompanyFormComponent implements OnInit {
   private editcompanyFormInitialization(): void {
     this.updateCompanyForm = this.formBuilder.group({
       name:
-        [this.companyModel.name,
         [
-          Validators.required,
-          Validators.minLength(2),
-          Validators.maxLength(45)
-        ]
+          {
+            value: this.companyModel.name,
+            disabled: true
+          },
+          [
+            Validators.required,
+            Validators.minLength(2),
+            Validators.maxLength(45)
+          ],
         ],
       email:
         [this.companyModel.email,
@@ -75,6 +70,7 @@ export class UpdateCompanyFormComponent implements OnInit {
         ]
         ],
     });
+    this.loading = false;
   }
 
   private getModel(id: number): Observable<Company> {
@@ -86,6 +82,10 @@ export class UpdateCompanyFormComponent implements OnInit {
 
   onSubmit() {
     if (this.updateCompanyForm.invalid) {
+      return;
+    }
+    if (!this.thePasswordsMatch()) {
+      console.log('the passwords do not match!')
       return;
     }
     this.valuesImplementation();
@@ -106,6 +106,12 @@ export class UpdateCompanyFormComponent implements OnInit {
     this.companyModel.name = this.getter.name.value;
     this.companyModel.email = this.getter.email.value;
     this.companyModel.password = this.getter.password.value;
+  }
+
+  thePasswordsMatch(): boolean {
+    const password = (document.getElementById('password') as HTMLInputElement).value;
+    const confirmPassword = (document.getElementById('confirm_password') as HTMLInputElement).value;
+    return password === confirmPassword;
   }
 
   private get getter() {
