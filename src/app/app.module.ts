@@ -29,6 +29,7 @@ import { CustomersViewComponent } from './components/customers-view/customers-vi
 import { CouponViewComponent } from './components/coupon-view/coupon-view.component';
 import { CouponProfileComponent } from './components/coupon-profile/coupon-profile.component';
 import { ProfileDisplayComponent } from './components/profile-display/profile-display.component';
+import { AlertComponent } from './components/alert/alert.component';
 
 
 @NgModule({
@@ -55,6 +56,7 @@ import { ProfileDisplayComponent } from './components/profile-display/profile-di
     CouponViewComponent,
     CouponProfileComponent,
     ProfileDisplayComponent,
+    AlertComponent,
   ],
   imports: [
     HttpClientModule,
