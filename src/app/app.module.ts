@@ -30,6 +30,7 @@ import { CouponViewComponent } from './components/coupon-view/coupon-view.compon
 import { CouponProfileComponent } from './components/coupon-profile/coupon-profile.component';
 import { ProfileDisplayComponent } from './components/profile-display/profile-display.component';
 import { AlertComponent } from './components/alert/alert.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { AlertComponent } from './components/alert/alert.component';
     AppRoutingModule,
     RouterModule.forRoot(routes),
     ReactiveFormsModule,
+    NgbModule
   ],
   providers: [
     {
