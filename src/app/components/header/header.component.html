@@ -8,7 +8,7 @@
     >
       My account
     </a>
-    <a class="link" href="about"> about us </a>
+    <a class="link" [routerLink]="['about']"> about us </a>
   </div>
   <div class="right-side-links">
     <div *ngIf="authentication.userValue">
@@ -18,7 +18,7 @@
       <a class="link" (click)="authentication.logout()">log out</a>
     </div>
     <div *ngIf="!authentication.userValue">
-      <a class="link" href="sign-in">sign in</a>
+      <a class="link" [routerLink]="['sign-in']">sign in</a>
     </div>
   </div>
 </nav>
