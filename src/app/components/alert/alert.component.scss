@@ -1,0 +1,12 @@
+.alert{
+  position: fixed;
+  display:flex;
+  bottom: 10px;
+  right: 10px;
+}
+.alert-success{
+  background-color: rgba(50, 205, 50, 10%);
+}
+.alert-danger{
+  background-color: rgba(255, 75, 75, 10%);
+}

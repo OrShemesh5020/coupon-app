@@ -1,3 +1,4 @@
+import { AlertService } from './../alert';
 import { AuthenticationService } from './../authentication';
 import { routes } from './../../app.routes';
 import { User } from './../../models/user';
@@ -19,7 +20,7 @@ import { Router } from '@angular/router';
 })
 export class SendToken implements HttpInterceptor {
   user: User;
-  constructor(private authentication: AuthenticationService, private route: Router) { }
+  constructor(private authentication: AuthenticationService, private route: Router, private alertService: AlertService) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     console.log('send token interceptor');
     let newReq = req;
@@ -41,22 +42,21 @@ export class SendToken implements HttpInterceptor {
         catchError((error: HttpErrorResponse) => {
           let errMsg = '';
           if (error.error instanceof ErrorEvent) {
-            errMsg = `Error: ${error.error.message}`;
+            errMsg = `Error: ${error.message}`;
+            this.alertService.error(errMsg);
           }
           else {
-            errMsg = `Error Code: ${error.status},  Message: ${error.message}`;
+            errMsg = `Message: ${error.error}`;
             if (error.status === 401) {
+              errMsg = `Message: ${error.error.message}`;
               this.authentication.logout();
               this.route.navigate(['sign-in']);
-            }
-            if (error.status === 403) {
-              console.log("you can't accsess this function!");
             }
             if (error.status === 404) {
               this.route.navigate([this.authentication.getUrl]);
             }
           }
-          console.log(errMsg);
+          this.alertService.error(errMsg);
           return throwError(errMsg);
         })
       );

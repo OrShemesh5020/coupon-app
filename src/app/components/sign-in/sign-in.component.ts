@@ -1,3 +1,5 @@
+import { User } from './../../models/user';
+import { AlertService } from './../../service/alert';
 import { AuthenticationService } from './../../service/authentication';
 import { Router } from '@angular/router';
 import { Component, Injectable, OnInit } from '@angular/core';
@@ -18,7 +20,8 @@ export class SignInComponent implements OnInit {
   constructor(
     private authentication: AuthenticationService,
     private router: Router,
-    private formBuilder: FormBuilder) { }
+    private formBuilder: FormBuilder,
+    private alertService: AlertService) { }
 
   ngOnInit(): void {
 
@@ -37,7 +40,8 @@ export class SignInComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
-    this.authentication.login(this.getter.email.value, this.getter.password.value).subscribe(() => {
+    this.authentication.login(this.getter.email.value, this.getter.password.value).subscribe((value: User) => {
+      this.alertService.success(`welcome ${value.clientType.toString().toLowerCase()}`, true);
       this.router.navigate([this.authentication.getUrl]);
     });
   }

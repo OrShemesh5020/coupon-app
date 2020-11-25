@@ -15,7 +15,7 @@ export class AlertService {
         if (this.saveMessage) {
           this.saveMessage = false;
         } else {
-          this.close();
+          this.clear();
         }
       }
     });
@@ -35,7 +35,7 @@ export class AlertService {
     this.subject.next({ type: 'error', text: message });
   }
 
-  close(): void {
+  clear(): void {
     this.subject.next();
   }
 }
