@@ -1,24 +1,17 @@
-<!-- <img > -->
-<nav>
-  <div class="left-side-links">
-    <a
-      class="link"
-      *ngFor="let item of headerItems"
-      [routerLink]="item.navigation"
-    >
+<nav class="header">
+  <a
+    class="link {{ item.navigation === 'home' && 'logo' }}"
+    *ngFor="let item of headerItems"
+    [routerLink]="item.navigation">
+    <img
+      *ngIf="item.navigation==='home'"
+      src="../../../assets/logo.png"
+      alt="coupons-app-logo" />
+    <span *ngIf="item.navigation!=='home'">
       {{ item.title }}
-    </a>
-  </div>
-  <div class="right-side-links">
-    <div>
-      <a class="link" *ngIf="user" href="log-out">log out</a>
-      <a class="link" *ngIf="!user" href="sign-in">sign in</a>
-      <a class="link" *ngIf="!user" href="sign-up">sign up</a>
-    </div>
-  </div>
+    </span>
+  </a>
+  <a class="link dont-attract-user" *ngIf="user" href="log-out">log out</a>
+  <a class="link" *ngIf="!user" href="sign-in">sign in</a>
+  <a class="link" *ngIf="!user" href="sign-up">sign up</a>
 </nav>
-<!-- <ul>
-  <li *ngFor="let item of headerItems" [routerLink]="item.navigation">
-    {{ item.title }}
-  </li>
-</ul> -->
