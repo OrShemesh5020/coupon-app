@@ -88,6 +88,7 @@ export class CompanyHomeComponent implements OnInit {
         break;
     }
   }
+
   refreshCoupons(): void {
     this.couponsByCategory = {};
     this.filterByCategory();

@@ -12,10 +12,10 @@
 </select>
 <hr />
 <br />
-<div *ngIf="displayByCategory">
+<div *ngIf="couponsByCategory">
   <div
     class="display_wrapper"
-    *ngFor="let category of displayByCategory | keyvalue"
+    *ngFor="let category of couponsByCategory | keyvalue"
   >
     <div class="category">
       {{ category.key | titlecase }}
