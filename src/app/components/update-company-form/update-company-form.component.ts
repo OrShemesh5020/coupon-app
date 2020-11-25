@@ -53,22 +53,30 @@ export class UpdateCompanyFormComponent implements OnInit {
             Validators.maxLength(45)
           ],
         ],
-      email:
-        [this.companyModel.email,
+      email: [
+        this.companyModel.email,
         [
           Validators.required,
           Validators.minLength(2),
           Validators.maxLength(45)
         ]
-        ],
-      password:
-        [this.companyModel.password,
+      ],
+      password: [
+        this.companyModel.password,
         [
           Validators.required,
-          Validators.minLength(2),
+          Validators.minLength(5),
           Validators.maxLength(45)
         ]
-        ],
+      ],
+      confirmPassword: [
+        this.user.clientType === ClientType.ADMINISTRATOR ? this.companyModel.password : null,
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(45)
+        ]
+      ],
     });
     this.loading = false;
   }
@@ -99,7 +107,6 @@ export class UpdateCompanyFormComponent implements OnInit {
         this.router.navigate([this.authentication.getUrl]);
       });
     }
-
   }
 
   valuesImplementation(): void {

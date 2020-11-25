@@ -126,6 +126,14 @@ export class UpdateCustomerFormComponent implements OnInit {
           Validators.maxLength(45),
         ],
       ],
+      confirmPassword: [
+        this.user.clientType === ClientType.ADMINISTRATOR ? this.customerModel.password : null,
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(45),
+        ],
+      ],
     });
     this.loading = false;
   }
