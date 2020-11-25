@@ -1,3 +1,4 @@
+import { AlertService } from './../../service/alert';
 import { Observable } from 'rxjs';
 import { AdminService } from './../../service/admin';
 import { ClientType, User } from './../../models/user';
@@ -23,7 +24,8 @@ export class UpdateCompanyFormComponent implements OnInit {
     private companyService: CompanyService,
     private adminService: AdminService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private alertService: AlertService
   ) {
     this.companyModel = new Company();
     this.activatedRoute.params.subscribe((params) => {
@@ -93,7 +95,7 @@ export class UpdateCompanyFormComponent implements OnInit {
       return;
     }
     if (!this.thePasswordsMatch()) {
-      console.log('the passwords do not match!')
+      this.alertService.error('the passwords do not match!');
       return;
     }
     this.valuesImplementation();
@@ -116,8 +118,8 @@ export class UpdateCompanyFormComponent implements OnInit {
   }
 
   thePasswordsMatch(): boolean {
-    const password = (document.getElementById('password') as HTMLInputElement).value;
-    const confirmPassword = (document.getElementById('confirm_password') as HTMLInputElement).value;
+    const password = this.getter.password.value;
+    const confirmPassword = this.getter.confirmPassword.value;
     return password === confirmPassword;
   }
 
