@@ -1,0 +1,44 @@
+.wrapper {
+  position: relative;
+  top: 10vh;
+  border: black 1px solid;
+  width: 100%;
+  height: 80vh;
+  .left_side {
+    position: relative;
+    left: 0;
+    float: left;
+    left: 0;
+    // height: 100%;
+    // width: 50%;
+    .top {
+      .title {
+        float: left;
+      }
+      .price {
+        float: right;
+      }
+    }
+    .bottom {
+    }
+  }
+  .right_side {
+    position: relative;
+    top: 25%;
+    float: right;
+    right: 0;
+    width: fit-content;
+    overflow: hidden;
+    height: auto;
+    width: 50%;
+    // margin: auto;
+    // max-height: 100%;
+    // max-width: 100%;
+    img {
+      height: auto;
+      width: 100%;
+      border-radius: 30%;
+      object-fit: cover;
+    }
+  }
+}

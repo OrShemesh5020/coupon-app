@@ -1,0 +1,37 @@
+<div *ngIf="status">
+  <div class="header_wrapper">
+    <h1>profile:</h1>
+    <button (click)="updateDetails()">update details</button>
+  </div>
+  <hr />
+  <div>
+    <h1>your details</h1>
+    <div class="status_wrapper">
+      <div class="status" *ngFor="let key of getDetailsKeys(status)">
+        <div class="key">
+          {{ key | titlecase }}
+        </div>
+        <div class="value">
+          {{ status[key] }}
+        </div>
+      </div>
+    </div>
+    <hr />
+    <h1>some statistics</h1>
+    <div class="statistics_wrapper">
+      <div class="statistics" *ngFor="let key of getDetailsKeys(statistics)">
+        <div class="key">
+          {{ key }}
+        </div>
+        <div class="value">
+          <div *ngIf="statistics[key].type === 'number'">
+            {{ statistics[key].value }}
+          </div>
+          <div *ngIf="statistics[key].type === 'price'">
+            {{ statistics[key].value }} ₪
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

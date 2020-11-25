@@ -1,42 +1,37 @@
+import { Company } from './../../models/company';
+import { AuthenticationService } from 'src/app/service/authentication';
 import { Customer } from './../../models/customer';
 import { AdminService } from './../../service/admin';
 import { Component, OnInit } from '@angular/core';
-import { Company } from 'src/app/models/company';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-home',
   templateUrl: './admin-home.component.html',
-  styleUrls: ['./admin-home.component.scss']
+  styleUrls: ['./admin-home.component.scss'],
 })
 export class AdminHomeComponent implements OnInit {
   companies: Company[];
   customers: Customer[];
+  displayCompanies = true;
+  buttonText = 'show all customers';
 
-  constructor(private adminService: AdminService) { }
+  constructor(private adminService: AdminService, private router: Router, private authentication: AuthenticationService) { }
 
   ngOnInit(): void {
     this.loadElements();
   }
 
-
-  addCompany(name: string, email: string, password: string): void {
-    const comapny = new Company(name, email, password);
-    this.adminService.addCompany(comapny).subscribe((value: Company) => {
-      console.log(value);
-      this.loadCompanies();
-    });
+  addCompany(): void {
+    this.router.navigate([`${this.authentication.getUrl}/add/company`]);
   }
 
-  updateCompany(id: number, name: string, email: string, password: string): void {
-    const comapny = new Company(name, email, password, id);
-    this.adminService.updateCompany(comapny).subscribe((value: Company) => {
-      console.log(value);
-      this.loadCompanies();
-    });
+  updateCompany(company: Company): void {
+    this.router.navigate([`${this.authentication.getUrl}/update/company`, company.id]);
   }
 
-  deleteCompany(id: number): void {
-    this.adminService.deleteCompany(id).subscribe(() => {
+  deleteCompany(company: Company): void {
+    this.adminService.deleteCompany(company.id).subscribe(() => {
       this.loadCompanies();
     });
   }
@@ -53,25 +48,17 @@ export class AdminHomeComponent implements OnInit {
     });
   }
 
-  addCustomer(firstName: string, lastName: string, email: string, password: string): void {
-    const customer = new Customer(firstName, lastName, email, password);
-    this.adminService.addCustomer(customer).subscribe((value: Customer) => {
-      console.log(value);
-      this.loadCustomrs();
-    });
+  addCustomer(): void {
+    this.router.navigate([`${this.authentication.getUrl}/add/customer`]);
   }
 
-  updateCustomer(id: number, firstName: string, lastName: string, email: string, password: string): void {
-    const customer = new Customer(firstName, lastName, email, password, id);
-    this.adminService.updateCustomer(customer).subscribe((value: Customer) => {
-      console.log(value);
-      this.loadCustomrs();
-    });
+  updateCustomer(customer: Customer): void {
+    this.router.navigate([`${this.authentication.getUrl}/update/customer`, customer.id]);
   }
 
-  deleteCustomer(id: number): void {
-    this.adminService.deleteCustomer(id).subscribe(() => {
-      this.loadCustomrs();
+  deleteCustomer(customer: Customer): void {
+    this.adminService.deleteCustomer(customer.id).subscribe(() => {
+      this.loadCustomers();
     });
   }
 
@@ -81,22 +68,29 @@ export class AdminHomeComponent implements OnInit {
     });
   }
 
+  switchDisplay(): void {
+    this.displayCompanies = !this.displayCompanies;
+    if (this.displayCompanies) {
+      this.buttonText = 'show all customers';
+    } else {
+      this.buttonText = 'show all companies';
+    }
+  }
+
   loadElements(): void {
     this.loadCompanies();
-    this.loadCustomrs();
+    this.loadCustomers();
   }
 
   loadCompanies(): void {
     this.adminService.loadCompanies().subscribe((values: Company[]) => {
       this.companies = values;
-      console.log(values);
     });
   }
 
-  loadCustomrs(): void {
+  loadCustomers(): void {
     this.adminService.loadCustomers().subscribe((values: Customer[]) => {
       this.customers = values;
-      console.log(values);
     });
   }
 }

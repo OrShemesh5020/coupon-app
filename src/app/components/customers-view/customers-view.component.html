@@ -1,0 +1,20 @@
+<div>
+  <h2>Customers</h2>
+  <button class="rightButton" (click)="onAddCustomer()">addCustomer</button>
+  <table>
+    <thead>
+      <th>id</th>
+      <th>name</th>
+      <th>email</th>
+      <th>edit</th>
+      <th>delete</th>
+    </thead>
+    <tr *ngFor="let customer of customersView">
+      <td>{{ customer.id }}</td>
+      <td>{{ customer.firstName }} {{ customer.lastName }}</td>
+      <td>{{ customer.email }}</td>
+      <td><button (click)="onEditCustomer(customer)">E</button></td>
+      <td><button (click)="onDeleteCustomer(customer)">D</button></td>
+    </tr>
+  </table>
+</div>

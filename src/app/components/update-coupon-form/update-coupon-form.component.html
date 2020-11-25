@@ -1,0 +1,67 @@
+<form *ngIf="!loading"
+  class="editCouponForm"
+  (ngSubmit)="onSubmit()"
+  [formGroup]="updateCouponForm"
+>
+  <div>
+    <label>title:</label>
+    <input type="text" formControlName="title" />
+    <div *ngIf="updateCouponForm.controls['title'].invalid">
+      title is required
+    </div>
+  </div>
+  <div>
+    <label>category:</label>
+    <input type="text" formControlName="category" />
+    <div *ngIf="updateCouponForm.controls['category'].invalid">
+      category is required
+    </div>
+  </div>
+  <div>
+    <label>description:</label>
+    <input type="text" formControlName="description" />
+    <div *ngIf="updateCouponForm.controls['description'].invalid">
+      description is required
+    </div>
+  </div>
+  <div>
+    <label>launch date:</label>
+    <input type="date" formControlName="startDate" />
+    <div *ngIf="updateCouponForm.controls['startDate'].invalid">
+      launch date is required
+    </div>
+  </div>
+  <div>
+    <label>expiration date:</label>
+    <input type="date" formControlName="endDate" />
+    <div *ngIf="updateCouponForm.controls['endDate'].invalid">
+      expiration date is required
+    </div>
+  </div>
+  <div>
+    <label>coupon's amount:</label>
+    <input type="number" formControlName="amount" />
+    <div *ngIf="updateCouponForm.controls['amount'].invalid">
+      amount is required
+    </div>
+  </div>
+  <div>
+    <label>coupon's price:</label>
+    <input type="number" formControlName="price" />
+    <div *ngIf="updateCouponForm.controls['price'].invalid">
+      coupon price is required
+    </div>
+  </div>
+  <div>
+    <label>src:</label>
+    <input type="text" formControlName="imageUrl" />
+    <div *ngIf="updateCouponForm.controls['imageUrl'].invalid">
+      coupon's image source is required
+    </div>
+  </div>
+  <br />
+  <br />
+  <button class="editButton" type="submit" [disabled]="!updateCouponForm.valid">
+    update coupon
+  </button>
+</form>

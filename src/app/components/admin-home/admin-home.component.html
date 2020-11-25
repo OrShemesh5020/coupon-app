@@ -1,21 +1,20 @@
 <p>Welcome admin</p>
 <br />
-<button (click)="addCompany('name1', 'email1', 'password1')">
-  add company
-</button>
-<button (click)="updateCompany(265, 'zap', 'email', 'password')">
-  update company
-</button>
-<button (click)="deleteCompany(266)">delete company</button>
-<button (click)="getCompanyById(8)">get company by id</button>
-<button (click)="getCompanyByName('zap')">get company by name</button>
-<button (click)="addCustomer('firstName', 'lastName', 'email1', 'password')">
-  add customer
-</button>
-<button
-  (click)="updateCustomer(236, 'firstName1', 'lastName', 'email1', 'password')"
->
-  update customer
-</button>
-<button (click)="deleteCustomer(236)">delete customer</button>
-<button (click)="getCustomer(1)">get customer</button>
+<button (click)="switchDisplay()">{{ buttonText }}</button>
+<br />
+<br />
+<br />
+<app-companies-view
+  *ngIf="displayCompanies"
+  [companiesView]="companies"
+  (updateCompany)="updateCompany($event)"
+  (deleteCompany)="deleteCompany($event)"
+  (addCompany)="addCompany()"
+></app-companies-view>
+<app-customers-view
+  *ngIf="!displayCompanies"
+  [customersView]="customers"
+  (updateCustomer)="updateCustomer($event)"
+  (deleteCustomer)="deleteCustomer($event)"
+  (addCustomer)="addCustomer()"
+></app-customers-view>

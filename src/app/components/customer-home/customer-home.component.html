@@ -1,9 +1,32 @@
-<p *ngIf="customer">welcome {{ customer.firstName }}</p>
-<!-- remember to sign in as customer 3 as he is the one that owns the 197th coupon -->
-<button (click)="getCoupon(197)"> get a coupon </button>
-<button (click)="getCustomerCouponsByCategory(4)">get all the customer's coupons by category</button>
-<button (click)="getCustomerCouponsByPrice(15000)">get all the customer's coupons by price</button>
-<button (click)="purchaseCoupon(198)">purchase a coupon</button>
-<button (click)="removePurchasedCoupon(198)">remove a coupon</button>
-<button (click)="getDetails()">get customer's details</button>
+<br />
+<br />
+<br />
+<hr />
+  <select #selectedFilter (change)="filterCoupons(selectedFilter)">
+    <option value="displayCustomerCoupons">get all customer's coupons</option>
+    <option value="couponsByCategory">get all the customer's coupons by category</option>
+    <option value="couponsByPrice">get all the customer's coupons by price</option>
+  </select>
+  <hr />
+  <br />
+  <div *ngIf="couponsByCategory">
+    <div
+      class="display_wrapper"
+      *ngFor="let category of couponsByCategory | keyvalue"
+    >
+      <div class="category">
+        {{ category.key | titlecase }}
+      </div>
+      <div class="coupon_wrapper">
+        <app-coupon-view
+          *ngFor="let coupon of category.value"
+          [couponView]="coupon"
+          (choosing)="openCouponProfile($event)"
+        ></app-coupon-view>
+      </div>
+      <div>
+        <hr class="hr" />
+      </div>
+    </div>
+  </div>
 

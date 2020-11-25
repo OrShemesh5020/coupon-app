@@ -9,3 +9,21 @@ button {
   font-size: 13px;
   margin: 1px;
 }
+.display_wrapper {
+  width: 100%;
+  margin-bottom: 30px;
+  display: grid;
+
+  .category {
+    font-size: 50px;
+    font-weight: bold;
+  }
+  .coupon_wrapper {
+    float: left;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .hr {
+    border-bottom: black 5px solid;
+  }
+}

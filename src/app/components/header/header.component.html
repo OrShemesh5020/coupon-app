@@ -1,17 +1,45 @@
-<nav class="header">
-  <a
-    class="link {{ item.navigation === 'home' && 'logo' }}"
-    *ngFor="let item of headerItems"
-    [routerLink]="item.navigation">
-    <img
-      *ngIf="item.navigation==='home'"
-      src="../../../assets/logo.png"
-      alt="coupons-app-logo" />
-    <span *ngIf="item.navigation!=='home'">
-      {{ item.title }}
-    </span>
-  </a>
-  <a class="link dont-attract-user" *ngIf="user" href="log-out">log out</a>
-  <a class="link" *ngIf="!user" href="sign-in">sign in</a>
-  <a class="link" *ngIf="!user" href="sign-up">sign up</a>
+<nav>
+  <div class="left-side-links">
+    <a class="link" [routerLink]="['home/public']"> home </a>
+    <a
+      *ngIf="authentication.userValue"
+      class="link"
+      [routerLink]="authentication.getUrl"
+    >
+      My account
+    </a>
+    <a class="link" href="about"> about us </a>
+  </div>
+  <div class="right-side-links">
+    <div *ngIf="authentication.userValue">
+      <div class="profile" *ngIf="authentication.userValue.clientType !== 'ADMINISTRATOR'">
+        <a class="link" (click)="openProfile()">My Profile</a>
+      </div>
+      <a class="link" (click)="authentication.logout()">log out</a>
+    </div>
+    <div *ngIf="!authentication.userValue">
+      <a class="link" href="sign-in">sign in</a>
+    </div>
+  </div>
 </nav>
+
+
+
+
+<!--<nav class="header">-->
+<!--  <a-->
+<!--    class="link {{ item.navigation === 'home' && 'logo' }}"-->
+<!--    *ngFor="let item of headerItems"-->
+<!--    [routerLink]="item.navigation">-->
+<!--    <img-->
+<!--      *ngIf="item.navigation==='home'"-->
+<!--      src="../../../assets/logo.png"-->
+<!--      alt="coupons-app-logo" />-->
+<!--    <span *ngIf="item.navigation!=='home'">-->
+<!--      {{ item.title }}-->
+<!--    </span>-->
+<!--  </a>-->
+<!--  <a class="link dont-attract-user" *ngIf="user" href="log-out">log out</a>-->
+<!--  <a class="link" *ngIf="!user" href="sign-in">sign in</a>-->
+<!--  <a class="link" *ngIf="!user" href="sign-up">sign up</a>-->
+<!--</nav>-->

@@ -1,0 +1,29 @@
+<div *ngIf="coupon" class="wrapper">
+  <div class="left_side">
+    <div class="top">
+      <div id="title">title: {{ coupon.title }}</div>
+      <div id="price">price: {{ coupon.price }}₪</div>
+    </div>
+    <div class="bottom">
+      description: {{ coupon.description }}<br />
+      expiration date: {{ coupon.endDate | date: "d/M/yyyy" }}
+      <div *ngIf="coupon.amount <= 50">only {{ coupon.amount }} left!</div>
+      <div *ngIf="coupon.amount > 50">{{ coupon.amount }} are available</div>
+    </div>
+  </div>
+  <div class="right_side">
+    <img src="{{ coupon.image }}" />
+  </div>
+  <div class="buttons">
+    <div class="companyButtons" *ngIf="editable">
+      <button (click)="updateCoupon()">update</button>
+      <button (click)="deleteCoupon()">delete</button>
+    </div>
+    <div class="coupon_purchase_button" *ngIf="purchasable">
+      <button (click)="purchaseACoupon()">Buy now!</button>
+    </div>
+    <div class="cansel_purchase_button" *ngIf="cancelable">
+      <button (click)="cancelPurchase()">cancel purchase</button>
+    </div>
+  </div>
+</div>

@@ -1,102 +1,98 @@
+import { AuthenticationService } from 'src/app/service/authentication';
 import { CompanyService } from './../../service/company';
-import { Company } from './../../models/company';
-import { AuthenticationService } from './../../service/authentication';
 import { Coupon } from './../../models/coupon';
-import { User } from './../../models/user';
 import { Component, OnInit } from '@angular/core';
-import { GeneralService } from 'src/app/service/general';
-import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-company-home',
   templateUrl: './company-home.component.html',
-  styleUrls: ['./company-home.component.scss']
+  styleUrls: ['./company-home.component.scss'],
 })
 export class CompanyHomeComponent implements OnInit {
-  company: Company;
   coupons: Coupon[];
+  couponsByCategory = {};
 
-  constructor(private companyService: CompanyService) { }
+  constructor(
+    private companyService: CompanyService,
+    private router: Router,
+    private authentication: AuthenticationService
+  ) { }
 
   ngOnInit(): void {
-    this.getDetails();
-    this.companyService.loadCoupons().subscribe((values: Coupon[]) => {
-      this.coupons = values;
-    });
+    this.getAllCoupons();
   }
 
-
-
-  addCoupon(categoryName: string, title: string, description: string, amount: number, price: number, image: string): void {
-    const startDate = new Date(2020, 11, 20);
-    const endDate = new Date(2022, 10, 10);
-    const coupon = new Coupon(this.company.name, categoryName, title, description, startDate, endDate, amount, price, image);
-    this.companyService.addCoupon(coupon).subscribe((value: Coupon) => {
-      console.log(value);
-      this.getAllCoupons();
-    });
-  }
-
-  updateCoupon(couponId: number, title: string): void {
-    this.companyService.getCouponById(couponId).subscribe((value: Coupon) => {
-      value.title = title;
-      this.companyService.updateCoupon(value).subscribe((newValue: Coupon) => {
-        console.log(newValue);
-        this.getAllCoupons();
-      });
-    });
-  }
-
-
-  deleteCoupon(id: number): void {
-    this.companyService.deleteCoupon(id).subscribe(() => {
-      this.getAllCoupons();
-    });
-  }
-
-  getCouponById(id: number): void {
-    this.companyService.getCouponById(id).subscribe((value: Coupon) => {
-      console.log(value);
-    });
+  addCoupon(): void {
+    this.router.navigate([`${this.authentication.getUrl}/add-coupon`]);
   }
 
   getCouponByTitle(title: string): void {
     this.companyService.getCouponByTitle(title).subscribe((value: Coupon) => {
-      console.log(value);
+      this.coupons = [];
+      this.coupons.push(value);
+      this.refreshCoupons();
     });
   }
 
   getCompanyCouponsByPrice(price: number): void {
-    this.companyService.getCompanyCouponsByPrice(price).subscribe((values: Coupon[]) => {
-      this.coupons = values;
-      console.log(values);
-    });
+    this.companyService
+      .getCompanyCouponsByPrice(price)
+      .subscribe((values: Coupon[]) => {
+        this.coupons = values;
+        this.refreshCoupons();
+      });
   }
 
   getCompanyCouponsByCategory(categoryId: number): void {
-    this.companyService.getCompanyCouponsByCategory(categoryId).subscribe((values: Coupon[]) => {
-      this.coupons = values;
-      console.log(values);
-    });
-  }
-
-  updateCompany(name: string, email: string, password: string): void {
-    const company = new Company(name, email, password, this.company.id);
-    this.companyService.updateDetails(company).subscribe((value: Company) => {
-      this.company = value;
-    });
+    this.companyService
+      .getCompanyCouponsByCategory(categoryId)
+      .subscribe((values: Coupon[]) => {
+        this.coupons = values;
+        this.refreshCoupons();
+      });
   }
 
   getAllCoupons(): void {
     this.companyService.loadCoupons().subscribe((values: Coupon[]) => {
       this.coupons = values;
-      console.log(values);
+      this.refreshCoupons();
     });
   }
 
-  getDetails(): void {
-    this.companyService.getDetails().subscribe((value: Company) => {
-      this.company = value;
+  filterByCategory(): void {
+    this.coupons.forEach((coupon: Coupon) => {
+      if (!this.couponsByCategory[coupon.categoryName]) {
+        this.couponsByCategory[coupon.categoryName] = [coupon];
+      } else {
+        this.couponsByCategory[coupon.categoryName].push(coupon);
+      }
     });
+  }
+
+  filterCoupons(filterEelement: HTMLSelectElement): void {
+    const selectedFilter =
+      filterEelement.options[filterEelement.selectedIndex].value;
+    switch (selectedFilter) {
+      case 'companyCouponsByCategory':
+        this.getCompanyCouponsByCategory(2);
+        break;
+      case 'companyCouponsByPrice':
+        this.getCompanyCouponsByPrice(1000);
+        break;
+      case 'displayCouponByTitle':
+        this.getCouponByTitle('phone');
+        break;
+      default:
+        this.getAllCoupons();
+        break;
+    }
+  }
+  refreshCoupons(): void {
+    this.couponsByCategory = {};
+    this.filterByCategory();
+  }
+  openCouponProfile(coupon: Coupon): void {
+    this.router.navigate([`${this.authentication.getUrl}/coupon-details`, coupon.id]);
   }
 }
