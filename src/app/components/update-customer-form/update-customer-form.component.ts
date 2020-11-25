@@ -1,3 +1,4 @@
+import { AlertService } from './../../service/alert';
 import { Observable } from 'rxjs';
 import { ClientType, User } from './../../models/user';
 import { CustomerService } from './../../service/customer';
@@ -28,7 +29,8 @@ export class UpdateCustomerFormComponent implements OnInit {
     private authentication: AuthenticationService,
     private customerService: CustomerService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private alertService: AlertService
   ) {
     this.activatedRoute.params.subscribe((params) => {
       this.customerModel = new Customer();
@@ -47,7 +49,7 @@ export class UpdateCustomerFormComponent implements OnInit {
       return;
     }
     if (!this.thePasswordsMatch()) {
-      console.log('the passwords do not match!');
+      this.alertService.error('the passwords do not match!');
       return;
     }
     this.valuesImplementation();
@@ -65,8 +67,8 @@ export class UpdateCustomerFormComponent implements OnInit {
   }
 
   thePasswordsMatch(): boolean {
-    const password = (document.getElementById('password') as HTMLInputElement).value;
-    const confirmPassword = (document.getElementById('confirm_password') as HTMLInputElement).value;
+    const password = this.getter.password.value;
+    const confirmPassword = this.getter.confirmPassword.value;
     return password === confirmPassword;
   }
 
@@ -120,6 +122,14 @@ export class UpdateCustomerFormComponent implements OnInit {
 
       password: [
         this.customerModel.password,
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(45),
+        ],
+      ],
+      confirmPassword: [
+        this.user.clientType === ClientType.ADMINISTRATOR ? this.customerModel.password : null,
         [
           Validators.required,
           Validators.minLength(5),

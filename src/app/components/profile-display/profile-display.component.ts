@@ -103,12 +103,11 @@ export class ProfileDisplayComponent implements OnInit {
     if (this.company) {
       this.status['name'] = this.company.name;
       this.status['email'] = this.company.email;
-      this.status['password'] = this.getHiddenPassword(this.company.password.length);
     } else {
       this.status['name'] = this.customer.firstName + ' ' + this.customer.lastName;
       this.status['email'] = this.customer.email;
-      this.status['password'] = this.getHiddenPassword(this.customer.password.length);
     }
+    this.hidePassword();
   }
 
   getHiddenPassword(passLength: number): string {
@@ -118,6 +117,22 @@ export class ProfileDisplayComponent implements OnInit {
     }
     return hiddenPassword;
   }
+
+  displayPassword(): void {
+    if (this.company) {
+      this.status['password'] = this.company.password;
+    } else {
+      this.status['password'] = this.customer.password;
+    }
+  }
+  hidePassword(): void {
+    if (this.company) {
+      this.status['password'] = this.getHiddenPassword(this.company.password.length);
+    } else {
+      this.status['password'] = this.getHiddenPassword(this.customer.password.length);
+    }
+  }
+
 
   private get user(): User {
     return this.authentication.userValue;

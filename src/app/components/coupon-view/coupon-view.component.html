@@ -3,7 +3,9 @@
     <img src="{{ couponView.image }}" />
   </div>
   <div class="wrapper_details">
-    <div class="title">{{ couponView.title }}</div>
+    <div class="title">
+      <u>{{ couponView.title }}</u>
+    </div>
     <div class="price">{{ couponView.price }}₪</div>
     <div class="amount">
       <div *ngIf="couponView.amount === 0">no coupons left!</div>

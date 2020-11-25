@@ -1,3 +1,4 @@
+import { AlertService } from './../../service/alert';
 import { Observable } from 'rxjs';
 import { AdminService } from './../../service/admin';
 import { ClientType, User } from './../../models/user';
@@ -23,7 +24,8 @@ export class UpdateCompanyFormComponent implements OnInit {
     private companyService: CompanyService,
     private adminService: AdminService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private alertService: AlertService
   ) {
     this.companyModel = new Company();
     this.activatedRoute.params.subscribe((params) => {
@@ -53,22 +55,30 @@ export class UpdateCompanyFormComponent implements OnInit {
             Validators.maxLength(45)
           ],
         ],
-      email:
-        [this.companyModel.email,
+      email: [
+        this.companyModel.email,
         [
           Validators.required,
           Validators.minLength(2),
           Validators.maxLength(45)
         ]
-        ],
-      password:
-        [this.companyModel.password,
+      ],
+      password: [
+        this.companyModel.password,
         [
           Validators.required,
-          Validators.minLength(2),
+          Validators.minLength(5),
           Validators.maxLength(45)
         ]
-        ],
+      ],
+      confirmPassword: [
+        this.user.clientType === ClientType.ADMINISTRATOR ? this.companyModel.password : null,
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(45)
+        ]
+      ],
     });
     this.loading = false;
   }
@@ -85,7 +95,7 @@ export class UpdateCompanyFormComponent implements OnInit {
       return;
     }
     if (!this.thePasswordsMatch()) {
-      console.log('the passwords do not match!')
+      this.alertService.error('the passwords do not match!');
       return;
     }
     this.valuesImplementation();
@@ -99,7 +109,6 @@ export class UpdateCompanyFormComponent implements OnInit {
         this.router.navigate([this.authentication.getUrl]);
       });
     }
-
   }
 
   valuesImplementation(): void {
@@ -109,8 +118,8 @@ export class UpdateCompanyFormComponent implements OnInit {
   }
 
   thePasswordsMatch(): boolean {
-    const password = (document.getElementById('password') as HTMLInputElement).value;
-    const confirmPassword = (document.getElementById('confirm_password') as HTMLInputElement).value;
+    const password = this.getter.password.value;
+    const confirmPassword = this.getter.confirmPassword.value;
     return password === confirmPassword;
   }
 

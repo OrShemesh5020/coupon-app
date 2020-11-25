@@ -1,3 +1,4 @@
+import { AlertService } from './alert';
 import { ClientType } from 'src/app/models/user';
 import { User } from './../models/user';
 import { AuthenticationService } from './authentication';
@@ -11,7 +12,7 @@ export class AuthGuard implements CanActivate {
 
   private disconnectionRequired: boolean;
   private clientType: ClientType;
-  constructor(private router: Router, private authentication: AuthenticationService) { }
+  constructor(private router: Router, private authentication: AuthenticationService, private alertService: AlertService) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     this.clientType = route.data.clientType;
@@ -19,6 +20,7 @@ export class AuthGuard implements CanActivate {
 
     if (this.disconnectionRequired) {
       if (this.hasConnection()) {
+        this.alertService.error('you are already logged in', true);
         this.router.navigate([this.authentication.getUrl]);
         return false;
       }
@@ -26,10 +28,12 @@ export class AuthGuard implements CanActivate {
     }
 
     if (!this.hasConnection()) {
+      this.alertService.error('you are not logged in', true);
       this.router.navigate(['sign-in']);
       return false;
     }
     if (!this.theUserTypeMatches()) {
+      this.alertService.error('you do not have access to this section of the site', true);
       this.router.navigate([this.authentication.getUrl]);
       return false;
     }
