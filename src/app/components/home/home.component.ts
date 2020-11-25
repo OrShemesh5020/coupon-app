@@ -11,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
   coupons: Coupon[];
-  displayByCategory = {};
+  couponsByCategory = {};
 
   constructor(private generalService: GeneralService, private authentication: AuthenticationService, private router: Router) { }
 
@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
       this.coupons = values.filter((value: Coupon) => {
         return (new Date(value.startDate).valueOf()) <= new Date().valueOf() && value.amount > 0;
       });
-      this.loadCategories();
+      this.refreshCoupons();
     });
   }
 
@@ -32,12 +32,57 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['home/public/coupon-details', coupon.id]);
   }
 
-  loadCategories(): void {
+  getCompanyCouponsByCategory(categoryName: string): void {
+    this.coupons = this.coupons.filter((value: Coupon) => {
+      return value.categoryName === categoryName;
+    });
+    this.refreshCoupons();
+  }
+
+  getCompanyCouponsByPrice(price: number): void {
+    this.coupons = this.coupons.filter((value: Coupon) => {
+      return value.price <= price;
+    });
+    this.refreshCoupons();
+  }
+
+  getCouponsByTitle(title: string): void {
+    this.coupons = this.coupons.filter((value: Coupon) => {
+      return value.title === title;
+    });
+    this.refreshCoupons();
+  }
+
+  filterCoupons(filterEelement: HTMLSelectElement): void {
+    const selectedFilter =
+      filterEelement.options[filterEelement.selectedIndex].value;
+    switch (selectedFilter) {
+      case 'companyCouponsByCategory':
+        this.getCompanyCouponsByCategory('food');
+        break;
+      case 'companyCouponsByPrice':
+        this.getCompanyCouponsByPrice(1000);
+        break;
+      case 'displayCouponByTitle':
+        this.getCouponsByTitle('car');
+        break;
+      default:
+        this.loadCoupons();
+        break;
+    }
+  }
+
+  refreshCoupons(): void {
+    this.couponsByCategory = {};
+    this.filterByCategory();
+  }
+
+  filterByCategory(): void {
     this.coupons.forEach((coupon: Coupon) => {
-      if (!this.displayByCategory[coupon.categoryName]) {
-        this.displayByCategory[coupon.categoryName] = [coupon];
+      if (!this.couponsByCategory[coupon.categoryName]) {
+        this.couponsByCategory[coupon.categoryName] = [coupon];
       } else {
-        this.displayByCategory[coupon.categoryName].push(coupon);
+        this.couponsByCategory[coupon.categoryName].push(coupon);
       }
     });
   }
