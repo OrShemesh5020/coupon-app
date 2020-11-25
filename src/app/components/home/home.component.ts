@@ -11,7 +11,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
   coupons: Coupon[];
+  filteredCoupon: Coupon[];
+  allCategories: string[];
   couponsByCategory = {};
+  filterType: string;
 
   constructor(private generalService: GeneralService, private authentication: AuthenticationService, private router: Router) { }
 
@@ -24,8 +27,18 @@ export class HomeComponent implements OnInit {
       this.coupons = values.filter((value: Coupon) => {
         return (new Date(value.startDate).valueOf()) <= new Date().valueOf() && value.amount > 0;
       });
-      this.refreshCoupons();
+      this.showAllcoupon();
+      this.setCategories();
     });
+  }
+
+  showAllcoupon(): void {
+    this.filteredCoupon = this.coupons;
+    this.refreshCoupons();
+  }
+
+  setCategories(): void {
+    this.allCategories = Object.keys(this.couponsByCategory);
   }
 
   openProfile(coupon: Coupon): void {
@@ -33,52 +46,57 @@ export class HomeComponent implements OnInit {
   }
 
   getCompanyCouponsByCategory(categoryName: string): void {
-    this.coupons = this.coupons.filter((value: Coupon) => {
+    this.filteredCoupon = this.coupons.filter((value: Coupon) => {
       return value.categoryName === categoryName;
     });
     this.refreshCoupons();
   }
 
   getCompanyCouponsByPrice(price: number): void {
-    this.coupons = this.coupons.filter((value: Coupon) => {
+    this.filteredCoupon = this.coupons.filter((value: Coupon) => {
       return value.price <= price;
     });
     this.refreshCoupons();
   }
 
   getCouponsByTitle(title: string): void {
-    this.coupons = this.coupons.filter((value: Coupon) => {
+    this.filteredCoupon = this.coupons.filter((value: Coupon) => {
       return value.title === title;
     });
     this.refreshCoupons();
   }
 
-  filterCoupons(filterEelement: HTMLSelectElement): void {
+  setFilterType(filterEelement: HTMLSelectElement): void {
     const selectedFilter =
       filterEelement.options[filterEelement.selectedIndex].value;
-    switch (selectedFilter) {
-      case 'companyCouponsByCategory':
-        this.getCompanyCouponsByCategory('food');
-        break;
-      case 'companyCouponsByPrice':
-        this.getCompanyCouponsByPrice(1000);
-        break;
-      case 'displayCouponByTitle':
-        this.getCouponsByTitle('car');
-        break;
-      default:
-        this.loadCoupons();
-        break;
+    this.filterType = selectedFilter === 'all' ? null : selectedFilter;
+    if (!this.filterType) {
+      this.showAllcoupon();
     }
+  }
+
+  filterCoupons(): void {
+    const filterInput = (document.getElementById('filter-input') as HTMLInputElement).value;
+    if (this.filterType === 'title') {
+      this.getCouponsByTitle(filterInput);
+    } else {
+      this.getCompanyCouponsByPrice(parseInt(filterInput));
+    }
+    (document.getElementById('filter-input') as HTMLInputElement).value = '';
+  }
+
+  filterByCategory(filterEelement: HTMLSelectElement): void {
+    const selectedFilter = filterEelement.options[filterEelement.selectedIndex].value;
+    this.getCompanyCouponsByCategory(selectedFilter);
   }
 
   refreshCoupons(): void {
     this.couponsByCategory = {};
-    this.filterByCategory();
+    this.sortByCategory();
   }
 
-  filterByCategory(): void {
-    this.coupons.forEach((coupon: Coupon) => {
+  sortByCategory(): void {
+    this.filteredCoupon.forEach((coupon: Coupon) => {
       if (!this.couponsByCategory[coupon.categoryName]) {
         this.couponsByCategory[coupon.categoryName] = [coupon];
       } else {
