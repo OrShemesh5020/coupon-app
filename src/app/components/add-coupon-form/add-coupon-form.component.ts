@@ -89,12 +89,17 @@ export class AddCouponFormComponent implements OnInit {
 
   }
 
+  convertToLowerCase(): void {
+    this.couponModel.categoryName = this.couponModel.categoryName.toLowerCase();
+    this.couponModel.title = this.couponModel.title.toLowerCase();
+  }
 
   onSubmit(): void {
     if (this.addCouponForm.invalid) {
       return;
     }
     this.valuesImplementation();
+    this.convertToLowerCase();
     this.companyService.addCoupon(this.couponModel).subscribe(() => {
       this.router.navigate([this.authentication.getUrl]);
     });
