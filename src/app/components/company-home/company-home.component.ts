@@ -62,8 +62,8 @@ export class CompanyHomeComponent implements OnInit {
     });
   }
 
-  getCompanyCouponsByCategory(categoryId: number): void {
-    this.companyService.getCompanyCouponsByCategory(categoryId).subscribe((values: Coupon[]) => {
+  getCompanyCouponsByCategory(categoryName: string): void {
+    this.companyService.getCompanyCouponsByCategory(categoryName).subscribe((values: Coupon[]) => {
       this.filteredCoupon = values;
       this.refreshCoupons();
     });
@@ -86,6 +86,21 @@ export class CompanyHomeComponent implements OnInit {
     if (!this.filterType) {
       this.showAllcoupon();
     }
+  }
+
+  filterCoupons(): void {
+    const filterInput = (document.getElementById('filter-input') as HTMLInputElement).value;
+    if (this.filterType === 'title') {
+      this.getCouponByTitle(filterInput);
+    } else {
+      this.getCompanyCouponsByPrice(parseInt(filterInput));
+    }
+    (document.getElementById('filter-input') as HTMLInputElement).value = '';
+  }
+
+  filterByCategory(filterEelement: HTMLSelectElement): void {
+    const selectedFilter = filterEelement.options[filterEelement.selectedIndex].value;
+    this.getCompanyCouponsByCategory(selectedFilter);
   }
 
   refreshCoupons(): void {
