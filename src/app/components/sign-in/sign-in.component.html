@@ -1,22 +1,35 @@
 <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
-  <div>
-    <label>email: </label>
+  <h1>SIGN IN</h1>
+  <div class="input-wrapper">
+    <label>email</label>
+    <span class="label-shadow">email</span>
     <input type="email" formControlName="email" />
-    <div *ngIf="loginForm.controls['email'].invalid">email is required</div>
-  </div>
-  <div>
-    <label>password: </label>
-    <input type="password" formControlName="password" />
-    <div *ngIf="loginForm.controls['password'].invalid">
-      password is required
+    <div class="form-input-error">
+      <span *ngIf="loginForm.controls['email'].invalid">email is required</span>
     </div>
   </div>
-  <br />
-  <br />
-  <button type="submit" [disabled]="!loginForm.valid">log in</button>
+  <div class="input-wrapper">
+    <label>password</label>
+    <span class="label-shadow">password</span>
+    <input type="password" formControlName="password" />
+    <div class="form-input-error">
+      <span *ngIf="loginForm.controls['password'].invalid">password is required</span>
+    </div>
+  </div>
+  <button type="submit" [disabled]="!loginForm.valid">
+    SUBMIT
+  </button>
+  <div>
+    <p>Not registered yet?</p>
+    <p>
+      <a (click)="registerCustomer()">
+        Join our hundreds of satisfied customers
+      </a>
+    </p>
+    <p>
+      <a (click)="registerCompany()">
+        Let's be one of our coupon marketers
+      </a>
+    </p>
+  </div>
 </form>
-<br />
-<p>Not registered yet?</p>
-<a (click)="registerCustomer()">Join our hundreds of satisfied customers</a>
-<br />
-<a (click)="registerCompany()">Let's be one of our coupon marketers</a>

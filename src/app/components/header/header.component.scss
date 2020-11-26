@@ -1,14 +1,14 @@
-@import "../../colors.scss";
+@import "../../../colors";
 
 nav.header {
+  //display: none;
   display: grid;
-  grid-template-columns: 1fr 2fr 2fr;
+  grid-template-columns: 6fr 1fr 1fr 1fr 1fr;
   align-items: center;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-
-  .profile{
-    display: inline;
-  }
+  z-index: 2;
+  position: sticky;
+  //background-color: white;
 
   .left-side-links {
     //float: left;
@@ -30,21 +30,31 @@ nav.header {
     padding: 10px 20px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
+    //display: inline-block;
     font-size: 13px;
 
-    &.logo {
+    &.modest {
+      color: $NICE_PURPLE;
       background-color: unset;
-
-      img {
-        max-height: 50px;
-      }
-    }
-
-    &.dont-attract-user {
-      background-color: unset;
-      color: black;
       text-decoration: underline;
+    }
+  }
+
+
+  img.app-logo {
+    outline: 0;
+    margin: 10px 23px;
+    background-color: unset;
+    max-height: 50px;
+    cursor: pointer;
+  }
+}
+
+.auth-form-wrapper {
+  nav.header {
+    border-bottom: unset;
+    a.link {
+      display: none;
     }
   }
 }

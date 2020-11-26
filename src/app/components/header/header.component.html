@@ -1,29 +1,37 @@
-<nav>
-  <div class="left-side-links">
-    <a class="link" [routerLink]="['home/public']"> home </a>
-    <a
-      *ngIf="authentication.userValue"
-      class="link"
-      [routerLink]="authentication.getUrl"
-    >
-      My account
-    </a>
-    <a class="link" href="about"> about us </a>
-  </div>
-  <div class="right-side-links">
-    <div *ngIf="authentication.userValue">
-      <div class="profile" *ngIf="authentication.userValue.clientType !== 'ADMINISTRATOR'">
-        <a class="link" (click)="openProfile()">My Profile</a>
-      </div>
-      <a class="link" (click)="authentication.logout()">log out</a>
-    </div>
-    <div *ngIf="!authentication.userValue">
-      <a class="link" href="sign-in">sign in</a>
-    </div>
-  </div>
+<nav class="header">
+  <img
+    class="app-logo"
+    [routerLink]="['home/public']"
+    src="../../../assets/logo.png"
+    alt="coupons-app-logo" />
+  <a
+    class="link"
+    *ngIf="authentication.userValue"
+    [routerLink]="authentication.getUrl">
+    My Account
+  </a>
+  <a class="link" href="about">
+    About Us
+  </a>
+  <a
+    *ngIf="authentication.userValue && authentication.userValue.clientType !== 'ADMINISTRATOR'"
+    class="link"
+    (click)="openProfile()">
+    My Profile
+  </a>
+  <a
+    class="modest link"
+    *ngIf="authentication.userValue"
+    (click)="authentication.logout()">
+    Log Out
+  </a>
+  <a
+    *ngIf="!authentication.userValue"
+    class="link"
+    href="sign-in">
+    Sign In
+  </a>
 </nav>
-
-
 
 
 <!--<nav class="header">-->

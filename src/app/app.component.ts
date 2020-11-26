@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
         if (event.url === '/sign-in' || event.url === '/home/public/sign-up/customer' || event.url === '/home/public/sign-up/company') {
           this.className = 'auth-form-wrapper';
         } else {
-          this.className = 'wrapper';
+          this.className = 'app-wrapper';
         }
       }
     });
