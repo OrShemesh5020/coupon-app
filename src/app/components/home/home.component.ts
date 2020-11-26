@@ -1,3 +1,4 @@
+import { AlertService } from './../../service/alert';
 import { Router } from '@angular/router';
 import { AuthenticationService } from './../../service/authentication';
 import { GeneralService } from './../../service/general';
@@ -16,7 +17,11 @@ export class HomeComponent implements OnInit {
   couponsByCategory = {};
   filterType: string;
 
-  constructor(private generalService: GeneralService, private authentication: AuthenticationService, private router: Router) { }
+  constructor(
+    private generalService: GeneralService,
+    private alertService: AlertService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.loadCoupons();
@@ -63,6 +68,9 @@ export class HomeComponent implements OnInit {
     this.filteredCoupon = this.coupons.filter((value: Coupon) => {
       return value.title === title;
     });
+    if (this.filteredCoupon.length === 0) {
+      this.alertService.error(`no coupons with '${title}' name found`)
+    }
     this.refreshCoupons();
   }
 

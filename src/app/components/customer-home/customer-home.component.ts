@@ -1,3 +1,4 @@
+import { AlertService } from './../../service/alert';
 import { GeneralService } from './../../service/general';
 import { AuthenticationService } from 'src/app/service/authentication';
 import { Router } from '@angular/router';
@@ -19,7 +20,7 @@ export class CustomerHomeComponent implements OnInit {
 
   constructor(
     private customerService: CustomerService,
-    private generalService: GeneralService,
+    private alertService: AlertService,
     private router: Router,
     private authentication: AuthenticationService
   ) { }
@@ -62,6 +63,9 @@ export class CustomerHomeComponent implements OnInit {
     this.filteredCoupon = this.coupons.filter((value: Coupon) => {
       return value.title === title;
     });
+    if (this.filteredCoupon.length === 0) {
+      this.alertService.error(`no coupons with '${title}' name found`)
+    }
     this.refreshCoupons();
   }
 
