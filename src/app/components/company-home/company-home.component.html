@@ -2,7 +2,7 @@
 <br />
 <br />
 <hr />
-<select #selectedFilter (change)="filterCoupons(selectedFilter)">
+<select #selectedFilter (change)="setFilterType(selectedFilter)">
   <option value="displayCompanyCoupons">get all my coupons</option>
   <option value="displayCouponByTitle">get coupon by title</option>
   <option value="companyCouponsByPrice">get company coupons by price</option>

@@ -67,8 +67,7 @@ export class HomeComponent implements OnInit {
   }
 
   setFilterType(filterEelement: HTMLSelectElement): void {
-    const selectedFilter =
-      filterEelement.options[filterEelement.selectedIndex].value;
+    const selectedFilter = filterEelement.options[filterEelement.selectedIndex].value;
     this.filterType = selectedFilter === 'all' ? null : selectedFilter;
     if (!this.filterType) {
       this.showAllcoupon();
