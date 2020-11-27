@@ -83,13 +83,16 @@ export class CustomerHomeComponent implements OnInit {
   }
 
   filterCoupons(): void {
-    const filterInput = (document.getElementById('filter-input') as HTMLInputElement).value;
+    let filterInput;
     if (this.filterType === 'title') {
-      this.getCustomerCouponsByTitle(filterInput);
+      filterInput = (document.getElementById('filter-input-title') as HTMLInputElement).value;
+      this.getCustomerCouponsByTitle(filterInput.toLowerCase());
+      (document.getElementById('filter-input-title') as HTMLInputElement).value = '';
     } else {
-      this.getCustomerCouponsByPrice(parseInt(filterInput));
+      filterInput = (document.getElementById('filter-input-price') as HTMLInputElement).value;
+      this.getCustomerCouponsByPrice(filterInput);
+      (document.getElementById('filter-input-price') as HTMLInputElement).value = '';
     }
-    (document.getElementById('filter-input') as HTMLInputElement).value = '';
   }
 
   sortByCategory(): void {

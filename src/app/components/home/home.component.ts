@@ -50,14 +50,14 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['home/public/coupon-details', coupon.id]);
   }
 
-  getCompanyCouponsByCategory(categoryName: string): void {
+  getCouponsByCategory(categoryName: string): void {
     this.filteredCoupon = this.coupons.filter((value: Coupon) => {
       return value.categoryName === categoryName;
     });
     this.refreshCoupons();
   }
 
-  getCompanyCouponsByPrice(price: number): void {
+  getCouponsByPrice(price: number): void {
     this.filteredCoupon = this.coupons.filter((value: Coupon) => {
       return value.price <= price;
     });
@@ -83,18 +83,21 @@ export class HomeComponent implements OnInit {
   }
 
   filterCoupons(): void {
-    const filterInput = (document.getElementById('filter-input') as HTMLInputElement).value;
+    let filterInput;
     if (this.filterType === 'title') {
-      this.getCouponsByTitle(filterInput);
+      filterInput = (document.getElementById('filter-input-title') as HTMLInputElement).value;
+      this.getCouponsByTitle(filterInput.toLowerCase());
+      (document.getElementById('filter-input-title') as HTMLInputElement).value = '';
     } else {
-      this.getCompanyCouponsByPrice(parseInt(filterInput));
+      filterInput = (document.getElementById('filter-input-price') as HTMLInputElement).value;
+      this.getCouponsByPrice(filterInput);
+      (document.getElementById('filter-input-price') as HTMLInputElement).value = '';
     }
-    (document.getElementById('filter-input') as HTMLInputElement).value = '';
   }
 
   filterByCategory(filterEelement: HTMLSelectElement): void {
     const selectedFilter = filterEelement.options[filterEelement.selectedIndex].value;
-    this.getCompanyCouponsByCategory(selectedFilter);
+    this.getCouponsByCategory(selectedFilter);
   }
 
   refreshCoupons(): void {

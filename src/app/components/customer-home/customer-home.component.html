@@ -11,7 +11,12 @@
 </select>
 <div *ngIf="filterType">
   <div *ngIf="filterType === 'price' || filterType === 'title'">
-    <input id="filter-input" type="text" />
+    <input *ngIf="filterType === 'title'" id="filter-input-title" type="text" />
+    <input
+      *ngIf="filterType === 'price'"
+      id="filter-input-price"
+      type="number"
+    />
     <button (click)="filterCoupons()">filter by {{ filterType }}</button>
   </div>
   <select

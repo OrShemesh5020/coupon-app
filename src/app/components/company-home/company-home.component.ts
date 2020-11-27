@@ -89,13 +89,16 @@ export class CompanyHomeComponent implements OnInit {
   }
 
   filterCoupons(): void {
-    const filterInput = (document.getElementById('filter-input') as HTMLInputElement).value;
+    let filterInput;
     if (this.filterType === 'title') {
-      this.getCouponByTitle(filterInput);
+      filterInput = (document.getElementById('filter-input-title') as HTMLInputElement).value;
+      this.getCouponByTitle(filterInput.toLowerCase());
+      (document.getElementById('filter-input-title') as HTMLInputElement).value = '';
     } else {
-      this.getCompanyCouponsByPrice(parseInt(filterInput));
+      filterInput = (document.getElementById('filter-input-price') as HTMLInputElement).value;
+      this.getCompanyCouponsByPrice(filterInput);
+      (document.getElementById('filter-input-price') as HTMLInputElement).value = '';
     }
-    (document.getElementById('filter-input') as HTMLInputElement).value = '';
   }
 
   filterByCategory(filterEelement: HTMLSelectElement): void {
