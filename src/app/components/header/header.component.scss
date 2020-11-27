@@ -1,36 +1,24 @@
 @import "../../../colors";
 
 nav.header {
-  //display: none;
   display: grid;
-  grid-template-columns: 6fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 6fr auto auto;
   align-items: center;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   z-index: 2;
   position: sticky;
-  //background-color: white;
-
-  .left-side-links {
-    //float: left;
-  }
-
-  .right-side-links{
-    //float: right;
-    right: 0;
-  }
+  background-color: white;
 
   .link {
     margin: 7.5px;
   }
 
   a {
-    background-color: $NICE_PURPLE;
+    color: $NICE_PURPLE;
     border: none;
-    color: white;
     padding: 10px 20px;
     text-align: center;
-    text-decoration: none;
-    //display: inline-block;
+    text-decoration: underline;
     font-size: 13px;
 
     &.modest {
@@ -52,9 +40,11 @@ nav.header {
 
 .auth-form-wrapper {
   nav.header {
+    background-color: unset;
     border-bottom: unset;
+
     a.link {
-      display: none;
+      //display: none;
     }
   }
 }

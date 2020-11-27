@@ -2,6 +2,11 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "./colors.scss";
 
+// TODO: disable chrome autofill styling?
+input:-internal-autofill-selected {
+  background-color: rgba(0,0,0,0) !important;
+}
+
 .auth-form-wrapper, .app-wrapper {
   position: fixed;
   width: 100vw;
@@ -20,15 +25,6 @@
   filter: blur(42px);
 }
 
-//.auth-form-wrapper::before::before {
-//  content: "";
-//  position: absolute;
-//  top: 0; left: 0;
-//  width: 100%; height: 100%;
-//  background-size: cover;
-//  background-image: url('https://wallpaperaccess.com/full/878.jpg');
-//}
-
 .auth-form-wrapper {
   background-size: cover;
   background-image: url('https://wallpaperaccess.com/full/878.jpg');
@@ -40,11 +36,16 @@ form {
   right: 0;
   top: 100px;
   margin: auto;
-  padding: 20px 5%;
   max-width: 600px;
+  padding: 20px 0;
   //background-color: rgba(255,255,255,0.1);
   background-color: rgba(0, 0, 0, 0.1);
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
+
+  .form-section {
+    width: 80%;
+    margin: auto;
+  }
 
   h1 {
     color: white;
@@ -67,7 +68,7 @@ form {
   }
 
   .label-shadow {
-    -webkit-text-stroke-width: 5px;
+    -webkit-text-stroke-width: 3px;
     -webkit-text-stroke-color: white;
     opacity: 1;
     transform: translate(10px, -13px);
@@ -82,7 +83,9 @@ form {
   }
 
   a {
-    text-decoration: initial !important;
+    // important because of bootstrap CSS. remove, fix CSS and then the important
+    // can be removed
+    text-decoration: underline !important;
     color: #007bff !important;
   }
 
@@ -107,6 +110,8 @@ form {
       right: 0;
       left: 0;
       z-index: 0;
+      border: unset;
+      background-color: rgba(0, 0, 0, 0.1); // because of chrome autofill
     }
   }
 
@@ -132,4 +137,21 @@ form {
     //color: white;
     //text-shadow: 0 0 1px tomato;
   }
+
+  .footer {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
+    background-color: rgba(255,255,255,0.2);
+    padding: 5% 10%;
+  }
+}
+
+.footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 390px;
+  padding: 0 5%;
+  max-width: 600px;
+  margin: auto;
+  background-color: rgba(255,255,255,0.2);
 }

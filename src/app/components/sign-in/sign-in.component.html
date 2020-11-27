@@ -1,25 +1,31 @@
 <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
   <h1>SIGN IN</h1>
-  <div class="input-wrapper">
-    <label>email</label>
-    <span class="label-shadow">email</span>
-    <input type="email" formControlName="email" />
-    <div class="form-input-error">
-      <span *ngIf="loginForm.controls['email'].invalid">email is required</span>
+  <div class="form-section">
+    <div class="input-wrapper">
+      <label>email</label>
+      <span class="label-shadow">email</span>
+      <input type="email" formControlName="email" />
+      <div class="form-input-error">
+        <span *ngIf="!loginForm.controls['email'].pristine && loginForm.controls['email'].invalid">
+          email is required
+        </span>
+      </div>
     </div>
-  </div>
-  <div class="input-wrapper">
-    <label>password</label>
-    <span class="label-shadow">password</span>
-    <input type="password" formControlName="password" />
-    <div class="form-input-error">
-      <span *ngIf="loginForm.controls['password'].invalid">password is required</span>
+    <div class="input-wrapper">
+      <label>password</label>
+      <span class="label-shadow">password</span>
+      <input type="password" formControlName="password" />
+      <div class="form-input-error">
+        <span *ngIf="!loginForm.controls['password'].pristine && loginForm.controls['password'].invalid">
+          password is required
+        </span>
+      </div>
     </div>
+    <button type="submit" [disabled]="!loginForm.valid">
+      SUBMIT
+    </button>
   </div>
-  <button type="submit" [disabled]="!loginForm.valid">
-    SUBMIT
-  </button>
-  <div>
+  <div class="footer">
     <p>Not registered yet?</p>
     <p>
       <a (click)="registerCustomer()">
@@ -28,7 +34,7 @@
     </p>
     <p>
       <a (click)="registerCompany()">
-        Let's be one of our coupon marketers
+        Become one of our coupon marketers
       </a>
     </p>
   </div>
