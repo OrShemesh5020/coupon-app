@@ -12,8 +12,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
   coupons: Coupon[];
-  filteredCoupon: Coupon[];
+  filteredCoupons: Coupon[];
   allCategories: string[];
+  unlaunchedCoupons: Coupon[];
+  unlaunchedCouponsCategory = 'Coming soon';
   couponsByCategory = {};
   filterType: string;
 
@@ -32,14 +34,18 @@ export class HomeComponent implements OnInit {
       this.coupons = values.filter((value: Coupon) => {
         return (new Date(value.startDate).valueOf()) <= new Date().valueOf() && value.amount > 0;
       });
+      this.unlaunchedCoupons = values.filter((value: Coupon) => {
+        return (new Date(value.startDate).valueOf()) > new Date().valueOf();
+      });
       this.showAllcoupon();
       this.setCategories();
     });
   }
 
   showAllcoupon(): void {
-    this.filteredCoupon = this.coupons;
+    this.filteredCoupons = this.coupons;
     this.refreshCoupons();
+    this.setsortByCategory();
   }
 
   setCategories(): void {
@@ -51,24 +57,29 @@ export class HomeComponent implements OnInit {
   }
 
   getCouponsByCategory(categoryName: string): void {
-    this.filteredCoupon = this.coupons.filter((value: Coupon) => {
-      return value.categoryName === categoryName;
-    });
+    if (categoryName !== this.unlaunchedCouponsCategory) {
+      this.filteredCoupons = this.coupons.filter((value: Coupon) => {
+        return value.categoryName === categoryName;
+      });
+    }
+    else {
+      this.filteredCoupons = this.unlaunchedCoupons;
+    }
     this.refreshCoupons();
   }
 
   getCouponsByPrice(price: number): void {
-    this.filteredCoupon = this.coupons.filter((value: Coupon) => {
+    this.filteredCoupons = this.coupons.filter((value: Coupon) => {
       return value.price <= price;
     });
     this.refreshCoupons();
   }
 
   getCouponsByTitle(title: string): void {
-    this.filteredCoupon = this.coupons.filter((value: Coupon) => {
+    this.filteredCoupons = this.coupons.filter((value: Coupon) => {
       return value.title === title;
     });
-    if (this.filteredCoupon.length === 0) {
+    if (this.filteredCoupons.length === 0) {
       this.alertService.error(`no coupons with '${title}' name found`)
     }
     this.refreshCoupons();
@@ -77,9 +88,7 @@ export class HomeComponent implements OnInit {
   setFilterType(filterEelement: HTMLSelectElement): void {
     const selectedFilter = filterEelement.options[filterEelement.selectedIndex].value;
     this.filterType = selectedFilter === 'all' ? null : selectedFilter;
-    if (!this.filterType) {
-      this.showAllcoupon();
-    }
+    this.showAllcoupon();
   }
 
   filterCoupons(): void {
@@ -106,11 +115,21 @@ export class HomeComponent implements OnInit {
   }
 
   sortByCategory(): void {
-    this.filteredCoupon.forEach((coupon: Coupon) => {
+    this.filteredCoupons.forEach((coupon: Coupon) => {
       if (!this.couponsByCategory[coupon.categoryName]) {
         this.couponsByCategory[coupon.categoryName] = [coupon];
       } else {
         this.couponsByCategory[coupon.categoryName].push(coupon);
+      }
+    });
+  }
+
+  setsortByCategory(): void {
+    this.unlaunchedCoupons.forEach((value: Coupon) => {
+      if (!this.couponsByCategory[this.unlaunchedCouponsCategory]) {
+        this.couponsByCategory[this.unlaunchedCouponsCategory] = [value];
+      } else {
+        this.couponsByCategory[this.unlaunchedCouponsCategory].push(value);
       }
     });
   }
