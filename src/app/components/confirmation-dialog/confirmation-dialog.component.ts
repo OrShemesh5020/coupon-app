@@ -15,4 +15,11 @@ export class ConfirmationDialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
+
+  decline(): void {
+
+  }
+  accept(): void {
+
+  }
 }
