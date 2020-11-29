@@ -9,6 +9,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class CouponViewComponent implements OnInit {
   @Input() couponView: Coupon;
   @Output() choosing: EventEmitter<Coupon> = new EventEmitter();
+  @Input() enableClick: boolean;
+
   constructor() { }
 
   ngOnInit(): void { }
