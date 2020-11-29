@@ -43,6 +43,7 @@
       <app-coupon-view
         *ngFor="let coupon of category.value"
         [couponView]="coupon"
+        [enableClick]="category.key !== unlaunchedCouponsCategory"
         (choosing)="openProfile($event)"
       ></app-coupon-view>
     </div>
