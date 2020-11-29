@@ -31,6 +31,7 @@ import { CouponProfileComponent } from './components/coupon-profile/coupon-profi
 import { ProfileDisplayComponent } from './components/profile-display/profile-display.component';
 import { AlertComponent } from './components/alert/alert.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 
 
 @NgModule({
@@ -58,6 +59,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     CouponProfileComponent,
     ProfileDisplayComponent,
     AlertComponent,
+    ConfirmationDialogComponent,
   ],
   imports: [
     HttpClientModule,
