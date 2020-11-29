@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-confirmation-dialog',
@@ -6,7 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./confirmation-dialog.component.scss']
 })
 export class ConfirmationDialogComponent implements OnInit {
-
+  @Input() title: string;
+  @Input() message: string;
+  @Input() btnOkText = 'ok';
+  @Input() btnCancelText = 'cancel';
   constructor() { }
 
   ngOnInit(): void {
