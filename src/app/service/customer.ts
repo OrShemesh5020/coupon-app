@@ -27,8 +27,8 @@ export class CustomerService {
     return this.httpClient.get<Coupon>(url);
   }
 
-  getCustomerCouponsByCategory(categoryId: number): Observable<Coupon[]> {
-    const url = `http://localhost:8080/customer/coupons/categoryId/${categoryId}`;
+  getCustomerCouponsByCategory(categoryName: string): Observable<Coupon[]> {
+    const url = `http://localhost:8080/customer/coupons/categoryId/${categoryName}`;
     return this.httpClient.get<Coupon[]>(url);
   }
 

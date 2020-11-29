@@ -47,8 +47,8 @@ export class CompanyService {
     return this.httpClient.get<Coupon[]>(url);
   }
 
-  getCompanyCouponsByCategory(categoryId: number): Observable<Coupon[]> {
-    const url = `http://localhost:8080/company/coupons/categoryId/${categoryId}`;
+  getCompanyCouponsByCategory(categoryName: string): Observable<Coupon[]> {
+    const url = `http://localhost:8080/company/coupons/categoryId/${categoryName}`;
     return this.httpClient.get<Coupon[]>(url);
   }
 
