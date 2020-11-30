@@ -1,3 +1,4 @@
+import { ConfirmationDialog } from './../../service/confirmation-dialog';
 import { Observable } from 'rxjs';
 import { Coupon } from './../../models/coupon';
 import { Router } from '@angular/router';
@@ -23,7 +24,8 @@ export class ProfileDisplayComponent implements OnInit {
     private authentication: AuthenticationService,
     private companyService: CompanyService,
     private customerService: CustomerService,
-    private router: Router
+    private router: Router,
+    private confirmationDialog: ConfirmationDialog
   ) { }
 
   ngOnInit(): void {
@@ -43,7 +45,18 @@ export class ProfileDisplayComponent implements OnInit {
   }
 
   updateDetails(): void {
-    this.router.navigate([`${this.authentication.getUrl}/update/details`]);
+    this.confirmationDialog.confirm(
+      'Update details alert',
+      'Are you sure you want update your details?',
+      'Update',
+      'Return your home page'
+    ).then((confirmed: boolean) => {
+      if (confirmed) {
+        this.router.navigate([`${this.authentication.getUrl}/update/details`]);
+      } else {
+        this.router.navigate([this.authentication.getUrl]);
+      }
+    });
   }
 
   getStatistics(): void {
