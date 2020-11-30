@@ -13,8 +13,9 @@ export class ConfirmationDialog {
     title: string,
     message: string,
     btnOkText: string = 'OK',
-    btnCancelText: string = 'Cancel'): Promise<boolean> {
-    const modalRef = this.ngbModal.open(ConfirmationDialogComponent, { size: 'medium' });
+    btnCancelText: string = 'Cancel',
+    dialogSize: 'sm' | 'medium' | 'lg' = 'medium'): Promise<boolean> {
+    const modalRef = this.ngbModal.open(ConfirmationDialogComponent, { size: dialogSize });
     modalRef.componentInstance.title = title;
     modalRef.componentInstance.message = message;
     modalRef.componentInstance.btnOkText = btnOkText;
