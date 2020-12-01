@@ -30,7 +30,7 @@ export class AddCustomerFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.buttonText = !this.user ? 'register' : 'add customer';
+    this.buttonText = !this.user ? 'REGISTER CUSTOMER' : 'ADD CUSTOMER';
     this.customerModel = new Customer();
     this.addCustomerForm = this.formBuilder.group({
       firstName: [

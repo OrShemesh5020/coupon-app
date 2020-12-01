@@ -39,7 +39,7 @@ export class SignInComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
-    
+
     this.authentication.login(this.getter.email.value, this.getter.password.value).subscribe((value: User) => {
       this.alertService.success(`welcome ${value.clientType.toString().toLowerCase()}`, true);
       this.router.navigate([this.authentication.getUrl]);

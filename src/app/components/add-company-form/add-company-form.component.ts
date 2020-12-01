@@ -26,7 +26,7 @@ export class AddCompanyFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.buttonText = !this.user ? 'register' : 'add company';
+    this.buttonText = !this.user ? 'REGISTER COMPANY' : 'ADD COMPANY';
     this.companyModel = new Company();
     this.addCompanyForm = this.formBuilder.group({
       name:

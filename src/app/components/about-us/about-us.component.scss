@@ -1,36 +1,33 @@
-div {
-  float: left;
-  color: blue;
-  font-size: 25px;
-  position: relative;
-  margin: 10px;
-  padding: 1px;
-  width: 100%;
-  display: grid;
-}
-.or {
-  float: right;
-  color: red;
-  width: 30%;
-}
-.ido {
-  float: right;
-  width: 30%;
-  color: black;
-  grid-row: 1em;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+@import '../../../colors.scss';
 
-}
-.story {
-  color: rgb(224, 24, 94);
-  background-color: rgb(109, 189, 189);
-  width: 100%;
-  grid-template-columns: repeat(1, 5fr);
-}
-.intro {
-  color: rgb(19, 19, 223);
-}
-em{
-  color: black;
+section#about-us {
+  height: 100vh;
+  overflow-y: auto;
+  max-width: 700px;
+  margin: auto;
+
+  p.quote {
+    padding-left: 10px;
+    color: $NOT_SO_BORING_GRAY;
+    border-left: 1px solid $NOT_SO_BORING_GRAY;
+    font-style: italic;
+    font-size: 1.3em;
+  }
+
+  div.about-us {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 20px;
+
+    p {
+      text-align: justify;
+      margin: 5px;
+    }
+  }
+
+  img {
+    max-width: 100px;
+    float: left;
+    margin-right: 15px;
+  }
 }

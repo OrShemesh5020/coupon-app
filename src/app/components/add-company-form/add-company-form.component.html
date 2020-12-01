@@ -1,39 +1,46 @@
-<form
-  class="addComapnyForm"
-  (ngSubmit)="onSubmit()"
-  [formGroup]="addCompanyForm"
->
-  <div>
-    <label>name</label>
-    <input type="text" formControlName="name" />
-    <div *ngIf="addCompanyForm.controls['name'].invalid">name is required</div>
-  </div>
-
-  <div>
-    <label>email</label>
-    <input type="email" formControlName="email" />
-    <div *ngIf="addCompanyForm.controls['email'].invalid">
-      email is required
+<form class="addComapnyForm" (ngSubmit)="onSubmit()" [formGroup]="addCompanyForm">
+  <h1>{{ buttonText }}</h1>
+  <div class="form-section">
+    <div class="input-wrapper">
+      <label>Name</label>
+      <span class="label-shadow">Name</span>
+      <input type="text" formControlName="name" />
+      <div class="form-input-error">
+        <span *ngIf="!addCompanyForm.controls['name'].pristine && addCompanyForm.controls['name'].invalid">
+          Name is required
+        </span>
+      </div>
     </div>
-  </div>
-
-  <div>
-    <label>password</label>
-    <input id="password" type="password" formControlName="password" />
-    <div *ngIf="addCompanyForm.controls['password'].invalid">
-      password is required
+    <div class="input-wrapper">
+      <label>Email</label>
+      <span class="label-shadow">Email</span>
+      <input type="email" formControlName="email" />
+      <div class="form-input-error">
+        <span *ngIf="!addCompanyForm.controls['email'].pristine && addCompanyForm.controls['email'].invalid">
+          Email is required
+        </span>
+      </div>
     </div>
+    <div class="input-wrapper">
+      <label>Password</label>
+      <span class="label-shadow">Password</span>
+      <input id="password" type="password" formControlName="password" />
+      <div class="form-input-error">
+        <span *ngIf="!addCompanyForm.controls['password'].pristine && addCompanyForm.controls['password'].invalid">
+          Password is required
+        </span>
+      </div>
+    </div>
+    <div class="input-wrapper">
+      <label>Confirm Password</label>
+      <span class="label-shadow">Confirm Password</span>
+      <input id="confirm_password" type="password" />
+    </div>
+    <button
+      [ngClass]="!addCompanyForm.valid && 'disabled'"
+      type="submit"
+      [disabled]="!addCompanyForm.valid">
+      SUBMIT
+    </button>
   </div>
-  <div>
-    <label>confirm password</label>
-    <input id="confirm_password" type="password"/>
-  </div>
-
-  <button
-    class="registerButton"
-    type="submit"
-    [disabled]="!addCompanyForm.valid"
-  >
-    {{ buttonText }}
-  </button>
 </form>

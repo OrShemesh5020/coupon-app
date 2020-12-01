@@ -4,10 +4,11 @@
 
 // TODO: disable chrome autofill styling?
 input:-internal-autofill-selected {
-  background-color: rgba(0,0,0,0) !important;
+  background-color: rgba(0, 0, 0, 0) !important;
 }
 
-.auth-form-wrapper, .app-wrapper {
+.auth-form-wrapper,
+.app-wrapper {
   position: fixed;
   width: 100vw;
   height: 100vh;
@@ -31,12 +32,15 @@ input:-internal-autofill-selected {
 }
 
 form {
+  overflow-y: auto;
   position: absolute;
   left: 0;
   right: 0;
   top: 100px;
   margin: auto;
+  width: 100vw;
   max-width: 600px;
+  max-height: 95vh;
   padding: 20px 0;
   //background-color: rgba(255,255,255,0.1);
   background-color: rgba(0, 0, 0, 0.1);
@@ -51,7 +55,7 @@ form {
     color: white;
     text-align: center;
     font-weight: 500;
-    -webkit-text-stroke: 1px rgba(0,0,0,0.02);
+    -webkit-text-stroke: 1px rgba(0, 0, 0, 0.02);
   }
 
   label {
@@ -78,7 +82,8 @@ form {
     z-index: 1;
   }
 
-  p, a {
+  p,
+  a {
     color: white;
   }
 
@@ -87,9 +92,10 @@ form {
     // can be removed
     text-decoration: underline !important;
     color: #007bff !important;
+    cursor: pointer;
   }
 
-  input:focus + label {
+  input:focus+label {
     transform: translate(8px, -21px);
     padding: 0 4px;
     font-size: 1.1rem;
@@ -122,9 +128,15 @@ form {
     margin: 20px auto;
     left: 0;
     right: 0;
-    background-color: $GROUPON_GREEN;
-    border: unset;
     color: white;
+    background-color: $GROUPON_GREEN;
+
+    &.disabled {
+      color: $BORING_WHITE;
+      background-color: $BORING_GRAY;
+    }
+
+    border: unset;
     font-weight: 100;
     font-size: 2em;
     outline: 0;
@@ -140,7 +152,7 @@ form {
 
   .footer {
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
-    background-color: rgba(255,255,255,0.2);
+    background-color: rgba(255, 255, 255, 0.2);
     padding: 5% 10%;
   }
 }
@@ -153,5 +165,5 @@ form {
   padding: 0 5%;
   max-width: 600px;
   margin: auto;
-  background-color: rgba(255,255,255,0.2);
+  background-color: rgba(255, 255, 255, 0.2);
 }

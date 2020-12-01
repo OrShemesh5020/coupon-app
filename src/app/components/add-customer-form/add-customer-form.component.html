@@ -1,49 +1,45 @@
-<form
-  class="addCustomerForm"
-  (ngSubmit)="onSubmit()"
-  [formGroup]="addCustomerForm"
->
-  <div>
-    <label>firstName</label>
-    <input type="text" formControlName="firstName" />
-    <div *ngIf="addCustomerForm.controls['firstName'].invalid">
-      firstName is required
+<form class="addCustomerForm" (ngSubmit)="onSubmit()" [formGroup]="addCustomerForm">
+  <h1>{{ buttonText }}</h1>
+  <div class="form-section">
+    <div class="input-wrapper">
+      <label>First Name</label>
+      <span class="label-shadow">First Name</span>
+      <input type="text" formControlName="firstName" />
+      <div *ngIf="!addCustomerForm.controls['firstName'].pristine && addCustomerForm.controls['firstName'].invalid">
+        First name is required
+      </div>
     </div>
-  </div>
-
-  <div>
-    <label>lastName</label>
-    <input type="text" formControlName="lastName" />
-    <div *ngIf="addCustomerForm.controls['lastName'].invalid">
-      lastName is required
+    <div class="input-wrapper">
+      <label>Last Name</label>
+      <span class="label-shadow">Last Name</span>
+      <input type="text" formControlName="lastName" />
+      <div *ngIf="!addCustomerForm.controls['lastName'].pristine && addCustomerForm.controls['lastName'].invalid">
+        Last name is required
+      </div>
     </div>
-  </div>
-
-  <div>
-    <label>email </label>
-    <input type="email" formControlName="email" />
-    <div *ngIf="addCustomerForm.controls['email'].invalid">
-      email is required
+    <div class="input-wrapper">
+      <label>Email</label>
+      <span class="label-shadow">Email</span>
+      <input type="email" formControlName="email" />
+      <div *ngIf="!addCustomerForm.controls['email'].pristine && addCustomerForm.controls['email'].invalid">
+        Email is required
+      </div>
     </div>
-  </div>
-
-  <div>
-    <label>password</label>
-    <input id="password" type="password" formControlName="password" />
-    <div *ngIf="addCustomerForm.controls['password'].invalid">
-      password is required
+    <div class="input-wrapper">
+      <label>Password</label>
+      <span class="label-shadow">Password</span>
+      <input id="password" type="password" formControlName="password" />
+      <div *ngIf="!addCustomerForm.controls['password'].pristine && addCustomerForm.controls['password'].invalid">
+        Password is required
+      </div>
     </div>
+    <div class="input-wrapper">
+      <label>Confirm Password</label>
+      <span class="label-shadow">Confirm Password</span>
+      <input id="confirm_password" type="password" />
+    </div>
+    <button class="registerButton" type="submit" [disabled]="!addCustomerForm.valid">
+      SUBMIT
+    </button>
   </div>
-  <div>
-    <label>confirm password</label>
-    <input id="confirm_password" type="password" />
-  </div>
-
-  <button
-    class="registerButton"
-    type="submit"
-    [disabled]="!addCustomerForm.valid"
-  >
-    {{ buttonText }}
-  </button>
 </form>
