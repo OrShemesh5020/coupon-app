@@ -1,0 +1,12 @@
+.modal-wrapper {
+  background-color: rgb(228, 227, 227);
+  .modal-header {
+    .modal-title {
+      float: left;
+    }
+    .close {
+      float: right;
+      height: 50%;
+    }
+  }
+}

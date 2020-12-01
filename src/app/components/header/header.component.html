@@ -15,7 +15,7 @@
       <div class="profile" *ngIf="authentication.userValue.clientType !== 'ADMINISTRATOR'">
         <a class="link" (click)="openProfile()">My Profile</a>
       </div>
-      <a class="link" (click)="authentication.logout()">log out</a>
+      <a class="link" (click)="logout()">log out</a>
     </div>
     <div *ngIf="!authentication.userValue">
       <a class="link" [routerLink]="['sign-in']">sign in</a>
