@@ -1,33 +1,77 @@
 @import '../../../colors.scss';
 
 section#about-us {
-  height: 100vh;
+  height: 80vh;
   overflow-y: auto;
-  max-width: 700px;
-  margin: auto;
+  margin: 2% 5vw;
+  width: 55vw;
+  padding: 20px;
+
+  h1 {
+    font-size: 4em;
+  }
+
+  h2, h3, h4 {
+    margin: 35px auto 0;
+  }
 
   p.quote {
     padding-left: 10px;
+    max-width: 700px;
     color: $NOT_SO_BORING_GRAY;
     border-left: 1px solid $NOT_SO_BORING_GRAY;
     font-style: italic;
     font-size: 1.3em;
   }
 
-  div.about-us {
+  p {
+    line-height: 35px;
+  }
+}
+
+
+div.profile-cards {
+  top: 100px;
+  left: calc(60vw);
+  padding: 20px;
+  position: absolute;
+  width: 35vw;
+  text-align: justify;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-row-gap: 20px;
+
+  div.profile-card {
+    border: 1px solid $NICE_PURPLE;
+    overflow-y: auto;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    padding: 20px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-column-gap: 20px;
+    grid-template-columns: 1fr 3fr;
+    height: calc(150px + 20px);
+
+    div.text-wrapper {
+      overflow-y: auto;
+      font-size: 0.9em;
+    }
 
     p {
       text-align: justify;
       margin: 5px;
     }
-  }
 
-  img {
-    max-width: 100px;
-    float: left;
-    margin-right: 15px;
+    div.profile-image-wrapper {
+      max-height: 150px;
+      max-width: 150px;
+      overflow: hidden;
+      margin-right: 15px;
+      //float: left;
+
+      img {
+        top: 0;
+        position: relative;
+        max-width: 100%;
+      }
+    }
   }
 }
