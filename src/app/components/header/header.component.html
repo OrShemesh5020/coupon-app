@@ -3,34 +3,36 @@
     class="app-logo"
     [routerLink]="['home/public']"
     src="../../../assets/logo.png"
-    alt="coupons-app-logo" />
-  <a
-    class="link"
-    *ngIf="authentication.userValue"
-    [routerLink]="authentication.getUrl">
-    My Account
-  </a>
-  <a class="link" [routerLink]="['about']">
-    About Us
-  </a>
-  <a
-    *ngIf="authentication.userValue && authentication.userValue.clientType !== 'ADMINISTRATOR'"
-    class="link"
-    (click)="openProfile()">
-    My Profile
-  </a>
-  <a
-    class="modest link"
-    *ngIf="authentication.userValue"
-    (click)="authentication.logout()">
-    Log Out
-  </a>
-  <a
-    *ngIf="!authentication.userValue"
-    class="link"
-    [routerLink]="['sign-in']">
-    Sign In
-  </a>
+    alt="coupons-app-logo"/>
+  <div class="menu-links">
+    <a
+      class="link"
+      *ngIf="authentication.userValue"
+      [routerLink]="authentication.getUrl">
+      My Account
+    </a>
+    <a class="link" [routerLink]="['about']">
+      About Us
+    </a>
+    <a
+      class="link"
+      *ngIf="authentication.userValue && authentication.userValue.clientType !== 'ADMINISTRATOR'"
+      (click)="openProfile()">
+      My Profile
+    </a>
+    <a
+      class="link"
+      *ngIf="authentication.userValue"
+      (click)="authentication.logout()">
+      Log Out
+    </a>
+    <a
+      *ngIf="!authentication.userValue"
+      class="link"
+      [routerLink]="['sign-in']">
+      Sign In
+    </a>
+  </div>
 </nav>
 
 

@@ -9,10 +9,23 @@ section#about-us {
 
   h1 {
     font-size: 4em;
+    font-weight: 900;
+    font-family: 'Catamaran', sans-serif;
   }
+
+  // TODO: fix form autofill in both sign in & add company/customer
 
   h2, h3, h4 {
     margin: 35px auto 0;
+  }
+
+
+  h2 {
+    color: #4f4f4f;
+  }
+
+  h3, h4 {
+    color: #858585;
   }
 
   p.quote {
@@ -65,7 +78,6 @@ div.profile-cards {
       max-width: 150px;
       overflow: hidden;
       margin-right: 15px;
-      //float: left;
 
       img {
         top: 0;
@@ -74,4 +86,11 @@ div.profile-cards {
       }
     }
   }
+}
+
+img.about-us-eye-candy {
+  position: absolute;
+  max-width: 20vw;
+  right: 12vw;
+  bottom: 5vh;
 }
