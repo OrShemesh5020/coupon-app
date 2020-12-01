@@ -108,6 +108,8 @@ export class HomeComponent implements OnInit {
       this.getCouponsByPrice(filterInput);
       (document.getElementById('filter-input-price') as HTMLInputElement).value = '';
     }
+
+    this.toggleFilterMenu();
   }
 
   filterByCategory(filterEelement: HTMLSelectElement): void {
