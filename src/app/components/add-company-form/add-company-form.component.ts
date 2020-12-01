@@ -49,7 +49,15 @@ export class AddCompanyFormComponent implements OnInit {
         ['',
           [
             Validators.required,
-            Validators.minLength(2),
+            Validators.minLength(5),
+            Validators.maxLength(45)
+          ]
+        ],
+      confirmPassword:
+        ['',
+          [
+            Validators.required,
+            Validators.minLength(5),
             Validators.maxLength(45)
           ]
         ],
@@ -86,8 +94,8 @@ export class AddCompanyFormComponent implements OnInit {
   }
 
   thePasswordsMatch(): boolean {
-    const password = (document.getElementById('password') as HTMLInputElement).value;
-    const confirmPassword = (document.getElementById('confirm_password') as HTMLInputElement).value;
+    const password = this.getter.password.value;
+    const confirmPassword = this.getter.confirmPassword.value;
     return password === confirmPassword;
   }
 
