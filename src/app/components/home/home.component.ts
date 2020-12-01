@@ -1,3 +1,4 @@
+import { AlertService } from './../../service/alert';
 import { Router } from '@angular/router';
 import { AuthenticationService } from './../../service/authentication';
 import { GeneralService } from './../../service/general';
@@ -11,9 +12,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
   coupons: Coupon[];
-  displayByCategory = {};
+  filteredCoupons: Coupon[];
+  allCategories: string[];
+  unlaunchedCoupons: Coupon[];
+  unlaunchedCouponsCategory = 'Coming soon';
+  couponsByCategory = {};
+  filterType: string;
 
-  constructor(private generalService: GeneralService, private authentication: AuthenticationService, private router: Router) { }
+  constructor(
+    private generalService: GeneralService,
+    private alertService: AlertService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.loadCoupons();
@@ -24,20 +34,102 @@ export class HomeComponent implements OnInit {
       this.coupons = values.filter((value: Coupon) => {
         return (new Date(value.startDate).valueOf()) <= new Date().valueOf() && value.amount > 0;
       });
-      this.loadCategories();
+      this.unlaunchedCoupons = values.filter((value: Coupon) => {
+        return (new Date(value.startDate).valueOf()) > new Date().valueOf();
+      });
+      this.showAllcoupon();
+      this.setCategories();
     });
+  }
+
+  showAllcoupon(): void {
+    this.filteredCoupons = this.coupons;
+    this.refreshCoupons();
+    this.setsortByCategory();
+  }
+
+  setCategories(): void {
+    this.allCategories = Object.keys(this.couponsByCategory);
   }
 
   openProfile(coupon: Coupon): void {
     this.router.navigate(['home/public/coupon-details', coupon.id]);
   }
 
-  loadCategories(): void {
-    this.coupons.forEach((coupon: Coupon) => {
-      if (!this.displayByCategory[coupon.categoryName]) {
-        this.displayByCategory[coupon.categoryName] = [coupon];
+  getCouponsByCategory(categoryName: string): void {
+    if (categoryName !== this.unlaunchedCouponsCategory) {
+      this.filteredCoupons = this.coupons.filter((value: Coupon) => {
+        return value.categoryName === categoryName;
+      });
+    }
+    else {
+      this.filteredCoupons = this.unlaunchedCoupons;
+    }
+    this.refreshCoupons();
+  }
+
+  getCouponsByPrice(price: number): void {
+    this.filteredCoupons = this.coupons.filter((value: Coupon) => {
+      return value.price <= price;
+    });
+    this.refreshCoupons();
+  }
+
+  getCouponsByTitle(title: string): void {
+    this.filteredCoupons = this.coupons.filter((value: Coupon) => {
+      return value.title === title;
+    });
+    if (this.filteredCoupons.length === 0) {
+      this.alertService.error(`no coupons with '${title}' name found`)
+    }
+    this.refreshCoupons();
+  }
+
+  setFilterType(filterEelement: HTMLSelectElement): void {
+    const selectedFilter = filterEelement.options[filterEelement.selectedIndex].value;
+    this.filterType = selectedFilter === 'all' ? null : selectedFilter;
+    this.showAllcoupon();
+  }
+
+  filterCoupons(): void {
+    let filterInput;
+    if (this.filterType === 'title') {
+      filterInput = (document.getElementById('filter-input-title') as HTMLInputElement).value;
+      this.getCouponsByTitle(filterInput.toLowerCase());
+      (document.getElementById('filter-input-title') as HTMLInputElement).value = '';
+    } else {
+      filterInput = (document.getElementById('filter-input-price') as HTMLInputElement).value;
+      this.getCouponsByPrice(filterInput);
+      (document.getElementById('filter-input-price') as HTMLInputElement).value = '';
+    }
+  }
+
+  filterByCategory(filterEelement: HTMLSelectElement): void {
+    const selectedFilter = filterEelement.options[filterEelement.selectedIndex].value;
+    this.getCouponsByCategory(selectedFilter);
+  }
+
+  refreshCoupons(): void {
+    this.couponsByCategory = {};
+    this.sortByCategory();
+  }
+
+  sortByCategory(): void {
+    this.filteredCoupons.forEach((coupon: Coupon) => {
+      if (!this.couponsByCategory[coupon.categoryName]) {
+        this.couponsByCategory[coupon.categoryName] = [coupon];
       } else {
-        this.displayByCategory[coupon.categoryName].push(coupon);
+        this.couponsByCategory[coupon.categoryName].push(coupon);
+      }
+    });
+  }
+
+  setsortByCategory(): void {
+    this.unlaunchedCoupons.forEach((value: Coupon) => {
+      if (!this.couponsByCategory[this.unlaunchedCouponsCategory]) {
+        this.couponsByCategory[this.unlaunchedCouponsCategory] = [value];
+      } else {
+        this.couponsByCategory[this.unlaunchedCouponsCategory].push(value);
       }
     });
   }

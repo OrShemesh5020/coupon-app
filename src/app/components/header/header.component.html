@@ -10,7 +10,7 @@
     [routerLink]="authentication.getUrl">
     My Account
   </a>
-  <a class="link" href="about">
+  <a class="link" [routerLink]="['about']">
     About Us
   </a>
   <a
@@ -28,7 +28,7 @@
   <a
     *ngIf="!authentication.userValue"
     class="link"
-    href="sign-in">
+    [routerLink]="['sign-in']">
     Sign In
   </a>
 </nav>

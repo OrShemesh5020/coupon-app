@@ -1,3 +1,4 @@
+import { AlertService } from './../../service/alert';
 import { Coupon } from './../../models/coupon';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
@@ -9,11 +10,18 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class CouponViewComponent implements OnInit {
   @Input() couponView: Coupon;
   @Output() choosing: EventEmitter<Coupon> = new EventEmitter();
-  constructor() { }
+  @Input() enableClick: boolean;
+
+  constructor(private alertService: AlertService) { }
 
   ngOnInit(): void { }
 
   onClick(): void {
-    this.choosing.emit(this.couponView);
+    if (this.enableClick) {
+      this.choosing.emit(this.couponView);
+    }
+    else {
+      this.alertService.error('this coupon has not been launched');
+    }
   }
 }

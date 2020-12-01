@@ -2,14 +2,33 @@
 <br />
 <br />
 <hr />
-<select #selectedFilter (change)="filterCoupons(selectedFilter)">
-  <option value="displayCompanyCoupons">get all my coupons</option>
-  <option value="displayCouponByTitle">get coupon by title</option>
-  <option value="companyCouponsByPrice">get company coupons by price</option>
-  <option value="companyCouponsByCategory">
-    get company coupons by category
-  </option>
+<p>filter by:</p>
+<select #selectedFilter (change)="setFilterType(selectedFilter)">
+  <option value="all">see all</option>
+  <option value="title">title</option>
+  <option value="price">max price</option>
+  <option value="category">category</option>
 </select>
+<div *ngIf="filterType">
+  <div *ngIf="filterType === 'price' || filterType === 'title'">
+    <input *ngIf="filterType === 'title'" id="filter-input-title" type="text" />
+    <input
+      *ngIf="filterType === 'price'"
+      id="filter-input-price"
+      type="number"
+    />
+    <button (click)="filterCoupons()">filter by {{ filterType }}</button>
+  </div>
+  <select
+    #selectedFilter
+    (change)="filterByCategory(selectedFilter)"
+    *ngIf="filterType === 'category'"
+  >
+    <option *ngFor="let category of allCategories" value="{{ category }}">
+      {{ category }}
+    </option>
+  </select>
+</div>
 <hr />
 <br />
 <button (click)="addCoupon()">add coupon</button>
@@ -26,6 +45,7 @@
       <app-coupon-view
         *ngFor="let coupon of category.value"
         [couponView]="coupon"
+        [enableClick]="true"
         (choosing)="openCouponProfile($event)"
       ></app-coupon-view>
     </div>

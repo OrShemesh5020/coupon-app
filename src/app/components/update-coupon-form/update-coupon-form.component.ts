@@ -37,6 +37,7 @@ export class UpdateCouponFormComponent implements OnInit {
       return;
     }
     this.valuesImplementation();
+    this.convertToLowerCase();
     this.companyService.updateCoupon(this.couponModel).subscribe(() => {
       this.router.navigate([this.authentication.getUrl]);
     });
@@ -59,6 +60,11 @@ export class UpdateCouponFormComponent implements OnInit {
     this.couponModel.amount = this.getter.amount.value;
     this.couponModel.price = this.getter.price.value;
     this.couponModel.image = this.getter.imageUrl.value;
+  }
+
+  convertToLowerCase(): void {
+    this.couponModel.categoryName = this.couponModel.categoryName.toLowerCase();
+    this.couponModel.title = this.couponModel.title.toLowerCase();
   }
 
   private editcouponFormInitialization(): void {
