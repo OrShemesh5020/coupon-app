@@ -22,15 +22,15 @@
 
   <div>
     <label>password</label>
-    <input id="password" type="password" formControlName="password" />
+    <input type="password" formControlName="password" />
     <div *ngIf="updateCompanyForm.controls['password'].invalid">
       password is required
     </div>
   </div>
   <div>
     <label>confirm password</label>
-    <input id="confirm_password" type="password" formControlName="confirmPassword"/>
-    <div *ngIf="updateCompanyForm.controls['password'].invalid">
+    <input type="password" formControlName="confirmPassword" />
+    <div *ngIf="updateCompanyForm.controls['confirmPassword'].invalid">
       confirm password is required
     </div>
   </div>
