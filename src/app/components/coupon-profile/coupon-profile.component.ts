@@ -1,3 +1,5 @@
+import { AlertService } from './../../service/alert';
+import { ConfirmationDialog } from './../../service/confirmation-dialog';
 import { Observable } from 'rxjs';
 import { Company } from './../../models/company';
 import { CustomerService } from './../../service/customer';
@@ -27,6 +29,8 @@ export class CouponProfileComponent implements OnInit {
     private generalService: GeneralService,
     private companyService: CompanyService,
     private customerService: CustomerService,
+    private alertService: AlertService,
+    private confirmationDialog: ConfirmationDialog
   ) { }
 
   ngOnInit(): void {
@@ -34,6 +38,7 @@ export class CouponProfileComponent implements OnInit {
     this.activatedRoute.params.subscribe((params) => {
       this.generalService.getCoupon(params.id).subscribe((value: Coupon) => {
         if ((new Date(value.startDate).valueOf()) > new Date().valueOf() && !this.theCouponBelongsToTheCurrentCompany(value)) {
+          this.alertService.error('this coupon has not been launched', true);
           this.router.navigate([this.authentication.getUrl]);
           return;
         }
@@ -82,8 +87,16 @@ export class CouponProfileComponent implements OnInit {
   }
 
   deleteCoupon(): void {
-    this.companyService.deleteCoupon(this.coupon.id).subscribe(() => {
-      this.router.navigate([this.authentication.getUrl]);
+    this.confirmationDialog.confirm(
+      'Delete coupon alert',
+      'Are you sure you want to delete this coupon?',
+      'Delete'
+    ).then((confirmed: boolean) => {
+      if (confirmed) {
+        this.companyService.deleteCoupon(this.coupon.id).subscribe(() => {
+          this.router.navigate([this.authentication.getUrl]);
+        });
+      }
     });
   }
 
@@ -98,8 +111,16 @@ export class CouponProfileComponent implements OnInit {
   }
 
   cancelPurchase(): void {
-    this.customerService.removePurchasedCoupon(this.coupon.id).subscribe(() => {
-      this.router.navigate([this.authentication.getUrl]);
+    this.confirmationDialog.confirm(
+      'Purchased coupon removal',
+      'Are you sure you want to remove this coupon?',
+      'Remove'
+    ).then((confirmed: boolean) => {
+      if (confirmed) {
+        this.customerService.removePurchasedCoupon(this.coupon.id).subscribe(() => {
+          this.router.navigate([this.authentication.getUrl]);
+        });
+      }
     });
   }
 

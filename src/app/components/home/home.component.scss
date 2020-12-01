@@ -1,27 +1,65 @@
-button {
-  background-color: #4caf50; /* Green */
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  text-align: center;
-  display: inline-block;
-  font-size: 16px;
-}
-.display_wrapper {
-  width: 100%;
-  margin-bottom: 30px;
-  display: grid;
+@import 'src/colors.scss';
 
-  .category {
-    font-size: 50px;
-    font-weight: bold;
+div.home-wrapper {
+  img.coupon-banner {
+    margin: 30px auto;
+    display: block;
   }
-  .coupon_wrapper {
-    float: left;
-    margin-left: 10px;
-    margin-right: 10px;
+
+  .filter-wrapper {
+    transition: all 0.5s ease-in-out;
+    height: 100vh;
+    border-left: 5px solid black;
+    position: fixed;
+    right: 0;
+    top: 0;
+    background: #ededed;
+    z-index: 1;
+
+    .filter-options {
+      position: absolute;
+      top: 100px;
+      left: 30px;
+    }
+
+    button.filter-button {
+      transition: all 0.5s ease-in-out;
+      outline: 0;
+      width: 48px;
+      height: 48px;
+      border-left: 1px solid $BORING_GRAY;
+      background-color: $APP_MAIN_COLOR;
+      border-radius: 48px;
+      background-image: url('../../../assets/filter-icon.png');
+      background-size: 50%;
+      background-position: center;
+      background-repeat: no-repeat;
+      top: 100px;
+      position: fixed;
+    }
+
+    &.closed {
+      width: 4vw;
+
+      .filter-options {
+        //display: none;
+      }
+
+      button.filter-button {
+        right: 2vw;
+      }
+    }
+
+    &.opened {
+      width: 33vw;
+
+      .filter-options {
+        display: inline-block;
+      }
+
+      button.filter-button {
+        right: 31vw;
+      }
+    }
   }
-}
-.hr {
-  border-bottom: black 5px solid;
 }

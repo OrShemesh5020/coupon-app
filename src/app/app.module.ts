@@ -30,7 +30,8 @@ import { CouponViewComponent } from './components/coupon-view/coupon-view.compon
 import { CouponProfileComponent } from './components/coupon-profile/coupon-profile.component';
 import { ProfileDisplayComponent } from './components/profile-display/profile-display.component';
 import { AlertComponent } from './components/alert/alert.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 
 
 @NgModule({
@@ -58,6 +59,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     CouponProfileComponent,
     ProfileDisplayComponent,
     AlertComponent,
+    ConfirmationDialogComponent,
   ],
   imports: [
     HttpClientModule,
@@ -65,7 +67,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     AppRoutingModule,
     RouterModule.forRoot(routes),
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    NgbModalModule
   ],
   providers: [
     {

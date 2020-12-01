@@ -1,3 +1,4 @@
+import { ConfirmationDialog } from './../../service/confirmation-dialog';
 import { Company } from './../../models/company';
 import { AuthenticationService } from 'src/app/service/authentication';
 import { Customer } from './../../models/customer';
@@ -16,7 +17,12 @@ export class AdminHomeComponent implements OnInit {
   displayCompanies = true;
   buttonText = 'show all customers';
 
-  constructor(private adminService: AdminService, private router: Router, private authentication: AuthenticationService) { }
+  constructor(
+    private adminService: AdminService,
+    private router: Router,
+    private authentication: AuthenticationService,
+    private confirmationDialog: ConfirmationDialog
+  ) { }
 
   ngOnInit(): void {
     this.loadElements();
@@ -27,24 +33,28 @@ export class AdminHomeComponent implements OnInit {
   }
 
   updateCompany(company: Company): void {
-    this.router.navigate([`${this.authentication.getUrl}/update/company`, company.id]);
+    this.confirmationDialog.confirm(
+      'Update company details alert',
+      'Are you sure you want update this company details?',
+      'Update'
+    ).then((confirmed: boolean) => {
+      if (confirmed) {
+        this.router.navigate([`${this.authentication.getUrl}/update/company`, company.id]);
+      }
+    });
   }
 
   deleteCompany(company: Company): void {
-    this.adminService.deleteCompany(company.id).subscribe(() => {
-      this.loadCompanies();
-    });
-  }
-
-  getCompanyById(id: number): void {
-    this.adminService.getCompanyById(id).subscribe((value: Company) => {
-      console.log(value);
-    });
-  }
-
-  getCompanyByName(name: string): void {
-    this.adminService.getCompanyByName(name).subscribe((value: Company) => {
-      console.log(value);
+    this.confirmationDialog.confirm(
+      'Delete company alert',
+      'Are you sure you want delete this company? All of her coupons will be deleted as well!',
+      'Delete'
+    ).then((confirmed: boolean) => {
+      if (confirmed) {
+        this.adminService.deleteCompany(company.id).subscribe(() => {
+          this.loadCompanies();
+        });
+      }
     });
   }
 
@@ -53,18 +63,28 @@ export class AdminHomeComponent implements OnInit {
   }
 
   updateCustomer(customer: Customer): void {
-    this.router.navigate([`${this.authentication.getUrl}/update/customer`, customer.id]);
-  }
-
-  deleteCustomer(customer: Customer): void {
-    this.adminService.deleteCustomer(customer.id).subscribe(() => {
-      this.loadCustomers();
+    this.confirmationDialog.confirm(
+      'Update customer details alert',
+      'Are you sure you want update this customer details?',
+      'Update'
+    ).then((confirmed: boolean) => {
+      if (confirmed) {
+        this.router.navigate([`${this.authentication.getUrl}/update/customer`, customer.id]);
+      }
     });
   }
 
-  getCustomer(id: number): void {
-    this.adminService.getCustomer(id).subscribe((value: Customer) => {
-      console.log(value);
+  deleteCustomer(customer: Customer): void {
+    this.confirmationDialog.confirm(
+      'Delete customer alert',
+      'Are you sure you want delete this customer?',
+      'Delete'
+    ).then((confirmed: boolean) => {
+      if (confirmed) {
+        this.adminService.deleteCustomer(customer.id).subscribe(() => {
+          this.loadCustomers();
+        });
+      }
     });
   }
 

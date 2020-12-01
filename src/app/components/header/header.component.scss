@@ -11,8 +11,6 @@ nav.header {
   width: 100vw;
   background-color: white;
 
-
-
   img.app-logo {
     outline: 0;
     margin: 10px 23px;
@@ -35,7 +33,7 @@ nav.header {
   }
 
   a {
-    color: $NICE_PURPLE;
+    color: $APP_MAIN_COLOR;
     border: none;
     padding: 10px 20px;
     text-align: center;
@@ -43,7 +41,7 @@ nav.header {
     font-size: 13px;
 
     &.modest {
-      color: $NICE_PURPLE;
+      color: $APP_MAIN_COLOR;
       background-color: unset;
       text-decoration: underline;
     }
