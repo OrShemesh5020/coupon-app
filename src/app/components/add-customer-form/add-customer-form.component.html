@@ -36,7 +36,10 @@
   </div>
   <div>
     <label>confirm password</label>
-    <input id="confirm_password" type="password" />
+    <input type="password" formControlName="confirmPassword" />
+    <div *ngIf="addCustomerForm.controls['confirmPassword'].invalid">
+      confirm password is required
+    </div>
   </div>
 
   <button
