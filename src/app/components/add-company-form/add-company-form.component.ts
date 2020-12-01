@@ -41,7 +41,7 @@ export class AddCompanyFormComponent implements OnInit {
         ['',
           [
             Validators.required,
-            Validators.minLength(2),
+            Validators.minLength(10),
             Validators.maxLength(45)
           ]
         ],

@@ -7,39 +7,159 @@
   <div>
     <label>firstName</label>
     <input type="text" formControlName="firstName" />
-    <div *ngIf="updateCustomerForm.controls['firstName'].invalid">
-      firstName is required
+    <div
+      *ngIf="
+        updateCustomerForm.controls['firstName'].invalid &&
+        updateCustomerForm.controls['firstName'].touched &&
+        updateCustomerForm.controls['firstName'].errors.required
+      "
+    >
+      First name is required
+    </div>
+    <div
+      *ngIf="
+        updateCustomerForm.controls['firstName'].invalid &&
+        updateCustomerForm.controls['firstName'].touched &&
+        updateCustomerForm.controls['firstName'].errors.minlength
+      "
+    >
+      First name must be with min length of 2 chars
+    </div>
+    <div
+      *ngIf="
+        updateCustomerForm.controls['firstName'].invalid &&
+        updateCustomerForm.controls['firstName'].touched &&
+        updateCustomerForm.controls['firstName'].errors.maxlength
+      "
+    >
+      First name must be less than 45 characters long
     </div>
   </div>
 
   <div>
     <label>lastName</label>
     <input type="text" formControlName="lastName" />
-    <div *ngIf="updateCustomerForm.controls['lastName'].invalid">
-      lastName is required
+    <div
+      *ngIf="
+        updateCustomerForm.controls['lastName'].invalid &&
+        updateCustomerForm.controls['lastName'].touched &&
+        updateCustomerForm.controls['lastName'].errors.required
+      "
+    >
+      Last name is required
+    </div>
+    <div
+      *ngIf="
+        updateCustomerForm.controls['lastName'].invalid &&
+        updateCustomerForm.controls['lastName'].touched &&
+        updateCustomerForm.controls['lastName'].errors.minlength
+      "
+    >
+      Last name must be with min length of 2 chars
+    </div>
+    <div
+      *ngIf="
+        updateCustomerForm.controls['lastName'].invalid &&
+        updateCustomerForm.controls['lastName'].touched &&
+        updateCustomerForm.controls['lastName'].errors.maxlength
+      "
+    >
+      Last name must be less than 45 characters long
     </div>
   </div>
 
   <div>
     <label>email </label>
     <input type="email" formControlName="email" />
-    <div *ngIf="updateCustomerForm.controls['email'].invalid">
-      email is required
+    <div
+      *ngIf="
+        updateCustomerForm.controls['email'].invalid &&
+        updateCustomerForm.controls['email'].touched &&
+        updateCustomerForm.controls['email'].errors.required
+      "
+    >
+      Email is required
+    </div>
+    <div
+      *ngIf="
+        updateCustomerForm.controls['email'].invalid &&
+        updateCustomerForm.controls['email'].touched &&
+        updateCustomerForm.controls['email'].errors.minlength
+      "
+    >
+      Email must be with min length of 10 chars
+    </div>
+    <div
+      *ngIf="
+        updateCustomerForm.controls['email'].invalid &&
+        updateCustomerForm.controls['email'].touched &&
+        updateCustomerForm.controls['email'].errors.maxlength
+      "
+    >
+      Email must be less than 45 characters long
     </div>
   </div>
 
   <div>
     <label>password</label>
     <input id="password" type="password" formControlName="password" />
-    <div *ngIf="updateCustomerForm.controls['password'].invalid">
-      password is required
+    <div
+      *ngIf="
+        updateCustomerForm.controls['password'].invalid &&
+        updateCustomerForm.controls['password'].touched &&
+        updateCustomerForm.controls['password'].errors.required
+      "
+    >
+      Password is required
+    </div>
+    <div
+      *ngIf="
+        updateCustomerForm.controls['password'].invalid &&
+        updateCustomerForm.controls['password'].touched &&
+        updateCustomerForm.controls['password'].errors.minlength
+      "
+    >
+      Password must be with min length of 5 chars
+    </div>
+    <div
+      *ngIf="
+        updateCustomerForm.controls['password'].invalid &&
+        updateCustomerForm.controls['password'].touched &&
+        updateCustomerForm.controls['password'].errors.maxlength
+      "
+    >
+      Password must be less than 45 characters long
     </div>
   </div>
   <div>
     <label>confirm password</label>
     <input id="confirm_password" type="password" formControlName="confirmPassword"/>
-    <div *ngIf="updateCustomerForm.controls['confirmPassword'].invalid">
-      confirm password is required
+    <div
+      *ngIf="
+        updateCustomerForm.controls['confirmPassword'].invalid &&
+        updateCustomerForm.controls['confirmPassword'].touched &&
+        updateCustomerForm.controls['confirmPassword'].errors.required
+      "
+    >
+      Password confirmation is required
+    </div>
+    <div
+      *ngIf="
+        updateCustomerForm.controls['confirmPassword'].invalid &&
+        updateCustomerForm.controls['confirmPassword'].touched &&
+        updateCustomerForm.controls['confirmPassword'].errors.minlength
+      "
+    >
+      Password confirmation must be with min length of 5 chars
+    </div>
+    <div
+      *ngIf="
+        updateCustomerForm.controls['confirmPassword'].invalid &&
+        updateCustomerForm.controls['confirmPassword'].touched &&
+        updateCustomerForm.controls['confirmPassword'].errors.maxlength
+      "
+    >
+      Password confirmation must be less than 45 characters long
     </div>
   </div>
   <button
