@@ -6,27 +6,128 @@
   <div>
     <label>name</label>
     <input type="text" formControlName="name" />
-    <div *ngIf="addCompanyForm.controls['name'].invalid">name is required</div>
+    <div
+      *ngIf="
+        addCompanyForm.controls['name'].invalid &&
+        addCompanyForm.controls['name'].touched &&
+        addCompanyForm.controls['name'].errors.required
+      "
+    >
+      Name is required
+    </div>
+    <div
+      *ngIf="
+        addCompanyForm.controls['name'].invalid &&
+        addCompanyForm.controls['name'].touched &&
+        addCompanyForm.controls['name'].errors.minlength
+      "
+    >
+      Company name must be with min length of 2 chars
+    </div>
+    <div
+      *ngIf="
+        addCompanyForm.controls['name'].invalid &&
+        addCompanyForm.controls['name'].touched &&
+        addCompanyForm.controls['name'].errors.maxlength
+      "
+    >
+      The company's name must be less than 45 characters long
+    </div>
   </div>
 
   <div>
     <label>email</label>
     <input type="email" formControlName="email" />
-    <div *ngIf="addCompanyForm.controls['email'].invalid">
-      email is required
+    <div
+      *ngIf="
+        addCompanyForm.controls['email'].invalid &&
+        addCompanyForm.controls['email'].touched &&
+        addCompanyForm.controls['email'].errors.required
+      "
+    >
+      Email is required
+    </div>
+    <div
+      *ngIf="
+        addCompanyForm.controls['email'].invalid &&
+        addCompanyForm.controls['email'].touched &&
+        addCompanyForm.controls['email'].errors.minlength
+      "
+    >
+      Email must be with min length of 10 chars
+    </div>
+    <div
+      *ngIf="
+        addCompanyForm.controls['email'].invalid &&
+        addCompanyForm.controls['email'].touched &&
+        addCompanyForm.controls['email'].errors.maxlength
+      "
+    >
+      Email must be less than 45 characters long
     </div>
   </div>
 
   <div>
     <label>password</label>
-    <input id="password" type="password" formControlName="password" />
-    <div *ngIf="addCompanyForm.controls['password'].invalid">
-      password is required
+    <input type="password" formControlName="password" />
+    <div
+      *ngIf="
+        addCompanyForm.controls['password'].invalid &&
+        addCompanyForm.controls['password'].touched &&
+        addCompanyForm.controls['password'].errors.required
+      "
+    >
+      Password is required
+    </div>
+    <div
+      *ngIf="
+        addCompanyForm.controls['password'].invalid &&
+        addCompanyForm.controls['password'].touched &&
+        addCompanyForm.controls['password'].errors.minlength
+      "
+    >
+      Password must be with min length of 5 chars
+    </div>
+    <div
+      *ngIf="
+        addCompanyForm.controls['password'].invalid &&
+        addCompanyForm.controls['password'].touched &&
+        addCompanyForm.controls['password'].errors.maxlength
+      "
+    >
+      Password must be less than 45 characters long
     </div>
   </div>
   <div>
     <label>confirm password</label>
-    <input id="confirm_password" type="password"/>
+    <input type="password" formControlName="confirmPassword" />
+    <div
+      *ngIf="
+        addCompanyForm.controls['confirmPassword'].invalid &&
+        addCompanyForm.controls['confirmPassword'].touched &&
+        addCompanyForm.controls['confirmPassword'].errors.required
+      "
+    >
+      Password confirmation is required
+    </div>
+    <div
+      *ngIf="
+        addCompanyForm.controls['confirmPassword'].invalid &&
+        addCompanyForm.controls['confirmPassword'].touched &&
+        addCompanyForm.controls['confirmPassword'].errors.minlength
+      "
+    >
+      Password confirmation must be with min length of 5 chars
+    </div>
+    <div
+      *ngIf="
+        addCompanyForm.controls['confirmPassword'].invalid &&
+        addCompanyForm.controls['confirmPassword'].touched &&
+        addCompanyForm.controls['confirmPassword'].errors.maxlength
+      "
+    >
+      Password confirmation must be less than 45 characters long
+    </div>
   </div>
 
   <button

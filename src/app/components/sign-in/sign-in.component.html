@@ -2,13 +2,63 @@
   <div>
     <label>email: </label>
     <input type="email" formControlName="email" />
-    <div *ngIf="loginForm.controls['email'].invalid">email is required</div>
+    <div
+      *ngIf="
+        loginForm.controls['email'].invalid &&
+        loginForm.controls['email'].touched &&
+        loginForm.controls['email'].errors.required
+      "
+    >
+      Email is required
+    </div>
+    <div
+      *ngIf="
+        loginForm.controls['email'].invalid &&
+        loginForm.controls['email'].touched &&
+        loginForm.controls['email'].errors.minlength
+      "
+    >
+      Email must be with min length of 10 chars
+    </div>
+    <div
+      *ngIf="
+        loginForm.controls['email'].invalid &&
+        loginForm.controls['email'].touched &&
+        loginForm.controls['email'].errors.maxlength
+      "
+    >
+      Email must be less than 45 characters long
+    </div>
   </div>
   <div>
     <label>password: </label>
     <input type="password" formControlName="password" />
-    <div *ngIf="loginForm.controls['password'].invalid">
-      password is required
+    <div
+      *ngIf="
+        loginForm.controls['password'].invalid &&
+        loginForm.controls['password'].touched &&
+        loginForm.controls['password'].errors.required
+      "
+    >
+      Password is required
+    </div>
+    <div
+      *ngIf="
+        loginForm.controls['password'].invalid &&
+        loginForm.controls['password'].touched &&
+        loginForm.controls['password'].errors.minlength
+      "
+    >
+      Password must be with min length of 5 chars
+    </div>
+    <div
+      *ngIf="
+        loginForm.controls['password'].invalid &&
+        loginForm.controls['password'].touched &&
+        loginForm.controls['password'].errors.maxlength
+      "
+    >
+      Password must be less than 45 characters long
     </div>
   </div>
   <br />
