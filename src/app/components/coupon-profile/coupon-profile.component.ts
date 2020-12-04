@@ -1,6 +1,5 @@
 import { AlertService } from './../../service/alert';
 import { ConfirmationDialog } from './../../service/confirmation-dialog';
-import { Observable } from 'rxjs';
 import { Company } from './../../models/company';
 import { CustomerService } from './../../service/customer';
 import { CompanyService } from './../../service/company';
@@ -38,17 +37,20 @@ export class CouponProfileComponent implements OnInit {
     this.activatedRoute.params.subscribe((params) => {
       this.generalService.getCoupon(params.id).subscribe((value: Coupon) => {
         if ((new Date(value.startDate).valueOf()) > new Date().valueOf() && !this.theCouponBelongsToTheCurrentCompany(value)) {
-          this.alertService.error('this coupon has not been launched', true);
+          this.printlaunchDate(value);
           this.router.navigate([this.authentication.getUrl]);
           return;
         }
         this.coupon = value;
-        console.log(this.coupon);
         this.setButtons();
       });
     });
   }
 
+  printlaunchDate(coupon: Coupon): void {
+    var date = new Date(coupon.startDate);
+    this.alertService.error(`This coupon will be launched on ${date.toLocaleDateString()} at ${date.toLocaleTimeString()}`, true);
+  }
 
   setButtons(): void {
     if (!this.user) {

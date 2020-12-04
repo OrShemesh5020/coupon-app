@@ -21,7 +21,8 @@ export class CouponViewComponent implements OnInit {
       this.choosing.emit(this.couponView);
     }
     else {
-      this.alertService.error('this coupon has not been launched');
+      var date = new Date(this.couponView.startDate);
+      this.alertService.error(`This coupon will be launched on ${date.toLocaleDateString()} at ${date.toLocaleTimeString()}`);
     }
   }
 }
