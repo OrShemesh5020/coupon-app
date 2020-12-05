@@ -1,3 +1,4 @@
+import { AlertService } from './../../service/alert';
 import { ClientType, User } from '../../models/user';
 import { CompanyService } from '../../service/company';
 import { AuthenticationService } from '../../service/authentication';
@@ -20,7 +21,9 @@ export class UpdateCouponFormComponent implements OnInit {
     private authentication: AuthenticationService,
     private companyService: CompanyService,
     private activatedRoute: ActivatedRoute,
-    private router: Router) {
+    private router: Router,
+    private alertService: AlertService
+  ) {
     this.couponModel = new Coupon();
     this.activatedRoute.params.subscribe((params) => {
       this.companyService.getCouponById(params.id).subscribe((value: Coupon) => {
@@ -39,6 +42,7 @@ export class UpdateCouponFormComponent implements OnInit {
     this.valuesImplementation();
     this.convertToLowerCase();
     this.companyService.updateCoupon(this.couponModel).subscribe(() => {
+      this.alertService.success('coupon successfully updated', true);
       this.router.navigate([this.authentication.getUrl]);
     });
   }

@@ -96,6 +96,7 @@ export class CouponProfileComponent implements OnInit {
     ).then((confirmed: boolean) => {
       if (confirmed) {
         this.companyService.deleteCoupon(this.coupon.id).subscribe(() => {
+          this.alertService.success('coupon successfully deleted', true);
           this.router.navigate([this.authentication.getUrl]);
         });
       }
@@ -107,6 +108,7 @@ export class CouponProfileComponent implements OnInit {
       this.router.navigate(['sign-in']);
     } else {
       this.customerService.purchaseCoupon(this.coupon).subscribe(() => {
+        this.alertService.success('coupon successfully purchased', true);
         this.router.navigate([this.authentication.getUrl]);
       });
     }
@@ -120,6 +122,7 @@ export class CouponProfileComponent implements OnInit {
     ).then((confirmed: boolean) => {
       if (confirmed) {
         this.customerService.removePurchasedCoupon(this.coupon.id).subscribe(() => {
+          this.alertService.success('coupon successfully canceled', true);
           this.router.navigate([this.authentication.getUrl]);
         });
       }
