@@ -55,6 +55,7 @@ export class UpdateCustomerFormComponent implements OnInit {
     this.valuesImplementation();
     if (this.user.clientType === ClientType.ADMINISTRATOR) {
       this.adminService.updateCustomer(this.customerModel).subscribe(() => {
+        this.alertService.success('customer details successfully updated', true);
         this.router.navigate([this.authentication.getUrl]);
       });
       return;
@@ -62,6 +63,7 @@ export class UpdateCustomerFormComponent implements OnInit {
     this.customerService
       .updateCustomerDetails(this.customerModel)
       .subscribe(() => {
+        this.alertService.success('your details successfully updated', true);
         this.router.navigate([this.authentication.getUrl]);
       });
   }
