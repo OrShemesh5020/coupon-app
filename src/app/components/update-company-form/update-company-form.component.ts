@@ -101,11 +101,13 @@ export class UpdateCompanyFormComponent implements OnInit {
     this.valuesImplementation();
     if (this.user.clientType === ClientType.COMPANY) {
       this.companyService.updateDetails(this.companyModel).subscribe(() => {
+        this.alertService.success('your details successfully updated', true);
         this.router.navigate([this.authentication.getUrl]);
       });
     }
     else if (this.user.clientType === ClientType.ADMINISTRATOR) {
       this.adminService.updateCompany(this.companyModel).subscribe(() => {
+        this.alertService.success('company details successfully updated', true);
         this.router.navigate([this.authentication.getUrl]);
       });
     }

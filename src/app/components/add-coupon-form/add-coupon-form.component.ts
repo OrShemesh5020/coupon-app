@@ -1,3 +1,4 @@
+import { AlertService } from './../../service/alert';
 import { Company } from './../../models/company';
 import { User } from './../../models/user';
 import { AuthenticationService } from './../../service/authentication';
@@ -20,7 +21,8 @@ export class AddCouponFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authentication: AuthenticationService,
     private companyService: CompanyService,
-    private router: Router
+    private router: Router,
+    private alertService: AlertService
   ) { }
 
   ngOnInit(): void {
@@ -101,6 +103,7 @@ export class AddCouponFormComponent implements OnInit {
     this.valuesImplementation();
     this.convertToLowerCase();
     this.companyService.addCoupon(this.couponModel).subscribe(() => {
+      this.alertService.success('The coupon has been created successfully', true);
       this.router.navigate([this.authentication.getUrl]);
     });
   }
