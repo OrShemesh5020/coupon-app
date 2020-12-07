@@ -79,16 +79,7 @@ export class ProfileDisplayComponent implements OnInit {
   getTotalMoney() {
     let totalMoney = 0;
     this.getCoupons().subscribe((values: Coupon[]) => {
-      if (this.company) {
-        values.forEach((value: Coupon) => {
-          totalMoney += (value.amount * value.price);
-        });
-        this.statistics['Total price of coupons left'] =
-        {
-          type: 'price',
-          value: totalMoney
-        };
-      } else {
+      if (this.customer) {
         values.forEach((value: Coupon) => {
           totalMoney += value.price;
         });
