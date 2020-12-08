@@ -73,14 +73,14 @@ input:-internal-autofill-selected {
   width: 120%;
   height: 120%;
   background-size: cover;
-  background-image: url('https://wallpaperaccess.com/full/878.jpg');
+  background-image: url('./assets/form_background.jpg');
   filter: blur(42px);
 }
 
 .auth-form-wrapper {
   //position: fixed;
   background-size: cover;
-  background-image: url('https://wallpaperaccess.com/full/878.jpg');
+  background-image: url('./assets/form_background.jpg');
 }
 
 form {
