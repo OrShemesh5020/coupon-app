@@ -27,9 +27,21 @@
     }
   }
 
+  .image-wrapper {
+    grid-column-start: 2;
+  }
+
+  .info-wrapper {
+    zoom: 0.85;
+    grid-row-start: 1;
+    grid-column-start: 1;
+  }
+
   p.description {
     font-size: 1.8em;
-    margin: 10px;
+    margin: 10px auto;
+    max-width: 290px;
+    text-align: justify;
   }
 
   h1 {
@@ -42,15 +54,18 @@
 
   .coupon-details {
     display: flex;
+    flex-direction: column;
     justify-content: center;
 
     h1 {
       color: #4f4f4f;
-      font-size: 5em;
+      font-size: 11em;
     }
 
     h1.monah {
       color: $GROUPON_GREEN;
+      font-size: 6.7em;
+      margin-top: -70px;
     }
   }
 
@@ -60,115 +75,38 @@
     }
   }
 
-  button.buy-now {
-    transition: all 0.5s ease;
-    width: 60%;
-    height: 96px;
-    margin: 20px auto;
-    background-color: $GROUPON_GREEN;
-    color: white;
-    border: unset;
-    font-size: 4em;
-    font-weight: 900;
+  .buttons-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    button {
+      transition: all 0.5s ease;
+      width: 60%;
+      height: 96px;
+      margin: 20px auto;
+      background-color: #609bda;
+      color: white;
+      border: unset;
+      font-size: 4em;
+      font-weight: 900;
+    }
+
+    button.cancel {
+      background-color: #adadad;
+    }
+
+    button.delete {
+      background-color: tomato;
+    }
+
+    button.buy-now {
+      background-color: $GROUPON_GREEN;
+    }
+
+    button:hover {
+      width: 65%;
+      height: 98px;
+      font-size: 4.1em;
+    }
   }
-
-  button.buy-now:hover {
-    width: 90%;
-    height: 98px;
-    font-size: 4.1em;
-  }
-
-  //img {
-  //  grid-row-start: 1;
-  //  margin: auto;
-  //  max-height: 48vh;
-  //}
-  //
-  //svg {
-  //  width: 100%;
-  //}
-  //
-  //div.description {
-  //  max-width: 680px;
-  //  font-size: 4em;
-  //  margin: 0 auto 180px;
-  //  width: 100%;
-  //  text-align: justify;
-  //  word-break: break-all;
-  //  letter-spacing: 23px;
-  //
-  //  p {
-  //    -webkit-hyphens: auto;
-  //    -moz-hyphens: auto;
-  //    -ms-hyphens: auto;
-  //    hyphens: auto;
-  //  }
-  //}
-  //
-  //.coupon-details {
-  //  grid-row-start: 2;
-  //  display: flex;
-  //  justify-content: center;
-  //  border-bottom: 1px solid #c4c4c4;
-  //
-  //  h1 {
-  //    font-family: 'Catamaran', sans-serif;
-  //    font-size: 7em;
-  //
-  //    &.monah {
-  //      color: $GROUPON_GREEN;
-  //    }
-  //
-  //    &.currency {
-  //      color: $NOT_SO_BORING_GRAY;
-  //    }
-  //  }
-  //}
-  //
-  //.coupon-alerts {
-  //  background-color: white;
-  //  width: 100vw;
-  //  left: 0;
-  //  position: fixed;
-  //  bottom: 136px;
-  //  text-align: center;
-  //  justify-content: center;
-  //  display: flex;
-  //  flex-direction: column;
-  //
-  //  h1 {
-  //    letter-spacing: 1px;
-  //  }
-  //
-  //  h1.attention {
-  //    color: tomato;
-  //    letter-spacing: 20px;
-  //  }
-  //}
-  //
-  //@keyframes scrollIndication {
-  //  0% { top: 60vh; }
-  //  50% { top: 61vh; }
-  //  100% { top: 60vh; }
-  //}
-  //
-  //.scroll-indicator {
-  //  position: fixed;
-  //  right: 10vw;
-  //  cursor: pointer;
-  //  font-size: 3em;
-  //  transform: rotate(90deg);
-  //  animation: scrollIndication 2s infinite;
-  //}
-  //
-  //.buttons-wrapper {
-  //  left: 0;
-  //  padding: 20px;
-  //  background-color: white;
-  //  width: 100vw;
-  //  position: fixed;
-  //  bottom: 0;
-  //}
-  //
-
 }
