@@ -1,6 +1,11 @@
-<div [ngClass]="className">
+<div [ngClass]="className" id="app-wrapper">
+  <div
+    [class]="isAppLoading ? 'active' : ''"
+    class="loading-animation-wrapper"></div>
   <app-header></app-header>
-  <app-alert></app-alert>
-  <router-outlet></router-outlet>
-  <app-footer></app-footer>
+  <div class="main-wrapper">
+    <app-alert></app-alert>
+    <router-outlet></router-outlet>
+    <app-footer></app-footer>
+  </div>
 </div>

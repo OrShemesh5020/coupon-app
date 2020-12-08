@@ -1,10 +1,11 @@
+<!--<div class="overlay" [class]="isFilterOpen && 'active'"></div>-->
 <div class="home-wrapper">
-  <div [class]="isFilterMenuOpen ?
-    'filter-wrapper opened' :
-    'filter-wrapper closed'">
-    <button
-      (click)="toggleFilterMenu()"
-      class="filter-button"></button>
+  <div class="coupon-banner-wrapper">
+    <img
+      class="coupon-banner"
+      src="./assets/coupon-deal-banner.webp" />
+  </div>
+  <div class="filter-wrapper" [class]="isFilterOpen ? 'overlay-active' : ''">
     <div class="filter-options">
       <form [formGroup]="form">
         <input
@@ -13,69 +14,84 @@
           id="filter-all"
           formControlName="filterCategories"
           value="all">
-        <label for="filter-all">No Filter</label>
+        <label
+          (click)="openFilter()"
+          for="filter-all">No Filter</label>
         <input
           (change)="setFilterType($event)"
           type="radio"
           id="filter-title"
           formControlName="filterCategories"
           value="title">
-        <label for="filter-title">Title</label>
+        <label
+          [class]="filterType === 'title' ? 'active' : ''"
+          (click)="openFilter()"
+          for="filter-title">Title</label>
         <input
           (change)="setFilterType($event)"
           type="radio"
           id="filter-price"
           formControlName="filterCategories"
           value="price">
-        <label for="filter-price">Max Price</label>
+        <label
+          [class]="filterType === 'price' ? 'active' : ''"
+          (click)="openFilter()"
+          for="filter-price">Max Price</label>
         <input
           (change)="setFilterType($event)"
           type="radio"
           id="filter-category"
           formControlName="filterCategories"
           value="category">
-        <label for="filter-category">Category</label>
+        <label
+          [class]="filterType === 'category' ? 'active' : ''"
+          (click)="openFilter()"
+          for="filter-category">Category</label>
       </form>
     </div>
-
-    <div class="filter-choice">
-      <div *ngIf="filterType">
-        <div *ngIf="filterType === 'price' || filterType === 'title'">
-          <input *ngIf="filterType === 'title'" id="filter-input-title" type="text"/>
+    <div *ngIf="filterType && isFilterOpen">
+      <button (click)="closeFilter()">X</button>
+      <div class="filter-choice-wrapper" [class]="filterType">
+        <div class="arrow-up"></div>
+        <div class="filter-choice">
+          <input
+            *ngIf="filterType === 'title'"
+            id="filter-input-title"
+            type="text" />
           <input
             *ngIf="filterType === 'price'"
             id="filter-input-price"
-            type="number"
-          />
-          <button (click)="filterCoupons()">filter by {{ filterType }}</button>
+            type="number" />
+          <select
+            *ngIf="filterType === 'category'"
+            #selectedFilter
+            (change)="filterByCategory(selectedFilter)">
+            <option *ngFor="let category of allCategories" value="{{ category }}">
+              {{ category }}
+            </option>
+          </select>
+          <button (click)="filterCoupons(); closeFilter()">
+            Filter by {{ filterType }}
+          </button>
         </div>
-        <select
-          #selectedFilter
-          (change)="filterByCategory(selectedFilter)"
-          *ngIf="filterType === 'category'">
-          <option *ngFor="let category of allCategories" value="{{ category }}">
-            {{ category }}
-          </option>
-        </select>
       </div>
     </div>
   </div>
-  <img
-    class="coupon-banner"
-    src="./assets/coupon-deal-banner.webp"/>
-<!--  *ngIf="couponsByCategory" TODO: redundant? -->
-  <div
-    class="display_wrapper"
-    *ngFor="let category of couponsByCategory | keyvalue">
-    <div class="category">
-      {{ category.key | titlecase }}
-    </div>
-    <div class="coupon_wrapper">
-      <app-coupon-view
-        *ngFor="let coupon of category.value"
-        [couponView]="coupon"
-        [enableClick]="category.key !== unlaunchedCouponsCategory"
-        (choosing)="openProfile($event)"></app-coupon-view>
+  <!--  *ngIf="couponsByCategory" TODO: redundant? -->
+  <!-- [class]="specialCategories.includes(category.key) ? 'special' : ''"-->
+  <div class="categories">
+    <div
+      class="category-wrapper"
+      *ngFor="let category of couponsByCategory | keyvalue">
+      <h1>{{ category.key | titlecase }}</h1>
+      <div class="coupon-wrapper">
+        <app-coupon-view
+          *ngFor="let coupon of category.value"
+          [couponView]="coupon"
+          [enableClick]="category.key !== unlaunchedCouponsCategory"
+          (choosing)="openProfile($event)">
+        </app-coupon-view>
+      </div>
     </div>
   </div>
 </div>

@@ -3,12 +3,10 @@
     <img src="{{ couponView.image }}" />
   </div>
   <div class="wrapper_details">
-    <div class="title">
-      <u>{{ couponView.title }}</u>
-    </div>
-    <div class="price">{{ couponView.price }}₪</div>
+    <h1>{{ couponView.title }}</h1>
+    <h2 class="price">{{ couponView.price }}$</h2>
     <div class="amount">
-      <div *ngIf="couponView.amount === 0">no coupons left!</div>
+      <h3 *ngIf="couponView.amount === 0">no coupons left!</h3>
       <div *ngIf="couponView.amount <= 25 && couponView.amount > 0">
         only {{ couponView.amount }} left!
       </div>

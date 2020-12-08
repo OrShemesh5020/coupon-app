@@ -5,6 +5,7 @@ import { GeneralService } from './../../service/general';
 import { Coupon } from './../../models/coupon';
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, RadioControlValueAccessor} from '@angular/forms';
+import {isNull} from "@angular/compiler/src/output/output_ast";
 
 @Component({
   selector: 'app-home',
@@ -17,9 +18,10 @@ export class HomeComponent implements OnInit {
   allCategories: string[];
   unlaunchedCoupons: Coupon[];
   unlaunchedCouponsCategory = 'Coming soon';
+  specialCategories = ['Coming soon', 'vacation'];
   couponsByCategory = {};
   filterType: string;
-  isFilterMenuOpen: boolean = false;
+  isFilterOpen: boolean = false;
   form = new FormGroup({
     filterCategories: new FormControl('title'),
   });
@@ -95,6 +97,10 @@ export class HomeComponent implements OnInit {
     // const selectedFilter = filterElement.value[filterElement.selectedIndex].value;
     this.filterType = filterElement.target.value === 'all' ? null : filterElement.target.value;
     this.showAllcoupon();
+
+    if (!this.filterType) {
+      this.closeFilter();
+    }
   }
 
   filterCoupons(): void {
@@ -108,8 +114,6 @@ export class HomeComponent implements OnInit {
       this.getCouponsByPrice(filterInput);
       (document.getElementById('filter-input-price') as HTMLInputElement).value = '';
     }
-
-    this.toggleFilterMenu();
   }
 
   filterByCategory(filterEelement: HTMLSelectElement): void {
@@ -142,7 +146,11 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  toggleFilterMenu(): void {
-    this.isFilterMenuOpen = !this.isFilterMenuOpen;
+  openFilter(): void {
+    this.isFilterOpen = true;
+  }
+
+  closeFilter(): void {
+    this.isFilterOpen = false;
   }
 }

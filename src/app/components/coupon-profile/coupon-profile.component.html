@@ -1,29 +1,46 @@
-<div *ngIf="coupon" class="wrapper">
-  <div class="left_side">
-    <div class="top">
-      <div id="title">title: {{ coupon.title }}</div>
-      <div id="price">price: {{ coupon.price }}₪</div>
-    </div>
-    <div class="bottom">
-      description: {{ coupon.description }}<br />
-      expiration date: {{ coupon.endDate | date: "d/M/yyyy" }}
-      <div *ngIf="coupon.amount <= 50">only {{ coupon.amount }} left!</div>
-      <div *ngIf="coupon.amount > 50">{{ coupon.amount }} are available</div>
-    </div>
+<div *ngIf="coupon" class="coupon-profile-wrapper">
+  <div class="expiration-message" [class]="getIsDealExpired() ? 'active' : ''">
+    THIS DEAL JUST EXPIRED!
   </div>
-  <div class="right_side">
+  <!--  <div-->
+  <!--    class="blurry-image-background"-->
+  <!--    [style]="'background-image:url('+coupon.image+')'"></div>-->
+  <!--  {{ coupon.endDate | date: "d/M/yyyy" }} -->
+  <div>
     <img src="{{ coupon.image }}" />
+    <p class="description">{{ coupon.description }}</p>
   </div>
-  <div class="buttons">
-    <div class="companyButtons" *ngIf="editable">
-      <button (click)="updateCoupon()">update</button>
-      <button (click)="deleteCoupon()">delete</button>
+  <div>
+    <div class="coupon-details">
+      <h1>{{ coupon.title.toUpperCase() }}</h1>
+      <h1 class="monah">{{ coupon.price }}€</h1>
     </div>
-    <div class="coupon_purchase_button" *ngIf="purchasable">
-      <button (click)="purchaseACoupon()">Buy now!</button>
+    <div class="coupon-alerts">
+      <p>
+        {{ coupon.amount <= 50 ?
+        'ONLY ' + coupon.amount + ' COUPONS REMAIN!' :
+        coupon.amount + ' coupons are available' }}
+      </p>
+      <h1 class="attention">
+        {{ getTimeTillDateMessage(coupon.endDate) }}
+      </h1>
     </div>
-    <div class="cansel_purchase_button" *ngIf="cancelable">
-      <button (click)="cancelPurchase()">cancel purchase</button>
+    <div class="buttons-wrapper">
+      <div class="company-button" *ngIf="editable">
+        <button (click)="updateCoupon()">Update</button>
+        <button (click)="deleteCoupon()">Delete</button>
+      </div>
+      <button
+        class="buy-now"
+        *ngIf="purchasable"
+        (click)="purchaseACoupon()">
+        BUY NOW
+      </button>
+      <button
+        *ngIf="cancelable"
+        (click)="cancelPurchase()">
+        Cancel Purchase
+      </button>
     </div>
   </div>
 </div>

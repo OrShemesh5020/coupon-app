@@ -1,71 +1,207 @@
 @import 'src/colors.scss';
 
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  opacity: 0;
+  background-color: black;
+  pointer-events: none;
+  transition: all 0.5s ease;
+  backdrop-filter: blur(0);
+
+  &.active {
+    opacity: 0.4;
+  }
+}
+
 div.home-wrapper {
-  img.coupon-banner {
-    margin: 30px auto;
-    display: block;
+  &.dimmed {
+    background-color: black;
+  }
+
+  .coupon-banner-wrapper {
+    width: 100%;
+    background-color: white;
+    left: 0;
+    top: 0;
+    position: static;
+    margin-bottom: 20px;
+
+    img.coupon-banner {
+      display: block;
+      margin: auto;
+    }
   }
 
   .filter-wrapper {
-    transition: all 0.5s ease-in-out;
-    height: 100vh;
-    border-left: 5px solid black;
-    position: fixed;
-    right: 0;
-    top: 0;
-    background: #ededed;
-    z-index: 1;
+    width: 100vw;
+    left: 0;
+    top: 71px;
+    position: sticky;
+    background-color: white;
 
-    .filter-options {
-      position: absolute;
-      top: 100px;
-      left: 30px;
+    form {
+      display: flex;
+      position: sticky;
+      top: 220px;
+      background-color: unset;
+      box-shadow: unset;
+      text-align: center;
+      justify-content: start;
+      margin-left: 0;
+      height: 71px;
+      padding: 0;
     }
 
-    .filter-choice {
-      position: absolute;
-      top: 500px;
-      left: 30px;
+    input[type=radio] {
+      display: none;
     }
 
-    button.filter-button {
-      transition: all 0.5s ease-in-out;
-      outline: 0;
-      width: 48px;
+    label {
+      position: static;
+      line-height: 48px;
       height: 48px;
-      border-left: 1px solid $BORING_GRAY;
-      background-color: $APP_MAIN_COLOR;
-      border-radius: 48px;
-      background-image: url('../../../assets/filter-icon.png');
-      background-size: 50%;
-      background-position: center;
-      background-repeat: no-repeat;
-      top: 100px;
+      width: 100px;
+      margin: 8px;
+      border: 3px solid $GROUPON_GREEN;
+      cursor: pointer;
+      background-color: white;
+
+      &.active {
+      }
+    }
+
+    div.filter-choice-wrapper {
+      top: 303px;
       position: fixed;
-    }
 
-    &.closed {
-      width: 4vw;
-
-      .filter-options {
-        //display: none;
+      &.title {
+        left: 160px;
       }
 
-      button.filter-button {
-        right: 2vw;
-      }
-    }
-
-    &.opened {
-      width: 33vw;
-
-      .filter-options {
-        display: inline-block;
+      &.price {
+        left: 277px;
       }
 
-      button.filter-button {
-        right: 31vw;
+      &.category {
+        left: 392px;
+      }
+
+      .filter-choice {
+        width: 310px;
+        height: 160px;
+        border: 1px solid #ededed;
+        box-shadow: 0 0 10px #5f5f5f;
+        background-color: white;
+        position: relative;
+        z-index: 0;
+        display: flex;
+        flex-direction: column;
+
+        input, button, select {
+          height: 48px;
+          width: 80%;
+          text-align: center;
+          margin: 20px auto 0;
+        }
+
+        button {
+          background-color: $GROUPON_GREEN;
+          color: white;
+          font-weight: 500;
+          border: none;
+        }
+      }
+
+      .arrow-up {
+        width: 30px;
+        height: 30px;
+        top: -15px;
+        background-color: white;
+        box-shadow: -1px -1px 2px rgb(0 0 0 / 10%);
+        transform: rotate(45deg);
+        position: absolute;
+        margin: auto;
+        left: 0;
+        right: 0;
+        z-index: 1;
       }
     }
   }
+
+  //.filter-wrapper {
+  //  transition: all 0.5s ease-in-out;
+  //  height: 100vh;
+  //  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  //  position: fixed;
+  //  right: 0;
+  //  top: 0;
+  //  background: #ededed;
+  //  z-index: 1;
+  //
+  //  .filter-options {
+  //    position: absolute;
+  //    top: 100px;
+  //    left: 30px;
+  //  }
+  //
+  //  .filter-choice {
+  //    position: absolute;
+  //    top: 500px;
+  //    left: 30px;
+  //  }
+  //
+  //  button {
+  //    transition: all 0.5s ease-in-out;
+  //    outline: 0;
+  //    width: 48px;
+  //    height: 48px;
+  //    border-left: 1px solid $BORING_GRAY;
+  //    background-color: $APP_MAIN_COLOR;
+  //    border-radius: 48px;
+  //    background-size: 50%;
+  //    background-position: center;
+  //    background-repeat: no-repeat;
+  //    top: 100px;
+  //    position: fixed;
+  //    color: white;
+  //    font-weight: 900;
+  //  }
+  //
+  //  button.filter-button {
+  //    background-image: url('../../../assets/filter-icon.png');
+  //  }
+  //
+  //  button.x-button {
+  //    background-image: unset;
+  //  }
+  //
+  //  &.closed {
+  //    width: 2vw;
+  //
+  //    .filter-options {
+  //      //display: none;
+  //    }
+  //
+  //    button {
+  //      right: 1vw;
+  //    }
+  //  }
+  //
+  //  &.opened {
+  //    width: 33vw;
+  //
+  //    .filter-options {
+  //      display: inline-block;
+  //    }
+  //
+  //    button {
+  //      right: 1vw;
+  //    }
+  //  }
+  //}
 }

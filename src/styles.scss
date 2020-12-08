@@ -2,25 +2,27 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "./colors.scss";
 
-body, html {
+body,
+html {
   padding: 0;
   margin: 0;
   font-family: 'Roboto', sans-serif;
   overflow-x: hidden;
+  //backdrop-filter: grayscale(1);
+  //filter: grayscale(1);
 }
 
 ::-webkit-scrollbar {
   width: 1.5px;
+  height: 1.5px;
 }
 
 ::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
 }
 
 ::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
 
 // TODO: disable chrome autofill styling?
@@ -33,6 +35,34 @@ input:-internal-autofill-selected {
   width: 100vw;
   height: 100vh;
   overflow-x: hidden;
+}
+
+.main-wrapper {
+  margin: 85px auto;
+  max-width: 1400px;
+}
+
+.loading-animation-wrapper {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+  z-index: 4;
+  background-image: url('assets/loading-animation.gif');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 33%;
+  pointer-events: none;
+  transition: all 0.5s ease;
+  opacity: 0;
+
+  &.active {
+    opacity: 1;
+  }
 }
 
 .auth-form-wrapper::before {
@@ -48,7 +78,7 @@ input:-internal-autofill-selected {
 }
 
 .auth-form-wrapper {
-  position: fixed;
+  //position: fixed;
   background-size: cover;
   background-image: url('https://wallpaperaccess.com/full/878.jpg');
 }
@@ -188,4 +218,41 @@ form {
   max-width: 600px;
   margin: auto;
   background-color: rgba(255, 255, 255, 0.2);
+}
+
+div.categories {
+  display: grid;
+  margin-top: 20px;
+  overflow-y: hidden;
+
+  .category-wrapper {
+    width: 100%;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    overflow: hidden;
+
+    &.special {
+      width: 24vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: row;
+
+      position: fixed;
+      left: -15vw;
+
+      .coupon-wrapper {
+        .wrapper {
+          max-width: 420px;
+          border: unset;
+          background-image: unset;
+        }
+      }
+    }
+
+    .coupon-wrapper {
+      overflow-y: auto;
+      display: flex;
+      padding-bottom: 20px;
+    }
+  }
 }
