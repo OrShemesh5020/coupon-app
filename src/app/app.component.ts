@@ -21,6 +21,20 @@ export class AppComponent implements OnInit {
   isAppLoading: boolean = true;
 
   constructor(private router: Router) {
+    const formRoutes = [
+      'sign-up/company',
+      'sign-up/customer',
+      'add/company',
+      'add/customer',
+      'update/company',
+      'update/customer',
+      'company/add-coupon',
+      'company/update/details',
+      'company/update/coupon',
+      'customer/update/details',
+      'sign-in',
+    ];
+
     this.router.events.subscribe((event) => {
       if (event instanceof ActivationStart) {
         this.isAppLoading = true;
@@ -28,8 +42,8 @@ export class AppComponent implements OnInit {
 
       if (event instanceof NavigationStart) {
         this.isAppLoading = true;
-        console.log(event.url);
-        if (event.url === '/sign-in' || event.url === '/home/public/sign-up/customer' || event.url === '/home/public/sign-up/company') {
+
+        if (formRoutes.filter(route => event.url.includes(route)).length === 1) {
           this.className = 'auth-form-wrapper';
         } else {
           this.className = 'app-wrapper';
