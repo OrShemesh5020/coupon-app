@@ -18,6 +18,7 @@ import { ViewEncapsulation } from '@angular/core';
 export class AppComponent implements OnInit {
   title = 'couponSystem';
   className = 'wrapper';
+  loadingClass = '';
   isAppLoading: boolean = true;
 
   constructor(private router: Router) {
@@ -37,11 +38,11 @@ export class AppComponent implements OnInit {
 
     this.router.events.subscribe((event) => {
       if (event instanceof ActivationStart) {
-        this.isAppLoading = true;
+        this.loadingClass = 'active';
       }
 
       if (event instanceof NavigationStart) {
-        this.isAppLoading = true;
+        this.loadingClass = 'active';
 
         if (formRoutes.filter(route => event.url.includes(route)).length === 1) {
           this.className = 'auth-form-wrapper';
@@ -51,7 +52,7 @@ export class AppComponent implements OnInit {
       }
 
       if (event instanceof NavigationEnd) {
-        this.isAppLoading = false;
+        this.loadingClass = '';
       }
     });
   }
