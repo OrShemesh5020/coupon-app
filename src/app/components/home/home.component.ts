@@ -99,8 +99,6 @@ export class HomeComponent implements OnInit {
   }
 
   setFilterType(filterElement): void { // TODO: add type
-    console.log('MUDA', filterElement.target.value);
-    // const selectedFilter = filterElement.value[filterElement.selectedIndex].value;
     this.filterType = filterElement.target.value === 'all' ? null : filterElement.target.value;
     this.showAllcoupon();
 

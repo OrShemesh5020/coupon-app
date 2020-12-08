@@ -38,7 +38,7 @@ input:-internal-autofill-selected {
 }
 
 .main-wrapper {
-  margin: 20vh auto;
+  margin: 10vh auto;
   max-width: 1400px;
 }
 
@@ -253,6 +253,26 @@ div.categories {
       overflow-y: auto;
       display: flex;
       padding-bottom: 20px;
+    }
+  }
+}
+
+
+.grid-wrapper {
+  .display_wrapper {
+    .coupon_wrapper {
+      display: flex;
+      flex-wrap: wrap;
+
+      .wrapper {
+        max-width: 420px;
+
+        .wrapper_details {
+          h1.category {
+            font-size: 6em;
+          }
+        }
+      }
     }
   }
 }
