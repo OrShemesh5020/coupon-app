@@ -13,6 +13,7 @@ import { Component, OnInit } from '@angular/core';
 const ONE_HOUR = 60 * 60;
 const ONE_DAY = ONE_HOUR * 24;
 const ONE_WEEK = ONE_DAY * 7;
+const ONE_MONTH = ONE_DAY * 30.41;
 
 @Component({
   selector: 'app-coupon-profile',
@@ -164,26 +165,29 @@ export class CouponProfileComponent implements OnInit {
     const timestamp = new Date(date).getTime();
 
     const inSeconds = Math.round((timestamp - now) / 1000);
+    const inMonths = Math.round(inSeconds / ONE_MONTH);
     const inWeeks = Math.round(inSeconds / ONE_WEEK);
     const inDays = Math.round(inSeconds / ONE_DAY);
     const inHours = Math.round(inSeconds / ONE_HOUR);
 
     return {
       inSeconds,
+      inMonths,
       inWeeks,
       inDays,
       inHours,
       unit:
-        inWeeks > 0 ? 'week' :
-          inDays > 0 ? 'day' :
-            inHours > 0 ? 'hour' :
-              'second'
+        inMonths > 0 ? 'month' :
+          inWeeks > 0 ? 'week' :
+            inDays > 0 ? 'day' :
+              inHours > 0 ? 'hour' :
+                'second'
     };
   }
 
   getTimeTillDateMessage(date: Date): string {
     const diff = this.getTimeLeftTillDate(date);
-    const remainAmount = diff.inWeeks || diff.inDays || diff.inHours || diff.inSeconds;
+    const remainAmount = diff.inMonths || diff.inWeeks || diff.inDays || diff.inHours || diff.inSeconds;
     const unit = diff.unit.toUpperCase();
 
     if (diff.inSeconds <= ONE_HOUR && diff.inSeconds > 0) {
