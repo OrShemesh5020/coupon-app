@@ -4,7 +4,7 @@
   </div>
   <div class="wrapper_details">
     <h1>{{ couponView.title }}</h1>
-    <h2 class="price">{{ couponView.price }}$</h2>
+    <h2 class="price">{{ couponView.price }}₪</h2>
     <div class="amount">
       <h3 *ngIf="couponView.amount === 0">no coupons left!</h3>
       <div *ngIf="couponView.amount <= 25 && couponView.amount > 0">
