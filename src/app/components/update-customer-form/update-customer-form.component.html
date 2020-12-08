@@ -4,6 +4,7 @@
     class="updateCustomerForm"
     (ngSubmit)="onSubmit()"
     [formGroup]="updateCustomerForm">
+    <h1>UPDATE CUSTOMER</h1>
     <div>
       <label>First Name</label>
       <span class="label-shadow">First Name</span>
@@ -171,7 +172,7 @@
       type="submit"
       [disabled]="!updateCustomerForm.valid"
     >
-      UPDATE CUSTOMER
+      SUBMIT
     </button>
   </form>
 </div>

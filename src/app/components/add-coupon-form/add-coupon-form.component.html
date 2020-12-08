@@ -1,5 +1,6 @@
 <div class="form-wrapper">
   <form class="addCouponForm" (ngSubmit)="onSubmit()" [formGroup]="addCouponForm">
+    <h1>ADD COUPON</h1>
     <div>
       <label>Title</label>
       <span class="label-shadow">Title</span>
@@ -91,7 +92,7 @@
     <br/>
     <br/>
     <button class="addButton" type="submit" [disabled]="!addCouponForm.valid">
-      add coupon
+      SUBMIT
     </button>
   </form>
 </div>
