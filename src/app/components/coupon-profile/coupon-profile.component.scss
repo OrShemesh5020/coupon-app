@@ -3,9 +3,12 @@
 .coupon-profile-wrapper {
   font-family: 'Roboto Condensed', sans-serif;
   text-align: center;
-  display: grid;
-  grid-column-gap: 10px;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  max-width: 1200px;
+  width: 90vw;
+  margin: 100px auto 0;
 
   .expiration-message {
     position: fixed;
@@ -29,16 +32,22 @@
 
   .image-wrapper {
     grid-column-start: 2;
+    padding: 0 20px;
+
+    img {
+      max-width: 66vw;
+    }
   }
 
   .info-wrapper {
-    zoom: 0.85;
+    text-align: center;
     grid-row-start: 1;
     grid-column-start: 1;
+    max-width: 33vw;
   }
 
   p.description {
-    font-size: 1.8em;
+    font-size: 1.8vw;
     margin: 10px auto;
     max-width: 290px;
     text-align: justify;
@@ -59,19 +68,19 @@
 
     h1 {
       color: #4f4f4f;
-      font-size: 11em;
+      font-size: 11vw;
     }
 
     h1.monah {
       color: $GROUPON_GREEN;
-      font-size: 6.7em;
-      margin-top: -70px;
+      font-size: 6vw;
+      margin-top: -50px;
     }
   }
 
   .coupon-alerts {
     p {
-      font-size: 2.3em;
+      font-size: 3vw;
     }
   }
 
