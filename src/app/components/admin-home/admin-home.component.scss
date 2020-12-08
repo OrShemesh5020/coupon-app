@@ -1,0 +1,11 @@
+@import "src/colors.scss";
+
+button {
+  height: 48px;
+  width: 100%;
+  max-width: 33%;
+  background-color: $GROUPON_GREEN;
+  color: white;
+  border: 3px solid rgb(116, 160, 67);
+  margin: 30px 0;
+}
