@@ -1,9 +1,14 @@
+import { CustomerService } from './../../service/customer';
+import { CompanyService } from './../../service/company';
+import { ClientType } from 'src/app/models/user';
 import { User } from './../../models/user';
 import { AlertService } from './../../service/alert';
 import { AuthenticationService } from './../../service/authentication';
 import { Router } from '@angular/router';
 import { Component, Injectable, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Company } from 'src/app/models/company';
+import { Customer } from 'src/app/models/customer';
 
 @Component({
   selector: 'app-sign-in',
@@ -22,12 +27,26 @@ export class SignInComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private alertService: AlertService
-  ) {}
+  ,
+    private companyService: CompanyService,
+    private customerService: CustomerService) {}
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required],
+      email: ['',
+        [
+          Validators.required,
+          Validators.minLength(10),
+          Validators.maxLength(45)
+        ]
+      ],
+      password: ['',
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(45)
+        ]
+      ],
     });
   }
 
@@ -41,9 +60,24 @@ export class SignInComponent implements OnInit {
     }
 
     this.authentication.login(this.getter.email.value, this.getter.password.value).subscribe((value: User) => {
-      this.alertService.success(`welcome ${value.clientType.toString().toLowerCase()}`, true);
+      this.printWelcome();
       this.router.navigate([this.authentication.getUrl]);
     });
+  }
+
+
+  printWelcome(): void {
+    if (this.user.clientType === ClientType.COMPANY) {
+      this.companyService.getDetails().subscribe((value: Company) => {
+        this.alertService.success(`welcome ${value.name}`);
+      });
+    } else if (this.user.clientType === ClientType.CUSTOMER) {
+      this.customerService.getCustomerDetails().subscribe((value: Customer) => {
+        this.alertService.success(`welcome ${value.firstName + ' ' + value.lastName}`);
+      });
+    } else {
+      this.alertService.success('welcome admin', true);
+    }
   }
 
   registerCompany(): void {
@@ -51,5 +85,9 @@ export class SignInComponent implements OnInit {
   }
   registerCustomer(): void {
     this.router.navigate([`${this.authentication.getUrl}/sign-up/customer`]);
+  }
+
+  private get user(): User {
+    return this.authentication.userValue;
   }
 }

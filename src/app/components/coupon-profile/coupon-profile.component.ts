@@ -1,6 +1,7 @@
 import { AlertService } from './../../service/alert';
 import { ConfirmationDialog } from './../../service/confirmation-dialog';
-import { Observable } from 'rxjs';
+import { AlertService } from './../../service/alert';
+import { ConfirmationDialog } from './../../service/confirmation-dialog';
 import { Company } from './../../models/company';
 import { CustomerService } from './../../service/customer';
 import { CompanyService } from './../../service/company';
@@ -51,17 +52,20 @@ export class CouponProfileComponent implements OnInit {
         }
 
         if ((new Date(value.startDate).valueOf()) > new Date().valueOf() && !this.theCouponBelongsToTheCurrentCompany(value)) {
-          this.alertService.error('this coupon has not been launched', true);
+          this.printlaunchDate(value);
           this.router.navigate([this.authentication.getUrl]);
           return;
         }
         this.coupon = value;
-        console.log(this.coupon);
         this.setButtons();
       });
     });
   }
 
+  printlaunchDate(coupon: Coupon): void {
+    var date = new Date(coupon.startDate);
+    this.alertService.error(`This coupon will be launched on ${date.toLocaleDateString()} at ${date.toLocaleTimeString()}`, true);
+  }
 
   setButtons(): void {
     if (!this.user) {
@@ -107,7 +111,7 @@ export class CouponProfileComponent implements OnInit {
     ).then((confirmed: boolean) => {
       if (confirmed) {
         this.companyService.deleteCoupon(this.coupon.id).subscribe(() => {
-          this.router.navigate([this.authentication.getUrl]);
+          this.alertService.success('coupon successfully deleted', true);this.router.navigate([this.authentication.getUrl]);
         });
       }
     });
@@ -118,6 +122,7 @@ export class CouponProfileComponent implements OnInit {
       this.router.navigate(['sign-in']);
     } else {
       this.customerService.purchaseCoupon(this.coupon).subscribe(() => {
+        this.alertService.success('coupon successfully purchased', true);
         this.router.navigate([this.authentication.getUrl]);
       });
     }
@@ -131,7 +136,7 @@ export class CouponProfileComponent implements OnInit {
     ).then((confirmed: boolean) => {
       if (confirmed) {
         this.customerService.removePurchasedCoupon(this.coupon.id).subscribe(() => {
-          this.router.navigate([this.authentication.getUrl]);
+          this.alertService.success('coupon successfully canceled', true);this.router.navigate([this.authentication.getUrl]);
         });
       }
     });

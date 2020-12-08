@@ -62,11 +62,13 @@ export class ProfileDisplayComponent implements OnInit {
   getStatistics(): void {
     this.getNumOfCoupons();
     this.getTotalMoney();
+    this.getTotalSalesNumber();
+    this.getSumOfSales();
   }
 
   getNumOfCoupons(): void {
     this.getCoupons().subscribe((values: Coupon[]) => {
-      this.statistics['Number of coupons'] =
+      this.statistics['Number of coupons kinds'] =
       {
         type: 'number',
         value: values.length
@@ -77,18 +79,7 @@ export class ProfileDisplayComponent implements OnInit {
   getTotalMoney() {
     let totalMoney = 0;
     this.getCoupons().subscribe((values: Coupon[]) => {
-      if (this.company) {
-        console.log('company');
-        values.forEach((value: Coupon) => {
-          totalMoney += (value.amount * value.price);
-        });
-        this.statistics['Total price of coupons left'] =
-        {
-          type: 'price',
-          value: totalMoney
-        };
-      } else {
-        console.log('customer');
+      if (this.customer) {
         values.forEach((value: Coupon) => {
           totalMoney += value.price;
         });
@@ -101,8 +92,32 @@ export class ProfileDisplayComponent implements OnInit {
     });
   }
 
+  getTotalSalesNumber(): void {
+    if (this.company) {
+      this.companyService.getAllCouponsSalesNumber().subscribe((salesSum: number) => {
+        this.statistics['Total coupons sold'] =
+        {
+          type: 'number',
+          value: salesSum
+        };
+      });
+    }
+  }
+
+  getSumOfSales(): void {
+    if (this.company) {
+      this.companyService.getTotalSales().subscribe((totalSales: number) => {
+        this.statistics['Your total sales'] =
+        {
+          type: 'price',
+          value: totalSales
+        };
+      });
+    }
+  }
+
   getCoupons(): Observable<Coupon[]> {
-    if (this.user.clientType === ClientType.COMPANY) {
+    if (this.company) {
       return this.companyService.loadCoupons();
     }
     return this.customerService.loadCoupons();

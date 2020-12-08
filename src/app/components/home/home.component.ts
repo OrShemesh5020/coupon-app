@@ -72,6 +72,9 @@ export class HomeComponent implements OnInit {
     else {
       this.filteredCoupons = this.unlaunchedCoupons;
     }
+    if (this.filteredCoupons.length === 0) {
+      this.alertService.error(`no coupons found in category '${categoryName}'`);
+    }
     this.refreshCoupons();
   }
 
@@ -79,15 +82,18 @@ export class HomeComponent implements OnInit {
     this.filteredCoupons = this.coupons.filter((value: Coupon) => {
       return value.price <= price;
     });
+    if (this.filteredCoupons.length === 0) {
+      this.alertService.error(`no coupons found for a price less than ${price}₪`);
+    }
     this.refreshCoupons();
   }
 
   getCouponsByTitle(title: string): void {
     this.filteredCoupons = this.coupons.filter((value: Coupon) => {
-      return value.title === title;
+      return value.title.startsWith(title);
     });
     if (this.filteredCoupons.length === 0) {
-      this.alertService.error(`no coupons with '${title}' name found`)
+      this.alertService.error(`no coupons were found whose name begins with '${title}'`);
     }
     this.refreshCoupons();
   }

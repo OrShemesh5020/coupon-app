@@ -59,7 +59,7 @@ export class UpdateCompanyFormComponent implements OnInit {
         this.companyModel.email,
         [
           Validators.required,
-          Validators.minLength(2),
+          Validators.minLength(10),
           Validators.maxLength(45)
         ]
       ],
@@ -101,11 +101,13 @@ export class UpdateCompanyFormComponent implements OnInit {
     this.valuesImplementation();
     if (this.user.clientType === ClientType.COMPANY) {
       this.companyService.updateDetails(this.companyModel).subscribe(() => {
+        this.alertService.success('your details successfully updated', true);
         this.router.navigate([this.authentication.getUrl]);
       });
     }
     else if (this.user.clientType === ClientType.ADMINISTRATOR) {
       this.adminService.updateCompany(this.companyModel).subscribe(() => {
+        this.alertService.success('company details successfully updated', true);
         this.router.navigate([this.authentication.getUrl]);
       });
     }

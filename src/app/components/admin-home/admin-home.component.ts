@@ -1,3 +1,4 @@
+import { AlertService } from './../../service/alert';
 import { ConfirmationDialog } from './../../service/confirmation-dialog';
 import { Company } from './../../models/company';
 import { AuthenticationService } from 'src/app/service/authentication';
@@ -21,7 +22,8 @@ export class AdminHomeComponent implements OnInit {
     private adminService: AdminService,
     private router: Router,
     private authentication: AuthenticationService,
-    private confirmationDialog: ConfirmationDialog
+    private confirmationDialog: ConfirmationDialog,
+    private alertService: AlertService
   ) { }
 
   ngOnInit(): void {
@@ -52,6 +54,7 @@ export class AdminHomeComponent implements OnInit {
     ).then((confirmed: boolean) => {
       if (confirmed) {
         this.adminService.deleteCompany(company.id).subscribe(() => {
+          this.alertService.success('company successfully deleted');
           this.loadCompanies();
         });
       }
@@ -79,12 +82,13 @@ export class AdminHomeComponent implements OnInit {
       'Delete customer alert',
       'Are you sure you want delete this customer?',
       'Delete'
-    ).then((confirmed: boolean) => {
-      if (confirmed) {
-        this.adminService.deleteCustomer(customer.id).subscribe(() => {
-          this.loadCustomers();
-        });
-      }
+      ).then((confirmed: boolean) => {
+        if (confirmed) {
+          this.adminService.deleteCustomer(customer.id).subscribe(() => {
+            this.alertService.success('customer successfully deleted');
+            this.loadCustomers();
+          });
+        }
     });
   }
 

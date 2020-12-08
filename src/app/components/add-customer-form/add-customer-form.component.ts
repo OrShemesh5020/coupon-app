@@ -41,7 +41,6 @@ export class AddCustomerFormComponent implements OnInit {
           Validators.maxLength(45),
         ],
       ],
-
       lastName: [
         '',
         [
@@ -50,7 +49,6 @@ export class AddCustomerFormComponent implements OnInit {
           Validators.maxLength(45),
         ],
       ],
-
       email: [
         '',
         [
@@ -59,7 +57,6 @@ export class AddCustomerFormComponent implements OnInit {
           Validators.maxLength(45),
         ],
       ],
-
       password: [
         '',
         [
@@ -68,6 +65,14 @@ export class AddCustomerFormComponent implements OnInit {
           Validators.maxLength(45),
         ],
       ],
+      confirmPassword:
+        ['',
+          [
+            Validators.required,
+            Validators.minLength(5),
+            Validators.maxLength(45)
+          ]
+        ],
     });
   }
   onSubmit(): void {
@@ -101,8 +106,8 @@ export class AddCustomerFormComponent implements OnInit {
   }
 
   thePasswordsMatch(): boolean {
-    const password = (document.getElementById('password') as HTMLInputElement).value;
-    const confirmPassword = (document.getElementById('confirm_password') as HTMLInputElement).value;
+    const password = this.getter.password.value;
+    const confirmPassword = this.getter.confirmPassword.value;
     return password === confirmPassword;
   }
 

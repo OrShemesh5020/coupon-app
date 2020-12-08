@@ -14,22 +14,22 @@
         <div class="value">
           {{ status[key] }}
         </div>
+        <button *ngIf="key==='password'" id="show_pass" (mousedown)="displayPassword()" (mouseleave)="hidePassword()" (mouseup)="hidePassword()"><img id="eye" src="../../../assets/eye.png" alt="show password"><img id="blue_eye" src="../../../assets/blueEye.png" alt="show password"></button>
       </div>
-      <button (mousedown)="displayPassword()" (mouseup)="hidePassword()">show password</button>
     </div>
     <hr />
     <h1>some statistics</h1>
     <div class="statistics_wrapper">
-      <div class="statistics" *ngFor="let key of getDetailsKeys(statistics)">
+      <div class="statistics" *ngFor="let statistic of statistics|keyvalue">
         <div class="key">
-          {{ key }}
+          {{ statistic.key }}
         </div>
         <div class="value">
-          <div *ngIf="statistics[key].type === 'number'">
-            {{ statistics[key].value }}
+          <div *ngIf="statistic.value.type === 'number'">
+            {{ statistic.value.value }}
           </div>
-          <div *ngIf="statistics[key].type === 'price'">
-            {{ statistics[key].value }} ₪
+          <div *ngIf="statistic.value.type === 'price'">
+            {{ statistic.value.value }} ₪
           </div>
         </div>
       </div>

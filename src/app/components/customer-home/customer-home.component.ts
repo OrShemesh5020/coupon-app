@@ -13,7 +13,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomerHomeComponent implements OnInit {
   coupons: Coupon[];
-  filteredCoupon: Coupon[];
+  filteredCoupons: Coupon[];
   allCategories: string[];
   couponsByCategory = {};
   filterType: string;
@@ -38,7 +38,7 @@ export class CustomerHomeComponent implements OnInit {
   }
 
   showAllcoupon(): void {
-    this.filteredCoupon = this.coupons;
+    this.filteredCoupons = this.coupons;
     this.refreshCoupons();
   }
 
@@ -48,23 +48,29 @@ export class CustomerHomeComponent implements OnInit {
 
   getCustomerCouponsByCategory(categoryName: string): void {
     this.customerService.getCustomerCouponsByCategory(categoryName).subscribe((values: Coupon[]) => {
-      this.filteredCoupon = values;
+      this.filteredCoupons = values;
+      if (this.filteredCoupons.length === 0) {
+        this.alertService.error(`no coupons found in category '${categoryName}'`);
+      }
       this.refreshCoupons();
     });
   }
   getCustomerCouponsByPrice(price: number): void {
     this.customerService.getCustomerCouponsByPrice(price).subscribe((values: Coupon[]) => {
-      this.filteredCoupon = values;
+      this.filteredCoupons = values;
+      if (this.filteredCoupons.length === 0) {
+        this.alertService.error(`no coupons found for a price less than ${price}₪`);
+      }
       this.refreshCoupons();
     });
   }
 
   getCustomerCouponsByTitle(title: string): void {
-    this.filteredCoupon = this.coupons.filter((value: Coupon) => {
-      return value.title === title;
+    this.filteredCoupons = this.coupons.filter((value: Coupon) => {
+      return value.title.startsWith(title);
     });
-    if (this.filteredCoupon.length === 0) {
-      this.alertService.error(`no coupons with '${title}' name found`)
+    if (this.filteredCoupons.length === 0) {
+      this.alertService.error(`no coupons were found whose name begins with '${title}'`);
     }
     this.refreshCoupons();
   }
@@ -96,7 +102,7 @@ export class CustomerHomeComponent implements OnInit {
   }
 
   sortByCategory(): void {
-    this.filteredCoupon.forEach((coupon: Coupon) => {
+    this.filteredCoupons.forEach((coupon: Coupon) => {
       if (!this.couponsByCategory[coupon.categoryName]) {
         this.couponsByCategory[coupon.categoryName] = [coupon];
       } else {

@@ -52,6 +52,21 @@ export class CompanyService {
     return this.httpClient.get<Coupon[]>(url);
   }
 
+  getCouponSalesNumber(couponId: number): Observable<number> {
+    const url = `http://localhost:8080/company/coupon/salesNumber/${couponId}`;
+    return this.httpClient.get<number>(url);
+  }
+
+  getAllCouponsSalesNumber(): Observable<number> {
+    const url = `http://localhost:8080/company/coupons/salesNumber`;
+    return this.httpClient.get<number>(url);
+  }
+
+  getTotalSales():Observable<number>{
+    const url = `http://localhost:8080/company/sumOfSales`;
+    return this.httpClient.get<number>(url);
+  }
+
   getDetails(): Observable<Company> {
     const url = 'http://localhost:8080/company/details';
     return this.httpClient.get<Company>(url);
