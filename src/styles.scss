@@ -67,12 +67,12 @@ input:-internal-autofill-selected {
 
 .auth-form-wrapper::before {
   content: "";
-  position: absolute;
+  position: fixed;
   top: -10%;
   left: -10%;
   width: 120%;
   height: 120%;
-  background-size: cover;
+  background-size: 100%;
   background-image: url('./assets/form_background.jpg');
   filter: blur(42px);
 }
