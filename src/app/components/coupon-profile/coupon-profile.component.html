@@ -2,34 +2,25 @@
   <div class="expiration-message" [class]="getIsDealExpired() ? 'active' : ''">
     THIS DEAL JUST EXPIRED!
   </div>
-  <!--  <div-->
-  <!--    class="blurry-image-background"-->
-  <!--    [style]="'background-image:url('+coupon.image+')'"></div>-->
-  <!--  {{ coupon.endDate | date: "d/M/yyyy" }} -->
-  <div>
+  <div class="image-wrapper">
     <img src="{{ coupon.image }}" />
-    <p class="description">{{ coupon.description }}</p>
+    <h1 class="attention">
+      {{ getTimeTillDateMessage(coupon.endDate) }}
+    </h1>
   </div>
-  <div>
+  <div class="info-wrapper">
     <div class="coupon-details">
       <h1>{{ coupon.title.toUpperCase() }}</h1>
       <h1 class="monah">{{ coupon.price }}€</h1>
     </div>
-    <div class="coupon-alerts">
-      <p>
-        {{ coupon.amount <= 50 ?
-        'ONLY ' + coupon.amount + ' COUPONS REMAIN!' :
-        coupon.amount + ' coupons are available' }}
-      </p>
-      <h1 class="attention">
-        {{ getTimeTillDateMessage(coupon.endDate) }}
-      </h1>
-    </div>
     <div class="buttons-wrapper">
-      <div class="company-button" *ngIf="editable">
-        <button (click)="updateCoupon()">Update</button>
-        <button (click)="deleteCoupon()">Delete</button>
-      </div>
+      <button
+        *ngIf="editable"
+        (click)="updateCoupon()">Update</button>
+      <button
+        class="delete"
+        *ngIf="editable"
+        (click)="deleteCoupon()">Delete</button>
       <button
         class="buy-now"
         *ngIf="purchasable"
@@ -37,10 +28,23 @@
         BUY NOW
       </button>
       <button
+        class="cancel"
         *ngIf="cancelable"
         (click)="cancelPurchase()">
         Cancel Purchase
       </button>
+    </div>
+    <div>
+      <p class="description">
+        {{ coupon.description }}
+      </p>
+    </div>
+    <div class="coupon-alerts">
+      <p>
+        {{ coupon.amount <= 50 ?
+        'ONLY ' + coupon.amount + ' COUPONS REMAIN!' :
+        coupon.amount + ' coupons are available' }}
+      </p>
     </div>
   </div>
 </div>
