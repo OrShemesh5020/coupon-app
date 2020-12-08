@@ -44,8 +44,8 @@ export class CouponProfileComponent implements OnInit {
       this.generalService.getCoupon(params.id).subscribe((value: Coupon) => {
         const now = new Date().getTime();
         const endDate = new Date(value.endDate).getTime();
-        const isCouponExpired =  endDate - now <= 0;
-        if (isCouponExpired) {
+        const isCouponExpired = endDate - now <= 0;
+        if (isCouponExpired && !this.theCouponBelongsToTheCurrentCompany(value)) {
           this.isDealExpired = true;
         }
 
@@ -109,7 +109,7 @@ export class CouponProfileComponent implements OnInit {
     ).then((confirmed: boolean) => {
       if (confirmed) {
         this.companyService.deleteCoupon(this.coupon.id).subscribe(() => {
-          this.alertService.success('coupon successfully deleted', true);this.router.navigate([this.authentication.getUrl]);
+          this.alertService.success('coupon successfully deleted', true); this.router.navigate([this.authentication.getUrl]);
         });
       }
     });
@@ -134,7 +134,7 @@ export class CouponProfileComponent implements OnInit {
     ).then((confirmed: boolean) => {
       if (confirmed) {
         this.customerService.removePurchasedCoupon(this.coupon.id).subscribe(() => {
-          this.alertService.success('coupon successfully canceled', true);this.router.navigate([this.authentication.getUrl]);
+          this.alertService.success('coupon successfully canceled', true); this.router.navigate([this.authentication.getUrl]);
         });
       }
     });
@@ -175,13 +175,13 @@ export class CouponProfileComponent implements OnInit {
       inHours,
       unit:
         inWeeks > 0 ? 'week' :
-        inDays > 0 ? 'day' :
-        inHours > 0 ? 'hour' :
-        'second'
+          inDays > 0 ? 'day' :
+            inHours > 0 ? 'hour' :
+              'second'
     };
   }
 
-  getTimeTillDateMessage(date: Date) : string {
+  getTimeTillDateMessage(date: Date): string {
     const diff = this.getTimeLeftTillDate(date);
     const remainAmount = diff.inWeeks || diff.inDays || diff.inHours || diff.inSeconds;
     const unit = diff.unit.toUpperCase();
@@ -197,11 +197,11 @@ export class CouponProfileComponent implements OnInit {
     return `ONLY ${remainAmount} ${remainAmount > 1 ? `${unit}S` : unit} LEFT!`;
   }
 
-  getIsDealExpired() : boolean {
+  getIsDealExpired(): boolean {
     return this.isDealExpired;
   }
 
-  scrollToBottom() : void {
+  scrollToBottom(): void {
     document
       .getElementById('app-wrapper')
       .scrollTo({ top: window.innerHeight });
