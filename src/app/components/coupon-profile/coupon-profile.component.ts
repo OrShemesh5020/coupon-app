@@ -1,7 +1,5 @@
 import { AlertService } from './../../service/alert';
 import { ConfirmationDialog } from './../../service/confirmation-dialog';
-import { AlertService } from './../../service/alert';
-import { ConfirmationDialog } from './../../service/confirmation-dialog';
 import { Company } from './../../models/company';
 import { CustomerService } from './../../service/customer';
 import { CompanyService } from './../../service/company';
