@@ -1,9 +1,5 @@
-<p>Welcome admin</p>
-<br />
+<h1>Welcome admin</h1>
 <button (click)="switchDisplay()">{{ buttonText }}</button>
-<br />
-<br />
-<br />
 <app-companies-view
   *ngIf="displayCompanies"
   [companiesView]="companies"
