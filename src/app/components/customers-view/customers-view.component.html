@@ -4,19 +4,25 @@
     class="add-button"
     (click)="onAddCustomer()">+</button>
   <table>
-    <thead>
-      <th>id</th>
-      <th>name</th>
-      <th>email</th>
-      <th>edit</th>
-      <th>delete</th>
-    </thead>
+    <tr>
+      <th>ID</th>
+      <th>NAME</th>
+      <th>EMAIL</th>
+      <th>EDIT</th>
+      <th>DELETE</th>
+    </tr>
     <tr *ngFor="let customer of customersView">
       <td>{{ customer.id }}</td>
       <td>{{ customer.firstName }} {{ customer.lastName }}</td>
       <td>{{ customer.email }}</td>
-      <td><button (click)="onEditCustomer(customer)">E</button></td>
-      <td><button (click)="onDeleteCustomer(customer)">D</button></td>
+      <td>
+        <button
+          class="edit-button"
+          (click)="onEditCustomer(customer)">️✍️</button></td>
+      <td>
+        <button
+          class="delete-button"
+          (click)="onDeleteCustomer(customer)">❌</button></td>
     </tr>
   </table>
 </div>

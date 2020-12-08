@@ -1,141 +1,147 @@
-<form
-  *ngIf="!loading"
-  class="editComapnyForm"
-  (ngSubmit)="onSubmit()"
-  [formGroup]="updateCompanyForm"
->
-  <div>
-    <label>name</label>
-    <input type="text" formControlName="name" />
-    <div
-      *ngIf="
+<div class="form-wrapper">
+  <form
+    *ngIf="!loading"
+    class="editComapnyForm"
+    (ngSubmit)="onSubmit()"
+    [formGroup]="updateCompanyForm"
+  >
+    <div>
+      <label>Name</label>
+      <span class="label-shadow">Name</span>
+      <input type="text" formControlName="name"/>
+      <div
+        *ngIf="
         updateCompanyForm.controls['name'].invalid &&
         updateCompanyForm.controls['name'].touched &&
         updateCompanyForm.controls['name'].errors.required
       "
-    >
-      Name is required
-    </div>
-    <div
-      *ngIf="
+      >
+        Name is required
+      </div>
+      <div
+        *ngIf="
         updateCompanyForm.controls['name'].invalid &&
         updateCompanyForm.controls['name'].touched &&
         updateCompanyForm.controls['name'].errors.minlength
       "
-    >
-      Company name must be with min length of 2 chars
-    </div>
-    <div
-      *ngIf="
+      >
+        Company name must be with min length of 2 chars
+      </div>
+      <div
+        *ngIf="
         updateCompanyForm.controls['name'].invalid &&
         updateCompanyForm.controls['name'].touched &&
         updateCompanyForm.controls['name'].errors.maxlength
       "
-    >
-      The company's name must be less than 45 characters long
+      >
+        The company's name must be less than 45 characters long
+      </div>
     </div>
-  </div>
 
-  <div>
-    <label>email</label>
-    <input type="email" formControlName="email" />
-    <div
-      *ngIf="
+    <div>
+      <label>Email</label>
+      <span class="label-shadow">Email</span>
+      <input type="email" formControlName="email"/>
+      <div
+        *ngIf="
         updateCompanyForm.controls['email'].invalid &&
         updateCompanyForm.controls['email'].touched &&
         updateCompanyForm.controls['email'].errors.required
       "
-    >
-      Email is required
-    </div>
-    <div
-      *ngIf="
+      >
+        Email is required
+      </div>
+      <div
+        *ngIf="
         updateCompanyForm.controls['email'].invalid &&
         updateCompanyForm.controls['email'].touched &&
         updateCompanyForm.controls['email'].errors.minlength
       "
-    >
-      Email must be with min length of 10 chars
-    </div>
-    <div
-      *ngIf="
+      >
+        Email must be with min length of 10 chars
+      </div>
+      <div
+        *ngIf="
         updateCompanyForm.controls['email'].invalid &&
         updateCompanyForm.controls['email'].touched &&
         updateCompanyForm.controls['email'].errors.maxlength
       "
-    >
-      Email must be less than 45 characters long
+      >
+        Email must be less than 45 characters long
+      </div>
     </div>
-  </div>
 
-  <div>
-    <label>password</label>
-    <input type="password" formControlName="password" />
-    <div
-      *ngIf="
+    <div>
+      <label>Password</label>
+      <span class="label-shadow">Password</span>
+      <input type="password" formControlName="password"/>
+      <div
+        *ngIf="
         updateCompanyForm.controls['password'].invalid &&
         updateCompanyForm.controls['password'].touched &&
         updateCompanyForm.controls['password'].errors.required
       "
-    >
-      Password is required
-    </div>
-    <div
-      *ngIf="
+      >
+        Password is required
+      </div>
+      <div
+        *ngIf="
         updateCompanyForm.controls['password'].invalid &&
         updateCompanyForm.controls['password'].touched &&
         updateCompanyForm.controls['password'].errors.minlength
       "
-    >
-      Password must be with min length of 5 chars
-    </div>
-    <div
-      *ngIf="
+      >
+        Password must be with min length of 5 chars
+      </div>
+      <div
+        *ngIf="
         updateCompanyForm.controls['password'].invalid &&
         updateCompanyForm.controls['password'].touched &&
         updateCompanyForm.controls['password'].errors.maxlength
       "
-    >
-      Password must be less than 45 characters long
+      >
+        Password must be less than 45 characters long
+      </div>
     </div>
-  </div>
-  <div>
-    <label>confirm password</label>
-    <input type="password" formControlName="confirmPassword" />
-    <div
-      *ngIf="
+    <div>
+      <label>Confirm Password</label>
+      <span class="label-shadow">Confirm Password</span>
+      <input type="password" formControlName="confirmPassword"/>
+      <div
+        *ngIf="
         updateCompanyForm.controls['confirmPassword'].invalid &&
         updateCompanyForm.controls['confirmPassword'].touched &&
         updateCompanyForm.controls['confirmPassword'].errors.required
       "
-    >
-      Password confirmation is required
-    </div>
-    <div
-      *ngIf="
+      >
+        Password confirmation is required
+      </div>
+      <div
+        *ngIf="
         updateCompanyForm.controls['confirmPassword'].invalid &&
         updateCompanyForm.controls['confirmPassword'].touched &&
         updateCompanyForm.controls['confirmPassword'].errors.minlength
       "
-    >
-      Password confirmation must be with min length of 5 chars
-    </div>
-    <div
-      *ngIf="
+      >
+        Password confirmation must be with min length of 5 chars
+      </div>
+      <div
+        *ngIf="
         updateCompanyForm.controls['confirmPassword'].invalid &&
         updateCompanyForm.controls['confirmPassword'].touched &&
         updateCompanyForm.controls['confirmPassword'].errors.maxlength
       "
-    >
-      Password confirmation must be less than 45 characters long
+      >
+        Password confirmation must be less than 45 characters long
+      </div>
     </div>
-  </div>
 
-  <button
-    class="editButton"
-    type="submit"
-    [disabled]="!updateCompanyForm.valid"
-  >
-    update details
-  </button>
-</form>
+    <button
+      class="editButton"
+      type="submit"
+      [disabled]="!updateCompanyForm.valid"
+    >
+      UPDATE DETAILS
+    </button>
+  </form>
+</div>
