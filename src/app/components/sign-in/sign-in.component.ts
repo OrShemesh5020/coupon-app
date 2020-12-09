@@ -58,8 +58,7 @@ export class SignInComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
-
-    this.authentication.login(this.getter.email.value, this.getter.password.value).subscribe((value: User) => {
+    this.authentication.login(this.getter.email.value, this.getter.password.value).subscribe(() => {
       this.printWelcome();
       this.router.navigate([this.authentication.getUrl]);
     });
