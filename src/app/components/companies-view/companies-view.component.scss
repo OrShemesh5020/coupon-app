@@ -5,31 +5,36 @@ h1 {
   font-family: 'Catamaran', sans-serif;
 }
 
-.rightButton {
-  float: right;
-}
-
 table {
   width: 70%;
-}
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 
-table,
-th,
-td {
-  border: black solid 1px;
-}
+  th, td {
+    padding: 10px;
+    text-align: center;
+  }
 
-th,
-td {
-  padding: 10px;
-  text-align: center;
+  tr {
+    border-bottom: 1px solid #ededed;
+  }
 }
 
 button {
+  border: unset;
+  padding: 10px 0;
+}
+
+button.delete-button, button.edit-button {
+  font-size: 1.6em;
+  background-color: unset;
+}
+
+button.add-button {
   --size: 100px;
   width: var(--size);
   height: var(--size);
   border-radius: var(--size);
+  padding: 0;
   position: fixed;
   bottom: 30px;
   right: 45px;

@@ -1,6 +1,6 @@
 <div>
   <h1>Companies</h1>
-  <button class="rightButton" (click)="onAddCompany()">+</button>
+  <button class="add-button" (click)="onAddCompany()">+</button>
   <table>
     <tr>
       <th>ID</th>
@@ -14,10 +14,12 @@
       <td>{{ company.name }}</td>
       <td>{{ company.email }}</td>
       <td>
-        <button (click)="onEditCompany(company)"></button>
+        <button class="edit-button" (click)="onEditCompany(company)">✍️</button>
       </td>
       <td>
-        <button (click)="onDeleteCompany(company)">D</button>
+        <button class="delete-button" (click)="onDeleteCompany(company)">
+          ❌
+        </button>
       </td>
     </tr>
   </table>
