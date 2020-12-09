@@ -1,7 +1,7 @@
-@import './src/colors.scss';
+@import "./src/colors.scss";
 
 .coupon-profile-wrapper {
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family: "Roboto Condensed", sans-serif;
   text-align: center;
   display: flex;
   flex-direction: row-reverse;
@@ -35,7 +35,7 @@
     padding: 0 20px;
 
     img {
-      max-width: 66vw;
+      max-width: 50vw;
     }
   }
 
@@ -54,7 +54,7 @@
   }
 
   h1 {
-    font-family: 'Catamaran', sans-serif;
+    font-family: "Catamaran", sans-serif;
   }
 
   h1.attention {
@@ -71,7 +71,7 @@
       font-size: 6vw;
     }
 
-    h1.title{
+    h1.title {
       background-color: $BORING_WHITE;
     }
 
