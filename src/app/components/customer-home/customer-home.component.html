@@ -26,12 +26,8 @@
       </option>
     </select>
   </div>
-  <button class="add-coupon-button" (click)="addCoupon()">
-    +
-  </button>
 </div>
 
-<!-- TODO: ₪ -->
 
 <div class="grid-wrapper" *ngIf="couponsByCategory">
   <div class="display_wrapper" *ngFor="let category of couponsByCategory | keyvalue">
