@@ -25,10 +25,10 @@ html {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
 
-// TODO: disable chrome autofill styling?
-input:-internal-autofill-selected {
-  background-color: rgba(0, 0, 0, 0) !important;
-}
+// // TODO: disable chrome autofill styling?
+// input:-internal-autofill-selected {
+//   background-color: rgba(0, 0, 0, 0) !important;
+// }
 
 .auth-form-wrapper,
 .app-wrapper {
@@ -147,11 +147,11 @@ form {
     cursor: pointer;
   }
 
-  input:focus+label {
-    transform: translate(8px, -21px);
-    padding: 0 4px;
-    font-size: 1.1rem;
-  }
+  // input:focus+label {
+  //   transform: translate(8px, -21px);
+  //   padding: 0 4px;
+  //   font-size: 1.1rem;
+  // }
 
   .input-wrapper {
     width: 100%;
