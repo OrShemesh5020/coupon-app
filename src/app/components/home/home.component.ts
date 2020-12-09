@@ -4,8 +4,8 @@ import { AuthenticationService } from './../../service/authentication';
 import { GeneralService } from './../../service/general';
 import { Coupon } from './../../models/coupon';
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, RadioControlValueAccessor} from '@angular/forms';
-import {isNull} from "@angular/compiler/src/output/output_ast";
+import { FormGroup, RadioControlValueAccessor } from '@angular/forms';
+import { isNull } from "@angular/compiler/src/output/output_ast";
 
 @Component({
   selector: 'app-home',
@@ -20,11 +20,8 @@ export class HomeComponent implements OnInit {
   unlaunchedCouponsCategory = 'Coming soon';
   specialCategories = ['Coming soon', 'vacation'];
   couponsByCategory = {};
-  filterType: string;
+  filterType: string = null;
   isFilterOpen: boolean = false;
-  form = new FormGroup({
-    filterCategories: new FormControl('title'),
-  });
 
   constructor(
     private generalService: GeneralService,
@@ -98,13 +95,10 @@ export class HomeComponent implements OnInit {
     this.refreshCoupons();
   }
 
-  setFilterType(filterElement): void { // TODO: add type
-    this.filterType = filterElement.target.value === 'all' ? null : filterElement.target.value;
+  setFilterType(filterEelement: HTMLSelectElement): void {
+    const selectedFilter = filterEelement.options[filterEelement.selectedIndex].value;
+    this.filterType = selectedFilter === 'all' ? null : selectedFilter;
     this.showAllcoupon();
-
-    if (!this.filterType) {
-      this.closeFilter();
-    }
   }
 
   filterCoupons(): void {

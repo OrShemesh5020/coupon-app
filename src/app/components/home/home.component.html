@@ -1,81 +1,36 @@
-<!--<div class="overlay" [class]="isFilterOpen && 'active'"></div>-->
 <div class="home-wrapper">
   <div class="coupon-banner-wrapper">
     <img
       class="coupon-banner"
-      src="./assets/coupon-deal-banner.webp" />
+      src="./assets/coupon-deal-banner.webp"/>
   </div>
-  <!-- TODO: revert back to select -->
-  <div class="filter-wrapper" [class]="isFilterOpen ? 'overlay-active' : ''">
-    <div class="filter-options">
-      <form [formGroup]="form">
+  <h1>Filter by</h1>
+  <div class="toolbar">
+    <select #selectedFilter (change)="setFilterType(selectedFilter)">
+      <option value="all">see all</option>
+      <option value="title">title</option>
+      <option value="price">max price</option>
+      <option value="category">category</option>
+    </select>
+    <div class="filter-toolbar" *ngIf="filterType">
+      <div class="filter-by-wrapper" *ngIf="filterType === 'price' || filterType === 'title'">
+        <input *ngIf="filterType === 'title'" id="filter-input-title" type="text" />
         <input
-          (change)="setFilterType($event)"
-          type="radio"
-          id="filter-all"
-          formControlName="filterCategories"
-          value="all">
-        <label
-          (click)="openFilter()"
-          for="filter-all">No Filter</label>
-        <input
-          (change)="setFilterType($event)"
-          type="radio"
-          id="filter-title"
-          formControlName="filterCategories"
-          value="title">
-        <label
-          [class]="filterType === 'title' ? 'active' : ''"
-          (click)="openFilter()"
-          for="filter-title">Title</label>
-        <input
-          (change)="setFilterType($event)"
-          type="radio"
-          id="filter-price"
-          formControlName="filterCategories"
-          value="price">
-        <label
-          [class]="filterType === 'price' ? 'active' : ''"
-          (click)="openFilter()"
-          for="filter-price">Max Price</label>
-        <input
-          (change)="setFilterType($event)"
-          type="radio"
-          id="filter-category"
-          formControlName="filterCategories"
-          value="category">
-        <label
-          [class]="filterType === 'category' ? 'active' : ''"
-          (click)="openFilter()"
-          for="filter-category">Category</label>
-      </form>
-    </div>
-    <div *ngIf="filterType && isFilterOpen">
-      <button (click)="closeFilter()">X</button>
-      <div class="filter-choice-wrapper" [class]="filterType">
-        <div class="arrow-up"></div>
-        <div class="filter-choice">
-          <input
-            *ngIf="filterType === 'title'"
-            id="filter-input-title"
-            type="text" />
-          <input
-            *ngIf="filterType === 'price'"
-            id="filter-input-price"
-            type="number" />
-          <select
-            *ngIf="filterType === 'category'"
-            #selectedFilter
-            (change)="filterByCategory(selectedFilter)">
-            <option *ngFor="let category of allCategories" value="{{ category }}">
-              {{ category }}
-            </option>
-          </select>
-          <button (click)="filterCoupons(); closeFilter()">
-            Filter by {{ filterType }}
-          </button>
-        </div>
+          *ngIf="filterType === 'price'"
+          id="filter-input-price"
+          type="number" />
+        <button (click)="filterCoupons()">
+          filter by {{ filterType }}
+        </button>
       </div>
+      <select
+        #selectedFilter
+        (change)="filterByCategory(selectedFilter)"
+        *ngIf="filterType === 'category'">
+        <option *ngFor="let category of allCategories" value="{{ category }}">
+          {{ category }}
+        </option>
+      </select>
     </div>
   </div>
   <!--  *ngIf="couponsByCategory" TODO: redundant? -->

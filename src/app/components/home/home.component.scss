@@ -1,26 +1,56 @@
 @import 'src/colors.scss';
 
-.overlay {
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 0;
-  opacity: 0;
-  background-color: black;
-  pointer-events: none;
-  transition: all 0.5s ease;
-  backdrop-filter: blur(0);
-
-  &.active {
-    opacity: 0.4;
-  }
-}
-
 div.home-wrapper {
-  &.dimmed {
-    background-color: black;
+  .toolbar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+
+    .filter-toolbar {
+      display: flex;
+      align-items: center;
+      margin: 10px;
+    }
+
+    .filter-by-wrapper {
+      display: flex;
+    }
+
+    select {
+      width: 300px;
+      height: 48px;
+    }
+
+    input[type=text], input[type=number] {
+      width: 300px;
+      height: 48px;
+      margin: 10px;
+    }
+
+    button {
+      transition: all 0.5s ease;
+      width: 30%;
+      height: 48px;
+      margin: 10px;
+      background-color: $GROUPON_GREEN;
+      color: white;
+      border: unset;
+      font-size: 2em;
+      font-weight: 900;
+    }
+
+    button.add-coupon-button {
+      --size: 100px;
+      width: var(--size);
+      height: var(--size);
+      border-radius: var(--size);
+      position: fixed;
+      bottom: 30px;
+      right: 45px;
+      font-size: 4em;
+    }
   }
 
   .coupon-banner-wrapper {
@@ -132,76 +162,4 @@ div.home-wrapper {
       }
     }
   }
-
-  //.filter-wrapper {
-  //  transition: all 0.5s ease-in-out;
-  //  height: 100vh;
-  //  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-  //  position: fixed;
-  //  right: 0;
-  //  top: 0;
-  //  background: #ededed;
-  //  z-index: 1;
-  //
-  //  .filter-options {
-  //    position: absolute;
-  //    top: 100px;
-  //    left: 30px;
-  //  }
-  //
-  //  .filter-choice {
-  //    position: absolute;
-  //    top: 500px;
-  //    left: 30px;
-  //  }
-  //
-  //  button {
-  //    transition: all 0.5s ease-in-out;
-  //    outline: 0;
-  //    width: 48px;
-  //    height: 48px;
-  //    border-left: 1px solid $BORING_GRAY;
-  //    background-color: $APP_MAIN_COLOR;
-  //    border-radius: 48px;
-  //    background-size: 50%;
-  //    background-position: center;
-  //    background-repeat: no-repeat;
-  //    top: 100px;
-  //    position: fixed;
-  //    color: white;
-  //    font-weight: 900;
-  //  }
-  //
-  //  button.filter-button {
-  //    background-image: url('../../../assets/filter-icon.png');
-  //  }
-  //
-  //  button.x-button {
-  //    background-image: unset;
-  //  }
-  //
-  //  &.closed {
-  //    width: 2vw;
-  //
-  //    .filter-options {
-  //      //display: none;
-  //    }
-  //
-  //    button {
-  //      right: 1vw;
-  //    }
-  //  }
-  //
-  //  &.opened {
-  //    width: 33vw;
-  //
-  //    .filter-options {
-  //      display: inline-block;
-  //    }
-  //
-  //    button {
-  //      right: 1vw;
-  //    }
-  //  }
-  //}
 }
