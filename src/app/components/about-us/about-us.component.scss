@@ -1,4 +1,4 @@
-@import '../../../colors.scss';
+@import "../../../colors.scss";
 
 .about-us-wrapper {
   display: flex;
@@ -14,21 +14,23 @@
     h1 {
       font-size: 4em;
       font-weight: 900;
-      font-family: 'Catamaran', sans-serif;
+      font-family: "Catamaran", sans-serif;
     }
 
     // TODO: fix form autofill in both sign in & add company/customer
 
-    h2, h3, h4 {
+    h2,
+    h3,
+    h4 {
       margin: 35px auto 0;
     }
-
 
     h2 {
       color: #4f4f4f;
     }
 
-    h3, h4 {
+    h3,
+    h4 {
       color: #858585;
     }
 
@@ -45,7 +47,6 @@
       line-height: 35px;
     }
   }
-
 
   div.profile-cards {
     padding: 20px;
@@ -87,12 +88,12 @@
         }
       }
     }
-  }
-
-  img.about-us-eye-candy {
-    position: absolute;
-    max-width: 20vw;
-    right: 12vw;
-    bottom: 5vh;
+    img.about-us-eye-candy {
+      position: relative;
+      max-width: 20vw;
+      margin: 30px;
+      // right: 12vw;
+      // bottom: 5vh;
+    }
   }
 }
