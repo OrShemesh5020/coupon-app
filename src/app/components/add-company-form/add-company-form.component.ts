@@ -1,3 +1,6 @@
+import { AlertService } from './../../service/alert';
+import { CustomerService } from './../../service/customer';
+import { CompanyService } from './../../service/company';
 import { AdminService } from './../../service/admin';
 import { ClientType, User } from './../../models/user';
 import { AuthenticationService } from './../../service/authentication';
@@ -22,7 +25,9 @@ export class AddCompanyFormComponent implements OnInit {
     private authentication: AuthenticationService,
     private generalService: GeneralService,
     private adminService: AdminService,
-    private router: Router
+    private router: Router,
+    private companyService: CompanyService,
+    private alertService: AlertService
   ) { }
 
   ngOnInit(): void {
@@ -82,6 +87,7 @@ export class AddCompanyFormComponent implements OnInit {
         this.authentication
           .login(this.companyModel.email, this.companyModel.password)
           .subscribe(() => {
+            this.printWelcome();
             this.router.navigate([this.authentication.getUrl]);
           });
       });
@@ -91,6 +97,12 @@ export class AddCompanyFormComponent implements OnInit {
         this.router.navigate([this.authentication.getUrl]);
       });
     }
+  }
+
+  printWelcome(): void {
+    this.companyService.getDetails().subscribe((value: Company) => {
+      this.alertService.success(`welcome ${value.name}`);
+    });
   }
 
   thePasswordsMatch(): boolean {

@@ -1,3 +1,5 @@
+import { AlertService } from './../../service/alert';
+import { CustomerService } from './../../service/customer';
 import { AdminService } from './../../service/admin';
 import { User, ClientType } from './../../models/user';
 import { AuthenticationService } from './../../service/authentication';
@@ -26,7 +28,9 @@ export class AddCustomerFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private generalService: GeneralService,
-    private adminService: AdminService
+    private adminService: AdminService,
+    private customerService: CustomerService,
+    private alertService: AlertService
   ) { }
 
   ngOnInit(): void {
@@ -91,6 +95,7 @@ export class AddCustomerFormComponent implements OnInit {
           this.authentication
             .login(this.customerModel.email, this.customerModel.password)
             .subscribe(() => {
+              this.printWelcome();
               this.router.navigate([this.authentication.getUrl]);
             });
         });
@@ -103,6 +108,12 @@ export class AddCustomerFormComponent implements OnInit {
           this.router.navigate([this.authentication.getUrl]);
         });
     }
+  }
+
+  printWelcome(): void {
+    this.customerService.getCustomerDetails().subscribe((value: Customer) => {
+      this.alertService.success(`welcome ${value.firstName + ' ' + value.lastName}`);
+    });
   }
 
   thePasswordsMatch(): boolean {
