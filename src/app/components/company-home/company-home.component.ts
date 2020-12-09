@@ -93,9 +93,7 @@ export class CompanyHomeComponent implements OnInit {
   setFilterType(filterEelement: HTMLSelectElement): void {
     const selectedFilter = filterEelement.options[filterEelement.selectedIndex].value;
     this.filterType = selectedFilter === 'all' ? null : selectedFilter;
-    if (!this.filterType) {
-      this.showAllcoupon();
-    }
+    this.showAllcoupon();
   }
 
   filterCoupons(): void {
