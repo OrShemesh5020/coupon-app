@@ -20,9 +20,13 @@ import { Router } from '@angular/router';
 })
 export class SendToken implements HttpInterceptor {
   user: User;
-  constructor(private authentication: AuthenticationService, private route: Router, private alertService: AlertService) { }
+  constructor(
+    private authentication: AuthenticationService,
+    private route: Router,
+    private alertService: AlertService
+  ) { }
+
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('send token interceptor');
     let newReq = req;
     this.user = this.authentication.userValue;
     if (this.user && this.user.token) {

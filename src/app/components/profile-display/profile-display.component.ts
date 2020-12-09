@@ -18,6 +18,7 @@ import { Component, OnInit } from '@angular/core';
 export class ProfileDisplayComponent implements OnInit {
   company: Company;
   customer: Customer;
+  coupons: Coupon[];
   status = {};
   statistics = {};
   constructor(
@@ -32,14 +33,20 @@ export class ProfileDisplayComponent implements OnInit {
     if (this.user.clientType === ClientType.COMPANY) {
       this.companyService.getDetails().subscribe((value: Company) => {
         this.company = value;
-        this.setStatus();
-        this.getStatistics();
+        this.loadCoupons().subscribe((values: Coupon[]) => {
+          this.coupons = values;
+          this.setStatus();
+          this.getStatistics();
+        });
       });
     } else {
       this.customerService.getCustomerDetails().subscribe((value: Customer) => {
         this.customer = value;
-        this.setStatus();
-        this.getStatistics();
+        this.loadCoupons().subscribe((values: Coupon[]) => {
+          this.coupons = values;
+          this.setStatus();
+          this.getStatistics();
+        });
       });
     }
   }
@@ -67,29 +74,25 @@ export class ProfileDisplayComponent implements OnInit {
   }
 
   getNumOfCoupons(): void {
-    this.getCoupons().subscribe((values: Coupon[]) => {
-      this.statistics['Number of coupons kinds'] =
-      {
-        type: 'number',
-        value: values.length
-      };
-    });
+    this.statistics['Number of coupons kinds'] =
+    {
+      type: 'number',
+      value: this.coupons.length
+    };
   }
 
-  getTotalMoney() {
+  getTotalMoney(): void {
     let totalMoney = 0;
-    this.getCoupons().subscribe((values: Coupon[]) => {
-      if (this.customer) {
-        values.forEach((value: Coupon) => {
-          totalMoney += value.price;
-        });
-        this.statistics['Total coupons price'] =
-        {
-          type: 'price',
-          value: totalMoney
-        };
-      }
-    });
+    if (this.customer) {
+      this.coupons.forEach((value: Coupon) => {
+        totalMoney += value.price;
+      });
+      this.statistics['Total coupons price'] =
+      {
+        type: 'price',
+        value: totalMoney
+      };
+    }
   }
 
   getTotalSalesNumber(): void {
@@ -116,7 +119,7 @@ export class ProfileDisplayComponent implements OnInit {
     }
   }
 
-  getCoupons(): Observable<Coupon[]> {
+  loadCoupons(): Observable<Coupon[]> {
     if (this.company) {
       return this.companyService.loadCoupons();
     }
