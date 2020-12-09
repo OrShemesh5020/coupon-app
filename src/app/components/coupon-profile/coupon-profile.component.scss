@@ -68,7 +68,11 @@
 
     h1 {
       color: #4f4f4f;
-      font-size: 11vw;
+      font-size: 6vw;
+    }
+
+    h1.title{
+      background-color: $BORING_WHITE;
     }
 
     h1.monah {
