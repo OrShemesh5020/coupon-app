@@ -1,12 +1,14 @@
-<div *ngIf="status">
+<div *ngIf="status" class="profile-display-wrapper">
   <div class="header_wrapper">
-    <h1>profile:</h1>
-    <button (click)="updateDetails()">update details</button>
+    <h1>Profile</h1>
+    <button (click)="updateDetails()">
+      UPDATE DETAILS
+    </button>
   </div>
-  <hr />
+
   <div>
-    <h1>your details</h1>
     <div class="status_wrapper">
+      <h2>Your Details</h2>
       <div class="status" *ngFor="let key of getDetailsKeys(status)">
         <div class="key">
           {{ key | titlecase }}
@@ -17,9 +19,9 @@
         <button *ngIf="key==='password'" id="show_pass" (mousedown)="displayPassword()" (mouseleave)="hidePassword()" (mouseup)="hidePassword()"><img id="eye" src="../../../assets/eye.png" alt="show password"><img id="blue_eye" src="../../../assets/blueEye.png" alt="show password"></button>
       </div>
     </div>
-    <hr />
-    <h1>some statistics</h1>
+
     <div class="statistics_wrapper">
+      <h2>Some Statistics</h2>
       <div class="statistics" *ngFor="let statistic of statistics|keyvalue">
         <div class="key">
           {{ statistic.key }}
