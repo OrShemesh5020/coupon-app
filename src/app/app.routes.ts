@@ -1,3 +1,4 @@
+import { WebsiteStatisticsComponent } from './components/website-statistics/website-statistics.component';
 import { ProfileDisplayComponent } from './components/profile-display/profile-display.component';
 import { CouponProfileComponent } from './components/coupon-profile/coupon-profile.component';
 import { ClientType } from 'src/app/models/user';
@@ -81,7 +82,12 @@ export const routes: Routes = [
                 data: { clientType: ClientType.ADMINISTRATOR }
               }
             ]
-          }
+          },
+          {
+            path: 'website-statistics', component: WebsiteStatisticsComponent,
+            canActivate: [AuthGuard],
+            data: { clientType: ClientType.ADMINISTRATOR }
+           },
         ]
       },
       {
