@@ -1,6 +1,5 @@
 import { AlertService } from './../alert';
 import { AuthenticationService } from './../authentication';
-import { routes } from './../../app.routes';
 import { User } from './../../models/user';
 import { Injectable } from '@angular/core';
 import {
@@ -11,7 +10,6 @@ import {
   HttpErrorResponse,
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { GeneralService } from '../general';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
@@ -48,6 +46,7 @@ export class SendToken implements HttpInterceptor {
           if (error.error instanceof ErrorEvent) {
             errMsg = `Error: ${error.message}`;
             this.alertService.error(errMsg);
+            console.log(`1: ${errMsg}`);
           }
           else {
             errMsg = `Message: ${error.error}`;
@@ -55,12 +54,16 @@ export class SendToken implements HttpInterceptor {
               errMsg = `Message: ${error.error.message}`;
               this.authentication.logout();
               this.route.navigate(['sign-in']);
-            }
-            if (error.status === 404) {
+            } else if (error.status === 404) {
+              errMsg = 'not found';
               this.route.navigate([this.authentication.getUrl]);
+            } else if (error.status === 500) {
+              errMsg = error.error.error;
+            } else {
+              errMsg = 'The server did not boot';
             }
+            this.alertService.error(errMsg);
           }
-          this.alertService.error(errMsg);
           return throwError(errMsg);
         })
       );

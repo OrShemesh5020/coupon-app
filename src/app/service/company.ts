@@ -62,7 +62,7 @@ export class CompanyService {
     return this.httpClient.get<number>(url);
   }
 
-  getTotalSales():Observable<number>{
+  getTotalSales(): Observable<number> {
     const url = `http://localhost:8080/company/sumOfSales`;
     return this.httpClient.get<number>(url);
   }

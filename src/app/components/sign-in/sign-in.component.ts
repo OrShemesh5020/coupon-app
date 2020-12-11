@@ -26,12 +26,12 @@ export class SignInComponent implements OnInit {
     private authentication: AuthenticationService,
     private router: Router,
     private formBuilder: FormBuilder,
-    private alertService: AlertService,
+    private alertService: AlertService
+  ,
     private companyService: CompanyService,
-    private customerService: CustomerService) { }
+    private customerService: CustomerService) {}
 
   ngOnInit(): void {
-
     this.loginForm = this.formBuilder.group({
       email: ['',
         [
@@ -55,7 +55,6 @@ export class SignInComponent implements OnInit {
   }
 
   onSubmit(): void {
-
     if (this.loginForm.invalid) {
       return;
     }

@@ -1,11 +1,6 @@
-<br />
-<br />
-<br />
-<hr />
-<button (click)="switchDisplay()">{{ buttonText }}</button>
-<br />
-<br />
-<br />
+<button (click)="switchDisplay()">
+  {{ buttonText }}
+</button>
 <app-companies-view
   *ngIf="displayCompanies"
   [companiesView]="companies"

@@ -1,2 +1,279 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~bootstrap/dist/css/bootstrap.css"
+@import "~bootstrap/dist/css/bootstrap.css";
+@import "./colors.scss";
+
+body,
+html {
+  padding: 0;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  overflow-x: hidden;
+  //backdrop-filter: grayscale(1);
+  //filter: grayscale(1);
+}
+
+::-webkit-scrollbar {
+  width: 1.5px;
+  height: 1.5px;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+// // TODO: disable chrome autofill styling?
+// input:-internal-autofill-selected {
+//   background-color: rgba(0, 0, 0, 0) !important;
+// }
+
+.auth-form-wrapper,
+.app-wrapper {
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+.main-wrapper {
+  margin: 10vh auto;
+  max-width: 1400px;
+}
+
+.loading-animation-wrapper {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+  z-index: 4;
+  background-image: url('assets/loading-animation.gif');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 33%;
+  pointer-events: none;
+  transition: all 0.5s ease;
+  opacity: 0;
+
+  &.active {
+    opacity: 1;
+  }
+}
+
+.auth-form-wrapper::before {
+  content: "";
+  position: fixed;
+  top: -10%;
+  left: -10%;
+  width: 120%;
+  height: 120%;
+  background-size: 100%;
+  background-image: url('./assets/form_background.jpg');
+  filter: blur(42px);
+}
+
+.auth-form-wrapper {
+  position: fixed;
+  background-size: cover;
+  background-image: url('./assets/form_background.jpg');
+}
+
+form {
+  //overflow-y: auto;
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 100px;
+  width: 100vw;
+  max-width: 600px;
+  //max-height: 95vh;
+  padding: 20px 0;
+  //background-color: rgba(255,255,255,0.1);
+  background-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
+
+  .form-section {
+    width: 80%;
+    margin: auto;
+  }
+
+  h1 {
+    color: white;
+    text-align: center;
+    font-weight: 500;
+    -webkit-text-stroke: 1px rgba(0, 0, 0, 0.02);
+  }
+
+  label {
+    position: relative;
+    display: table;
+    top: 21px;
+    font-size: 1.1em;
+    left: 10px;
+    font-family: Roboto, Arial, sans-serif;
+    color: black;
+    z-index: 2;
+    transition: all 0.2s;
+    touch-action: manipulation;
+  }
+
+  .label-shadow {
+    -webkit-text-stroke-width: 3px;
+    -webkit-text-stroke-color: white;
+    opacity: 1;
+    transform: translate(10px, -13px);
+    font-size: 1.1em;
+    position: absolute;
+    font-family: Roboto, Arial, sans-serif;
+    z-index: 1;
+  }
+
+  p,
+  a {
+    color: white;
+  }
+
+  a {
+    // important because of bootstrap CSS. remove, fix CSS and then the important
+    // can be removed
+    text-decoration: underline !important;
+    color: #007bff !important;
+    cursor: pointer;
+  }
+
+  // input:focus+label {
+  //   transform: translate(8px, -21px);
+  //   padding: 0 4px;
+  //   font-size: 1.1rem;
+  // }
+
+  .input-wrapper {
+    width: 100%;
+    margin: auto;
+
+    input {
+      outline: 0;
+      width: 100%;
+      padding: 10px;
+      margin: auto;
+      height: 48px;
+      font-size: 1.3em;
+      position: relative;
+      right: 0;
+      left: 0;
+      z-index: 0;
+      border: unset;
+      background-color: rgba(0, 0, 0, 0.1); // because of chrome autofill
+    }
+  }
+
+  button {
+    outline: 0;
+    display: block;
+    width: 100%;
+    height: 48px;
+    margin: 20px auto;
+    left: 0;
+    right: 0;
+    color: white;
+    background-color: $GROUPON_GREEN;
+
+    &.disabled {
+      color: $BORING_WHITE;
+      background-color: $BORING_GRAY;
+    }
+
+    border: unset;
+    font-weight: 100;
+    font-size: 2em;
+    outline: 0;
+  }
+
+  .form-input-error {
+    color: tomato;
+    font-weight: 600;
+    height: 23px;
+    //color: white;
+    //text-shadow: 0 0 1px tomato;
+  }
+
+  .footer {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 5% 10%;
+  }
+}
+
+.footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 390px;
+  padding: 0 5%;
+  max-width: 600px;
+  margin: auto;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+div.categories {
+  display: grid;
+  margin-top: 20px;
+  overflow-y: hidden;
+
+  .category-wrapper {
+    width: 100%;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    overflow: hidden;
+
+    &.special {
+      width: 24vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: row;
+
+      position: fixed;
+      left: -15vw;
+
+      .coupon-wrapper {
+        .wrapper {
+          max-width: 420px;
+          border: unset;
+          background-image: unset;
+        }
+      }
+    }
+
+    .coupon-wrapper {
+      overflow-y: auto;
+      display: flex;
+      padding-bottom: 20px;
+    }
+  }
+}
+
+
+.grid-wrapper {
+  .display_wrapper {
+    .coupon_wrapper {
+      display: flex;
+      flex-wrap: wrap;
+
+      .wrapper {
+        max-width: 420px;
+
+        .wrapper_details {
+          h1.category {
+            font-size: 6em;
+          }
+        }
+      }
+    }
+  }
+}

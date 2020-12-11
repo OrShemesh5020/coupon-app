@@ -4,6 +4,8 @@ import { AuthenticationService } from './../../service/authentication';
 import { GeneralService } from './../../service/general';
 import { Coupon } from './../../models/coupon';
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, RadioControlValueAccessor } from '@angular/forms';
+import { isNull } from "@angular/compiler/src/output/output_ast";
 
 @Component({
   selector: 'app-home',
@@ -16,8 +18,10 @@ export class HomeComponent implements OnInit {
   allCategories: string[];
   unlaunchedCoupons: Coupon[];
   unlaunchedCouponsCategory = 'Coming soon';
+  specialCategories = ['Coming soon', 'vacation'];
   couponsByCategory = {};
-  filterType: string;
+  filterType: string = null;
+  isFilterOpen: boolean = false;
 
   constructor(
     private generalService: GeneralService,
@@ -138,5 +142,13 @@ export class HomeComponent implements OnInit {
         this.couponsByCategory[this.unlaunchedCouponsCategory].push(value);
       }
     });
+  }
+
+  openFilter(): void {
+    this.isFilterOpen = true;
+  }
+
+  closeFilter(): void {
+    this.isFilterOpen = false;
   }
 }

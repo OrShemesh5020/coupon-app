@@ -1,24 +1,61 @@
-.left-side-links{
-  float: left;
-}
-.right-side-links{
-  float: right;
-  right: 0;
+@import "../../../colors";
 
-  .profile{
-    display: inline;
+nav.header {
+  //display: grid;
+  //grid-template-columns: 6fr auto auto;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  z-index: 2;
+  //position: sticky;
+  position: fixed;
+  width: 100vw;
+  height:10vh;
+  background-color: white;
+
+  img.app-logo {
+    outline: 0;
+    margin: 10px 23px;
+    background-color: unset;
+    max-height: 40px;
+    cursor: pointer;
+  }
+
+  .menu-links {
+    position: relative;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    display: inline-block;
+  }
+
+  .link {
+    margin: 7.5px;
+  }
+
+  a {
+    color: $APP_MAIN_COLOR;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: underline;
+    font-size: 13px;
+
+    &.modest {
+      color: $APP_MAIN_COLOR;
+      background-color: unset;
+      text-decoration: underline;
+    }
   }
 }
-.link {
-  margin: 7.5px;
-}
-a {
-  background-color: #6a4caf; /* Green */
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 13px;
+
+.auth-form-wrapper {
+  nav.header {
+    background-color: unset;
+    border-bottom: unset;
+
+    a.link {
+      //display: none;
+    }
+  }
 }

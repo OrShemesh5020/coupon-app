@@ -1,39 +1,46 @@
 <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
-  <div>
-    <label>email: </label>
-    <input type="email" formControlName="email" />
-    <div
-      *ngIf="
+  <h1>SIGN IN</h1>
+  <div class="form-section">
+    <div class="input-wrapper">
+      <label>email</label>
+      <span class="label-shadow">email</span>
+      <input type="email" formControlName="email"/>
+      <div class="form-input-error">
+        <span
+          *ngIf="
         loginForm.controls['email'].invalid &&
         loginForm.controls['email'].touched &&
         loginForm.controls['email'].errors.required
-      "
-    >
+      ">
       Email is required
-    </div>
-    <div
-      *ngIf="
+    </span>
+        <span
+          *ngIf="
         loginForm.controls['email'].invalid &&
         loginForm.controls['email'].touched &&
         loginForm.controls['email'].errors.minlength
       "
-    >
+        >
       Email must be with min length of 10 chars
-    </div>
-    <div
-      *ngIf="
+    </span>
+        <span
+          *ngIf="
         loginForm.controls['email'].invalid &&
         loginForm.controls['email'].touched &&
         loginForm.controls['email'].errors.maxlength
       "
-    >
+        >
       Email must be less than 45 characters long
+    </span>
+      </div>
     </div>
-  </div>
-  <div>
-    <label>password: </label>
-    <input type="password" formControlName="password" />
-    <div
+
+
+    <div class="input-wrapper">
+      <label>password</label>
+      <input type="password" formControlName="password"/>
+      <div class="form-input-error">
+    <span
       *ngIf="
         loginForm.controls['password'].invalid &&
         loginForm.controls['password'].touched &&
@@ -41,32 +48,47 @@
       "
     >
       Password is required
-    </div>
-    <div
-      *ngIf="
+    </span>
+        <span
+          *ngIf="
         loginForm.controls['password'].invalid &&
         loginForm.controls['password'].touched &&
         loginForm.controls['password'].errors.minlength
       "
-    >
+        >
       Password must be with min length of 5 chars
-    </div>
-    <div
-      *ngIf="
+    </span>
+        <span
+          *ngIf="
         loginForm.controls['password'].invalid &&
         loginForm.controls['password'].touched &&
         loginForm.controls['password'].errors.maxlength
       "
-    >
+        >
       Password must be less than 45 characters long
+    </span>
+      </div>
     </div>
+
+
+    <button type="submit" [disabled]="!loginForm.valid">
+      SUBMIT
+    </button>
   </div>
-  <br />
-  <br />
-  <button type="submit" [disabled]="!loginForm.valid">log in</button>
+
+
+  <div class="footer">
+    <p>Not registered yet?</p>
+    <p>
+      <a (click)="registerCustomer()">
+        Join our hundreds of satisfied customers
+      </a>
+    </p>
+    <p>
+      <a (click)="registerCompany()">
+        Become one of our coupon marketers
+      </a>
+    </p>
+  </div>
+
 </form>
-<br />
-<p>Not registered yet?</p>
-<a (click)="registerCustomer()">Join our hundreds of satisfied customers</a>
-<br />
-<a (click)="registerCompany()">Let's be one of our coupon marketers</a>

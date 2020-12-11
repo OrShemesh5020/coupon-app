@@ -1,12 +1,12 @@
 .alert{
   position: fixed;
   display:flex;
-  top: 15vh;
-  right: 10px;
+  bottom: 2vh;
+  left: 2vw;
 }
 .alert-success{
-  background-color: rgba(50, 205, 50, 10%);
+  background-color: #eafaea;
 }
 .alert-error{
-  background-color: rgba(255, 75, 75, 10%);
+  background-color: #fcd4d4;
 }

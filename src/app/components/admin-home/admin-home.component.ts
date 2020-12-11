@@ -70,7 +70,7 @@ export class AdminHomeComponent implements OnInit {
       'Update customer details alert',
       'Are you sure you want update this customer details?',
       'Update'
-      ).then((confirmed: boolean) => {
+    ).then((confirmed: boolean) => {
       if (confirmed) {
         this.router.navigate([`${this.authentication.getUrl}/update/customer`, customer.id]);
       }

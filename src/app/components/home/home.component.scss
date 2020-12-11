@@ -1,27 +1,165 @@
-button {
-  background-color: #4caf50; /* Green */
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  text-align: center;
-  display: inline-block;
-  font-size: 16px;
-}
-.display_wrapper {
-  width: 100%;
-  margin-bottom: 30px;
-  display: grid;
+@import 'src/colors.scss';
 
-  .category {
-    font-size: 50px;
-    font-weight: bold;
+div.home-wrapper {
+  .toolbar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+
+    .filter-toolbar {
+      display: flex;
+      align-items: center;
+      margin: 10px;
+    }
+
+    .filter-by-wrapper {
+      display: flex;
+    }
+
+    select {
+      width: 300px;
+      height: 48px;
+    }
+
+    input[type=text], input[type=number] {
+      width: 300px;
+      height: 48px;
+      margin: 10px;
+    }
+
+    button {
+      transition: all 0.5s ease;
+      width: 30%;
+      height: 48px;
+      margin: 10px;
+      background-color: $GROUPON_GREEN;
+      color: white;
+      border: unset;
+      font-size: 2em;
+      font-weight: 900;
+    }
+
+    button.add-coupon-button {
+      --size: 100px;
+      width: var(--size);
+      height: var(--size);
+      border-radius: var(--size);
+      position: fixed;
+      bottom: 30px;
+      right: 45px;
+      font-size: 4em;
+    }
   }
-  .coupon_wrapper {
-    float: left;
-    margin-left: 10px;
-    margin-right: 10px;
+
+  .coupon-banner-wrapper {
+    width: 100%;
+    background-color: white;
+    left: 0;
+    top: 0;
+    position: static;
+    margin-bottom: 20px;
+
+    img.coupon-banner {
+      display: block;
+      margin: auto;
+    }
   }
-}
-.hr {
-  border-bottom: black 5px solid;
+
+  .filter-wrapper {
+    width: 100vw;
+    left: 0;
+    top: 71px;
+    position: sticky;
+    background-color: white;
+
+    form {
+      display: flex;
+      position: sticky;
+      top: 220px;
+      background-color: unset;
+      box-shadow: unset;
+      text-align: center;
+      justify-content: start;
+      margin-left: 0;
+      height: 71px;
+      padding: 0;
+    }
+
+    input[type=radio] {
+      display: none;
+    }
+
+    label {
+      position: static;
+      line-height: 48px;
+      height: 48px;
+      width: 100px;
+      margin: 8px;
+      border: 3px solid $GROUPON_GREEN;
+      cursor: pointer;
+      background-color: white;
+
+      &.active {
+      }
+    }
+
+    div.filter-choice-wrapper {
+      top: 303px;
+      position: fixed;
+
+      &.title {
+        left: 160px;
+      }
+
+      &.price {
+        left: 277px;
+      }
+
+      &.category {
+        left: 392px;
+      }
+
+      .filter-choice {
+        width: 310px;
+        height: 160px;
+        border: 1px solid #ededed;
+        box-shadow: 0 0 10px #5f5f5f;
+        background-color: white;
+        position: relative;
+        z-index: 0;
+        display: flex;
+        flex-direction: column;
+
+        input, button, select {
+          height: 48px;
+          width: 80%;
+          text-align: center;
+          margin: 20px auto 0;
+        }
+
+        button {
+          background-color: $GROUPON_GREEN;
+          color: white;
+          font-weight: 500;
+          border: none;
+        }
+      }
+
+      .arrow-up {
+        width: 30px;
+        height: 30px;
+        top: -15px;
+        background-color: white;
+        box-shadow: -1px -1px 2px rgb(0 0 0 / 10%);
+        transform: rotate(45deg);
+        position: absolute;
+        margin: auto;
+        left: 0;
+        right: 0;
+        z-index: 1;
+      }
+    }
+  }
 }

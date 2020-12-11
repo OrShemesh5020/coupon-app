@@ -10,6 +10,12 @@ import { Coupon } from './../../models/coupon';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
+const ONE_HOUR = 60 * 60;
+const ONE_DAY = ONE_HOUR * 24;
+const ONE_WEEK = ONE_DAY * 7;
+const ONE_MONTH = ONE_DAY * 30.41;
+const ONE_YEAR = ONE_DAY * 365;
+
 @Component({
   selector: 'app-coupon-profile',
   templateUrl: './coupon-profile.component.html',
@@ -21,6 +27,8 @@ export class CouponProfileComponent implements OnInit {
   editable = false;
   purchasable = false;
   cancelable = false;
+  isDealExpired = false;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private authentication: AuthenticationService,
@@ -36,6 +44,13 @@ export class CouponProfileComponent implements OnInit {
     this.getCompany();
     this.activatedRoute.params.subscribe((params) => {
       this.generalService.getCoupon(params.id).subscribe((value: Coupon) => {
+        const now = new Date().getTime();
+        const endDate = new Date(value.endDate).getTime();
+        const isCouponExpired = endDate - now <= 0;
+        if (isCouponExpired && !this.theCouponBelongsToTheCurrentCompany(value)) {
+          this.isDealExpired = true;
+        }
+
         if ((new Date(value.startDate).valueOf()) > new Date().valueOf() && !this.theCouponBelongsToTheCurrentCompany(value)) {
           this.printlaunchDate(value);
           this.router.navigate([this.authentication.getUrl]);
@@ -96,8 +111,7 @@ export class CouponProfileComponent implements OnInit {
     ).then((confirmed: boolean) => {
       if (confirmed) {
         this.companyService.deleteCoupon(this.coupon.id).subscribe(() => {
-          this.alertService.success('coupon successfully deleted', true);
-          this.router.navigate([this.authentication.getUrl]);
+          this.alertService.success('coupon successfully deleted', true); this.router.navigate([this.authentication.getUrl]);
         });
       }
     });
@@ -122,8 +136,7 @@ export class CouponProfileComponent implements OnInit {
     ).then((confirmed: boolean) => {
       if (confirmed) {
         this.customerService.removePurchasedCoupon(this.coupon.id).subscribe(() => {
-          this.alertService.success('coupon successfully canceled', true);
-          this.router.navigate([this.authentication.getUrl]);
+          this.alertService.success('coupon successfully canceled', true); this.router.navigate([this.authentication.getUrl]);
         });
       }
     });
@@ -146,5 +159,63 @@ export class CouponProfileComponent implements OnInit {
 
   public get user(): User {
     return this.authentication.userValue;
+  }
+
+  getTimeLeftTillDate(date: Date): any {
+    const now = new Date().getTime();
+    const timestamp = new Date(date).getTime();
+
+    const inSeconds = Math.round((timestamp - now) / 1000);
+    const inYears = Math.round(inSeconds / ONE_YEAR);
+    const inMonths = Math.round(inSeconds / ONE_MONTH);
+    const inWeeks = Math.round(inSeconds / ONE_WEEK);
+    const inDays = Math.round(inSeconds / ONE_DAY);
+    const inHours = Math.round(inSeconds / ONE_HOUR);
+
+    return {
+      inSeconds,
+      inYears,
+      inMonths,
+      inWeeks,
+      inDays,
+      inHours,
+      unit:
+        inYears > 0 ? 'year' :
+          inMonths > 0 ? 'month' :
+            inWeeks > 0 ? 'week' :
+              inDays > 0 ? 'day' :
+                inHours > 0 ? 'hour' :
+                  'second'
+    };
+  }
+
+  getTimeTillDateMessage(date: Date): string {
+    const diff = this.getTimeLeftTillDate(date);
+    const remainAmount = diff.inYears || diff.inMonths || diff.inWeeks || diff.inDays || diff.inHours || diff.inSeconds;
+    const unit = diff.unit.toUpperCase();
+
+    if (diff.inSeconds <= ONE_HOUR && diff.inSeconds > 0) {
+      return 'THE DEAL WILL EXPIRE ANY MOMENT NOW!';
+    }
+
+    if (diff.inSeconds <= 0) {
+      return '...BUT THIS DEAL JUST EXPIRED!';
+    }
+
+    if (diff.inYears > 1) {
+      return `THE COUPON WILL EXPIRE IN ${remainAmount} ${unit}S`;
+    }
+
+    return `ONLY ${remainAmount} ${remainAmount > 1 ? `${unit}S` : unit} LEFT!`;
+  }
+
+  getIsDealExpired(): boolean {
+    return this.isDealExpired;
+  }
+
+  scrollToBottom(): void {
+    document
+      .getElementById('app-wrapper')
+      .scrollTo({ top: window.innerHeight });
   }
 }

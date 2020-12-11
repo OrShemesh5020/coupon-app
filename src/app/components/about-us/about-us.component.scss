@@ -1,36 +1,99 @@
-div {
-  float: left;
-  color: blue;
-  font-size: 25px;
-  position: relative;
-  margin: 10px;
-  padding: 1px;
-  width: 100%;
-  display: grid;
-}
-.or {
-  float: right;
-  color: red;
-  width: 30%;
-}
-.ido {
-  float: right;
-  width: 30%;
-  color: black;
-  grid-row: 1em;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+@import "../../../colors.scss";
 
-}
-.story {
-  color: rgb(224, 24, 94);
-  background-color: rgb(109, 189, 189);
-  width: 100%;
-  grid-template-columns: repeat(1, 5fr);
-}
-.intro {
-  color: rgb(19, 19, 223);
-}
-em{
-  color: black;
+.about-us-wrapper {
+  display: flex;
+  max-width: 1200px;
+  margin: auto;
+
+  section#about-us {
+    height: 80vh;
+    overflow-y: auto;
+    padding: 20px;
+    max-width: 50vw;
+
+    h1 {
+      font-size: 4em;
+      font-weight: 900;
+      font-family: "Catamaran", sans-serif;
+    }
+
+    // TODO: fix form autofill in both sign in & add company/customer
+
+    h2,
+    h3,
+    h4 {
+      margin: 35px auto 0;
+    }
+
+    h2 {
+      color: #4f4f4f;
+    }
+
+    h3,
+    h4 {
+      color: #858585;
+    }
+
+    p.quote {
+      padding-left: 10px;
+      max-width: 700px;
+      color: $NOT_SO_BORING_GRAY;
+      border-left: 1px solid $NOT_SO_BORING_GRAY;
+      font-style: italic;
+      font-size: 1.3em;
+    }
+
+    p {
+      line-height: 35px;
+    }
+  }
+
+  div.profile-cards {
+    padding: 20px;
+    max-width: 40vw;
+    text-align: justify;
+    display: flex;
+    flex-direction: column;
+
+    div.profile-card {
+      border: 1px solid $GROUPON_GREEN;
+      overflow-y: auto;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      margin: 20px;
+      display: grid;
+      grid-template-columns: 1fr 3fr;
+      height: 170px;
+
+      div.text-wrapper {
+        overflow-y: auto;
+        font-size: 0.9em;
+      }
+
+      p {
+        text-align: justify;
+        margin: 5px;
+      }
+
+      div.profile-image-wrapper {
+        max-height: 150px;
+        max-width: 150px;
+        overflow: hidden;
+        margin-right: 15px;
+
+        img {
+          top: 0;
+          position: relative;
+          max-width: 100%;
+        }
+      }
+    }
+    img.about-us-eye-candy {
+      position: relative;
+      max-width: 20vw;
+      margin: 30px;
+      // right: 12vw;
+      // bottom: 5vh;
+    }
+  }
 }

@@ -1,54 +1,44 @@
-<br />
-<br />
-<br />
-<hr />
-<p>filter by:</p>
-<select #selectedFilter (change)="setFilterType(selectedFilter)">
-  <option value="all">see all</option>
-  <option value="title">title</option>
-  <option value="price">max price</option>
-  <option value="category">category</option>
-</select>
-<div *ngIf="filterType">
-  <div *ngIf="filterType === 'price' || filterType === 'title'">
-    <input *ngIf="filterType === 'title'" id="filter-input-title" type="text" />
-    <input
-      *ngIf="filterType === 'price'"
-      id="filter-input-price"
-      type="number"
-    />
-    <button (click)="filterCoupons()">filter by {{ filterType }}</button>
-  </div>
-  <select
-    #selectedFilter
-    (change)="filterByCategory(selectedFilter)"
-    *ngIf="filterType === 'category'"
-  >
-    <option *ngFor="let category of allCategories" value="{{ category }}">
-      {{ category }}
-    </option>
+<h1>Filter by</h1>
+<div class="toolbar">
+  <select #selectedFilter (change)="setFilterType(selectedFilter)">
+    <option value="all">see all</option>
+    <option value="title">title</option>
+    <option value="price">max price</option>
+    <option value="category">category</option>
   </select>
-</div>
-<hr />
-<br />
-<div *ngIf="couponsByCategory">
-  <div
-    class="display_wrapper"
-    *ngFor="let category of couponsByCategory | keyvalue"
-  >
-    <div class="category">
-      {{ category.key | titlecase }}
+  <div class="filter-toolbar" *ngIf="filterType">
+    <div class="filter-by-wrapper" *ngIf="filterType === 'price' || filterType === 'title'">
+      <input *ngIf="filterType === 'title'" id="filter-input-title" type="text" />
+      <input
+        *ngIf="filterType === 'price'"
+        id="filter-input-price"
+        type="number" />
+      <button (click)="filterCoupons()">
+        filter by {{ filterType }}
+      </button>
     </div>
+    <select
+      #selectedFilter
+      (change)="filterByCategory(selectedFilter)"
+      *ngIf="filterType === 'category'">
+      <option *ngFor="let category of allCategories" value="{{ category }}">
+        {{ category }}
+      </option>
+    </select>
+  </div>
+</div>
+
+
+<div class="grid-wrapper" *ngIf="couponsByCategory">
+  <div class="display_wrapper" *ngFor="let category of couponsByCategory | keyvalue">
+    <h1 class="category">{{ category.key | titlecase }}</h1>
     <div class="coupon_wrapper">
       <app-coupon-view
         *ngFor="let coupon of category.value"
         [couponView]="coupon"
         [enableClick]="true"
-        (choosing)="openCouponProfile($event)"
-      ></app-coupon-view>
-    </div>
-    <div>
-      <hr class="hr" />
+        (choosing)="openCouponProfile($event)">
+      </app-coupon-view>
     </div>
   </div>
 </div>

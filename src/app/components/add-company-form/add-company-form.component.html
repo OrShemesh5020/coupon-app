@@ -3,138 +3,149 @@
   (ngSubmit)="onSubmit()"
   [formGroup]="addCompanyForm"
 >
-  <div>
-    <label>name</label>
-    <input type="text" formControlName="name" />
-    <div
-      *ngIf="
+  <h1>{{ buttonText }}</h1>
+  <div class="form-section">
+    <div class="input-wrapper">
+      <label>Name</label>
+      <span class="label-shadow">Name</span>
+      <input type="text" formControlName="name"/>
+      <div class="form-input-error">
+      <span
+        *ngIf="
         addCompanyForm.controls['name'].invalid &&
         addCompanyForm.controls['name'].touched &&
         addCompanyForm.controls['name'].errors.required
-      "
-    >
+      ">
       Name is required
-    </div>
-    <div
-      *ngIf="
+    </span>
+        <span
+          *ngIf="
         addCompanyForm.controls['name'].invalid &&
         addCompanyForm.controls['name'].touched &&
         addCompanyForm.controls['name'].errors.minlength
       "
-    >
+        >
       Company name must be with min length of 2 chars
-    </div>
-    <div
-      *ngIf="
+    </span>
+        <span
+          *ngIf="
         addCompanyForm.controls['name'].invalid &&
         addCompanyForm.controls['name'].touched &&
         addCompanyForm.controls['name'].errors.maxlength
       "
-    >
+        >
       The company's name must be less than 45 characters long
+    </span>
+      </div>
     </div>
-  </div>
-
-  <div>
-    <label>email</label>
-    <input type="email" formControlName="email" />
-    <div
-      *ngIf="
+    <div class="input-wrapper">
+      <label>Email</label>
+      <span class="label-shadow">Email</span>
+      <input type="email" formControlName="email"/>
+      <div class="form-input-error">
+      <span
+        *ngIf="
         addCompanyForm.controls['email'].invalid &&
         addCompanyForm.controls['email'].touched &&
         addCompanyForm.controls['email'].errors.required
       "
-    >
+      >
       Email is required
-    </div>
-    <div
-      *ngIf="
+    </span>
+        <span
+          *ngIf="
         addCompanyForm.controls['email'].invalid &&
         addCompanyForm.controls['email'].touched &&
         addCompanyForm.controls['email'].errors.minlength
       "
-    >
+        >
       Email must be with min length of 10 chars
-    </div>
-    <div
-      *ngIf="
+    </span>
+        <span
+          *ngIf="
         addCompanyForm.controls['email'].invalid &&
         addCompanyForm.controls['email'].touched &&
         addCompanyForm.controls['email'].errors.maxlength
       "
-    >
+        >
       Email must be less than 45 characters long
+    </span>
+      </div>
     </div>
-  </div>
-
-  <div>
-    <label>password</label>
-    <input type="password" formControlName="password" />
-    <div
-      *ngIf="
+    <div class="input-wrapper">
+      <label>Password</label>
+      <span class="label-shadow">Password</span>
+      <input type="password" formControlName="password"/>
+      <div class="form-input-error">
+      <span
+        *ngIf="
         addCompanyForm.controls['password'].invalid &&
         addCompanyForm.controls['password'].touched &&
         addCompanyForm.controls['password'].errors.required
       "
-    >
+      >
       Password is required
-    </div>
-    <div
-      *ngIf="
+    </span>
+        <span
+          *ngIf="
         addCompanyForm.controls['password'].invalid &&
         addCompanyForm.controls['password'].touched &&
         addCompanyForm.controls['password'].errors.minlength
       "
-    >
+        >
       Password must be with min length of 5 chars
-    </div>
-    <div
-      *ngIf="
+    </span>
+        <span
+          *ngIf="
         addCompanyForm.controls['password'].invalid &&
         addCompanyForm.controls['password'].touched &&
         addCompanyForm.controls['password'].errors.maxlength
       "
-    >
+        >
       Password must be less than 45 characters long
+    </span>
+      </div>
     </div>
-  </div>
-  <div>
-    <label>confirm password</label>
-    <input type="password" formControlName="confirmPassword" />
-    <div
-      *ngIf="
+    <div class="input-wrapper">
+      <label>Confirm Password</label>
+      <span class="label-shadow">Confirm Password</span>
+      <input type="password" formControlName="confirmPassword"/>
+      <div class="form-input-error">
+      <span
+        *ngIf="
         addCompanyForm.controls['confirmPassword'].invalid &&
         addCompanyForm.controls['confirmPassword'].touched &&
         addCompanyForm.controls['confirmPassword'].errors.required
       "
-    >
+      >
       Password confirmation is required
-    </div>
-    <div
-      *ngIf="
+    </span>
+        <span
+          *ngIf="
         addCompanyForm.controls['confirmPassword'].invalid &&
         addCompanyForm.controls['confirmPassword'].touched &&
         addCompanyForm.controls['confirmPassword'].errors.minlength
       "
-    >
+        >
       Password confirmation must be with min length of 5 chars
-    </div>
-    <div
-      *ngIf="
+    </span>
+        <span
+          *ngIf="
         addCompanyForm.controls['confirmPassword'].invalid &&
         addCompanyForm.controls['confirmPassword'].touched &&
         addCompanyForm.controls['confirmPassword'].errors.maxlength
-      "
-    >
+      ">
       Password confirmation must be less than 45 characters long
+    </span>
+      </div>
     </div>
-  </div>
 
-  <button
-    class="registerButton"
-    type="submit"
-    [disabled]="!addCompanyForm.valid"
-  >
-    {{ buttonText }}
-  </button>
+    <button
+      class="registerButton"
+      type="submit"
+      [disabled]="!addCompanyForm.valid"
+    >
+      SUBMIT
+    </button>
+  </div>
 </form>
