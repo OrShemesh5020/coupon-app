@@ -20,30 +20,7 @@ export class ProfileDisplayComponent implements OnInit {
   customer: Customer;
   coupons: Coupon[];
   status = {};
-  // status = {
-  //   name: 'foo lord',
-  //   email: 'g983jg9j@OIJ.cc',
-  //   password: '1q2w3eAb'
-  // };
   statistics = {};
-  // statistics = {
-  //   ['Number of coupons kinds']: {
-  //     type: 'number',
-  //     value: 66666
-  //   },
-  //   ['Total coupons price']: {
-  //     type: 'price',
-  //     value: 66666
-  //   },
-  //   ['Total coupons sold']: {
-  //     type: 'number',
-  //     value: 66666
-  //   },
-  //   ['Your total sales']: {
-  //     type: 'price',
-  //     value: 66666
-  //   }
-  // };
   constructor(
     private authentication: AuthenticationService,
     private companyService: CompanyService,
