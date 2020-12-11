@@ -96,7 +96,7 @@ export class AddCustomerFormComponent implements OnInit {
             .login(this.customerModel.email, this.customerModel.password)
             .subscribe(() => {
               this.printWelcome();
-              this.router.navigate([this.authentication.getUrl]);
+              this.router.navigate(['']);
             });
         });
     } else if (
