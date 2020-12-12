@@ -54,6 +54,12 @@ export class SendToken implements HttpInterceptor {
               errMsg = `Message: ${error.error.message}`;
               this.authentication.logout();
               this.route.navigate(['sign-in']);
+            } else if (error.status === 400) {
+              errMsg = error.error;
+            } else if (error.status === 403) {
+              errMsg = error.error;
+              this.authentication.logout();
+              this.route.navigate(['sign-in']);
             } else if (error.status === 404) {
               errMsg = 'not found';
               this.route.navigate([this.authentication.getUrl]);
