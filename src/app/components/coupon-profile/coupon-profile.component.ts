@@ -107,9 +107,10 @@ export class CouponProfileComponent implements OnInit {
     this.confirmationDialog.confirm(
       'Delete coupon alert',
       'Are you sure you want to delete this coupon?',
+      'Cancel',
       'Delete'
     ).then((confirmed: boolean) => {
-      if (confirmed) {
+      if (!confirmed) {
         this.companyService.deleteCoupon(this.coupon.id).subscribe(() => {
           this.alertService.success('coupon successfully deleted', true); this.router.navigate([this.authentication.getUrl]);
         });
@@ -132,9 +133,10 @@ export class CouponProfileComponent implements OnInit {
     this.confirmationDialog.confirm(
       'Purchased coupon removal',
       'Are you sure you want to remove this coupon?',
+      'Cancel',
       'Remove'
     ).then((confirmed: boolean) => {
-      if (confirmed) {
+      if (!confirmed) {
         this.customerService.removePurchasedCoupon(this.coupon.id).subscribe(() => {
           this.alertService.success('coupon successfully canceled', true); this.router.navigate([this.authentication.getUrl]);
         });
