@@ -1,0 +1,40 @@
+.statistics_wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 50px auto;
+
+  h2 {
+    width: 100vw;
+  }
+
+  .statistics {
+    display: flex;
+    height: 100px;
+    width: 300px;
+    margin: 5px;
+  }
+}
+
+.key {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  display: flex;
+  background-color: #363f47;
+  color: white;
+  width: 30%;
+  padding: 5px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.value {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  display: flex;
+  background-color: rgb(209, 208, 208);
+  width: 70%;
+  padding: 5px;
+  justify-content: center;
+  align-items: center;
+}

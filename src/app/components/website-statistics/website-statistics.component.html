@@ -1,0 +1,16 @@
+<div class="statistics_wrapper">
+  <h2>Some Statistics</h2>
+  <div class="statistics" *ngFor="let statistic of statistics|keyvalue">
+    <div class="key">
+      {{ statistic.key }}
+    </div>
+    <div class="value">
+      <div *ngIf="statistic.value.type === 'number'">
+        {{ statistic.value.value }}
+      </div>
+      <div *ngIf="statistic.value.type === 'price'">
+        {{ statistic.value.value }} ₪
+      </div>
+    </div>
+  </div>
+</div>

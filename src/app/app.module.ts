@@ -32,6 +32,7 @@ import { ProfileDisplayComponent } from './components/profile-display/profile-di
 import { AlertComponent } from './components/alert/alert.component';
 import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+import { WebsiteStatisticsComponent } from './components/website-statistics/website-statistics.component';
 
 
 @NgModule({
@@ -60,6 +61,7 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
     ProfileDisplayComponent,
     AlertComponent,
     ConfirmationDialogComponent,
+    WebsiteStatisticsComponent,
   ],
   imports: [
     HttpClientModule,

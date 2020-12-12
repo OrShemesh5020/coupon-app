@@ -72,4 +72,9 @@ export class AdminService {
     const url = 'http://localhost:8080/admin/customers';
     return this.httpClient.get<Customer[]>(url);
   }
+
+  getTotalSales(): Observable<number> {
+    const url = 'http://localhost:8080/admin/salesNumber';
+    return this.httpClient.get<number>(url);
+  }
 }
