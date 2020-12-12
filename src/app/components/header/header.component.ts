@@ -27,13 +27,13 @@ export class HeaderComponent implements OnInit {
     this.confirmationDialog.confirm(
       'Log out alert',
       'Are you sure you want to log out?',
-      'Yes, I want to log out',
-      'stay'
+      'stay',
+      'Yes, I want to log out'
     ).then((confirmed: boolean) => {
       if (confirmed) {
-        this.authentication.logout();
-      } else {
         this.router.navigate([this.authentication.getUrl]);
+      } else {
+        this.authentication.logout();
       }
     });
   }

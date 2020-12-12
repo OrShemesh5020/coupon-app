@@ -50,9 +50,10 @@ export class AdminHomeComponent implements OnInit {
     this.confirmationDialog.confirm(
       'Delete company alert',
       'Are you sure you want delete this company? All of her coupons will be deleted as well!',
+      'Cancel',
       'Delete'
     ).then((confirmed: boolean) => {
-      if (confirmed) {
+      if (!confirmed) {
         this.adminService.deleteCompany(company.id).subscribe(() => {
           this.alertService.success('company successfully deleted');
           this.loadCompanies();
@@ -81,14 +82,15 @@ export class AdminHomeComponent implements OnInit {
     this.confirmationDialog.confirm(
       'Delete customer alert',
       'Are you sure you want delete this customer?',
+      'Cancel',
       'Delete'
-      ).then((confirmed: boolean) => {
-        if (confirmed) {
-          this.adminService.deleteCustomer(customer.id).subscribe(() => {
-            this.alertService.success('customer successfully deleted');
-            this.loadCustomers();
-          });
-        }
+    ).then((confirmed: boolean) => {
+      if (!confirmed) {
+        this.adminService.deleteCustomer(customer.id).subscribe(() => {
+          this.alertService.success('customer successfully deleted');
+          this.loadCustomers();
+        });
+      }
     });
   }
 
