@@ -124,7 +124,7 @@ export class CouponProfileComponent implements OnInit {
     } else {
       this.customerService.purchaseCoupon(this.coupon).subscribe(() => {
         this.alertService.success('coupon successfully purchased', true);
-        this.router.navigate([this.authentication.getUrl]);
+        this.router.navigate(['']);
       });
     }
   }

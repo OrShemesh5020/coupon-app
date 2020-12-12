@@ -64,7 +64,7 @@ export class UpdateCustomerFormComponent implements OnInit {
       .updateCustomerDetails(this.customerModel)
       .subscribe(() => {
         this.alertService.success('your details successfully updated', true);
-        this.router.navigate([this.authentication.getUrl]);
+        this.router.navigate([this.authentication.getUrl,'profile']);
       });
   }
 
