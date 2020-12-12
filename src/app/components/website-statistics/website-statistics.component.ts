@@ -29,6 +29,7 @@ export class WebsiteStatisticsComponent implements OnInit {
     this.getNumberOfCompanies();
     this.getNumberOfCustomers();
     this.getNumberOfCoupons();
+    this.getNumberOfSales();
   }
 
   getNumberOfCompanies(): void {
@@ -52,11 +53,21 @@ export class WebsiteStatisticsComponent implements OnInit {
   }
 
   getNumberOfCoupons(): void {
-    this.generalService.loadCoupons().subscribe((values:Coupon[])=>{
+    this.generalService.loadCoupons().subscribe((values: Coupon[]) => {
       this.statistics['Number of coupons'] =
       {
         type: 'number',
         value: values.length
+      };
+    });
+  }
+
+  getNumberOfSales(): void {
+    this.adminService.getTotalSales().subscribe((totalSales: number) => {
+      this.statistics['The total sales'] =
+      {
+        type: 'number',
+        value: totalSales
       };
     });
   }
